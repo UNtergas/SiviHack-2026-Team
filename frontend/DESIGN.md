@@ -17,6 +17,9 @@ colors:
   cloth-text: "#fdfcf7"
   lemma: "#f7e6a8"
   lemma-edge: "#b8952c"
+  mark-ready: "#d7e8d9"
+  mark-stop: "#f5d4d9"
+  mark-ink: "#e4e0d7"
 typography:
   display:
     fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
@@ -45,6 +48,13 @@ typography:
     fontWeight: 600
     lineHeight: 1.25
     letterSpacing: "-0.01em"
+    fontVariation: "'wdth' 78"
+  groupHead:
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "1.35rem"
+    fontWeight: 600
+    lineHeight: 1
+    letterSpacing: "-0.025em"
     fontVariation: "'wdth' 78"
   reading:
     fontFamily: "Brygada 1918, Georgia, serif"
@@ -227,7 +237,7 @@ Two rejections are load-bearing and were argued for rather than inherited. The g
 - Colour is spent on the verdict binding and the sigla — nowhere else.
 - Rules and bands only: no cards, no shadows, `--radius` pinned to `0px`.
 - Two faces on one rule: Brygada 1918 is the witnesses, Archivo is the editor.
-- Every entry is numbered in a margin column, and every number is a link.
+- Entries carry no margin numbers; the witness line numbers are the only numbering, and an entry is reached by its citations, not by an index.
 - A citation is a verbatim passage, never a line number: the apparatus marks the quoted words in the set text, so a finding survives edits, re-runs and re-wrapping.
 
 ## Colors
@@ -260,7 +270,7 @@ A warm paper-and-ink neutral field, cut by exactly two kinds of colour: the book
 
 **The Paper-Not-Cream Rule.** The ground is `#FCFBF9` and nothing warmer. Cream is the softest rendition of this world and the one it was built to refuse; a background that reads as ivory means the world has collapsed into a generic "serious document" page.
 
-**The Colourless Severity Rule.** Severity is never a colour, a badge or a dot. *Must fix* is ink at bold, *should fix* is ink-2 at semibold, *optional* is ink-3 at medium, and the group heading states the level in words. The single exception in the apparatus is a `contradicted` requirement, which takes Bookcloth Crimson — one word on the page.
+**The Status Colour Rule.** A requirement's status borrows the binding's own colours and nothing else: *addressed* in Bookcloth Green, *partial / unclear* in Bookcloth Ochre, *contradicted* in Bookcloth Crimson, *not found* in ink. The colour lands on the status word, a 0.5rem square beside it, the tally counts, and the wash over a collated passage (`mark-ready`, `lemma`, `mark-stop`, `mark-ink`). Severity uses the same ramp, but only at the group head and the entry's square: *must fix* crimson, *should fix* ochre, *optional* ink-3. The entry text itself stays ink, so the page never becomes a traffic light. No fifth hue: four working colours plus the two witness colours is the ceiling.
 
 **The Binding Is The Light Rule.** The traffic light is the binding. Verdict colour arrives as a full-bleed band at page scale carrying the verdict in poster type; it is never reduced to a status pip, a ring or a coloured border.
 
@@ -280,6 +290,7 @@ The ramp is the build's, recorded step by step so a literal size in a new file c
 - **Headline** (Archivo 600 `wdth 78`, 1.6rem → 2rem at `sm`, line-height 0.92, `-0.035em`, uppercase): the product masthead on the setup view.
 - **Numeral** (Archivo 600, 1.5rem, line-height 1, tabular): the bound score in its plaque on the cloth band. One size at every width, so it never competes with the verdict beside it.
 - **Subhead** (Archivo 600 `wdth 78`, 1.6rem, tight leading and tracking, uppercase): a full-page heading where there is no band to carry it — the run trace. Shares its size with the Headline's small step by coincidence of scale, not by relation.
+- **Group head** (Archivo 600 `wdth 78`, 1.35rem, line-height 1, tight tracking, uppercase): the severity heads inside the Issues panel, set in the level's colour over a solid ink rule with the count in Reference beside them. Large enough to break the list into sections, small enough to stay under the Subhead of a page-level notice.
 - **Reading** (Brygada 1918 400, 1.0625rem / line-height 1.6, `.prose-witness`): witness body text, quoted passages, suggested fix wording, and the paste textareas. Measure in the apparatus column is capped around 66–68ch.
 - **Lemma** (Brygada 1918 400, 0.95–1rem, line-height ~1.375): the quoted lemma that opens every apparatus entry, before the bracket. Serif set within a few hundredths of a rem of Reading, because both are the witnesses speaking.
 - **Title** (Archivo 600 `wdth 78`, 0.95rem, tracking `0.025em`, uppercase): witness pane headers and headings set inside a witness. Small caps-scale titles, deliberately not large.
@@ -307,7 +318,7 @@ The ramp is the build's, recorded step by step so a literal size in a new file c
 
 One page-wide container at `max-width: 112rem` with 1.25rem gutters, 2rem from the `sm` breakpoint up. The review is a full-height three-column edition at `xl` (`1.15fr 1fr 1fr`: apparatus, witness R, witness P), each column an independent scroll region with `min-h-0` so the page itself never scrolls; below `xl` the columns stack in that same reading order and the witnesses fall to `min-height: 22rem` each. The cloth band and the must-fix lede run full-bleed above the columns and are never inside a column.
 
-Vertical rhythm is an edition's, not a dashboard's: entries are separated by `rule-hair` hairlines with `0.75rem`–`0.875rem` of padding each, list groups sit under an `.editorial` heading with a `rule` underline, and sections are separated by borders rather than gaps. Two fixed gutter columns carry the reference numbers: `2rem` for apparatus entry refs, `2.75rem` for witness line numbers. Wrapped source lines hang-indent `1.15em` (`.witness-line`) so a wrap never reads as a second numbered line. Above the fold the three must-fix entries sit uncollapsed on a three-up grid; nothing that matters most is behind a tab.
+Vertical rhythm is an edition's, not a dashboard's: entries are separated by `rule-hair` hairlines with `0.75rem`–`0.875rem` of padding each, list groups sit under an `.editorial` heading with a `rule` underline, and sections are separated by borders rather than gaps. One fixed gutter column of `2.75rem` carries the witness line numbers; apparatus entries have no gutter and start flush with their text. Below the cloth band the columns begin at once; the contradiction notice is the only thing allowed between them, and nothing that matters most is behind a tab.
 
 Action rows wrap as groups, not as loose buttons: the two draft-changing actions and the two triage actions are each wrapped in a `whitespace-nowrap` span with a hairline divider between them, so a narrow column breaks between the groups rather than through one.
 
@@ -344,6 +355,18 @@ Every apparatus entry carries its number in the 2rem margin gutter, and the numb
 ### Apparatus Entry (signature)
 `lemma ] reading` — the mark that makes an entry an apparatus entry rather than a styled list row. Lemma in Brygada; a `0.42em`-padded ink-3 bracket; the reading in `.editorial`, weighted by severity or status. Below it, the citations; expanded, the quoted passage as a serif blockquote behind a left `rule` hairline, the editor's prose, the transcription inset carrying the suggested fix, and the action row. A settled entry strikes through its lemma and drops to ink-2.
 
+### Contradiction Notice
+When any requirement is contradicted, a notice sits directly under the cloth band on paper with a single 1px crimson rule beneath: a Subhead in crimson ("Contradicts the RFP"), one Body line giving the RFP's words after the R siglum and the draft's after the P siglum, and a crimson outline button, "Show the contradiction", that opens the issue and collates both passages in the crimson wash. Never a second band, never a coloured left border; it disappears when the issue is settled.
+
+### Witness Rails and Column Splits
+Both witnesses start closed, so the apparatus has the whole width until one is wanted. Each witness closes from an × in its own header and folds into a rail at the right edge — a 2.5rem column carrying the siglum square and the title set vertically — that reopens it, so the layout controls live on the thing they control and are never clipped by a narrow apparatus. At `xl` the three columns are react-resizable-panels with 1px `rule` separators carrying a 3px×1.5rem ink-3 grip (ink on hover, an 8px hit area); the split is remembered per combination of open witnesses and double-clicking a separator resets its panel. Below `xl` the columns stack and a closed witness becomes a horizontal rail.
+
+### Requirement Row
+Text left, sign right: the requirement's words in Reading, the note and citations beneath, and at the far right a 0.875rem square in the status colour with the status name in its title and for screen readers. The tally above the list is the legend, so the row carries no status word.
+
+### Issue Entry
+Each severity group opens with a Subhead in condensed type in its colour (crimson, ochre, ink-3) over a solid ink rule, the count in Reference beside it, and groups sit 2rem apart. An entry begins with a 0.625rem severity square and the lemma in Reading at medium weight, then its citations. Opened, the body names its parts in the editor's voice ("The draft says", "Why it matters", "Suggested fix"); once the apparatus is wider than 48rem (a container query, not the viewport) the passage and the reasoning sit on the left and the fix with its actions on the right, so a wide column is used rather than left empty.
+
 ### Cloth Band (signature)
 Full-bleed, verdict-coloured, `transition-colors 500ms` when the verdict changes. The score is a bound numeral in an `ink/20` plaque at the far left, the verdict is display type running toward the right edge, and the actions sit flush right at cap height. The score steps through intervening tenths at 45ms a step when weights move, so a recompute is watched rather than inferred; under `prefers-reduced-motion` it returns the target during render with no animation at all.
 
@@ -375,6 +398,7 @@ A 2.25rem-tall flat bar on `paper-inset` divided into ink / ink-2 alternating se
 - **Do** divide with 1px hairlines (`rule` between regions, `rule-hair` between entries).
 - **Do** mark numeric reference data with `data-numeric` so it sets tabular lining figures.
 - **Do** cite by verbatim quote and mark the words themselves; never point at a line number.
+- **Do** colour a requirement's status with the binding's colours, and only those; leave issue severity to type.
 
 ### Don't:
 - **Don't** warm the background toward cream or ivory; that is this world's anti-reference.

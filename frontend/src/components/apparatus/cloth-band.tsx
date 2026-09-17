@@ -18,10 +18,13 @@ const CLOTH: Record<Verdict, string> = {
 export function ClothBand({
   verdict,
   score,
+  note,
   children,
 }: {
   verdict: Verdict
   score: number
+  /** One line under the verdict: the requirement tally. */
+  note?: React.ReactNode
   children?: React.ReactNode
 }) {
   const shown = useSteppedNumber(score)
@@ -54,15 +57,22 @@ export function ClothBand({
             </span>
           </span>
 
-          <h1
-            className="hand-condensed min-w-0 flex-1 leading-[0.9] font-semibold uppercase"
-            style={{
-              fontSize: "clamp(1.75rem, 3.4vw, 3.25rem)",
-              letterSpacing: "-0.035em",
-            }}
-          >
-            {VERDICT_LABEL[verdict]}
-          </h1>
+          <div className="min-w-0 flex-1">
+            <h1
+              className="hand-condensed leading-[0.9] font-semibold uppercase"
+              style={{
+                fontSize: "clamp(1.75rem, 3.4vw, 3.25rem)",
+                letterSpacing: "-0.035em",
+              }}
+            >
+              {VERDICT_LABEL[verdict]}
+            </h1>
+            {note && (
+              <p className="editorial text-cloth-text/85 mt-1.5 flex flex-wrap gap-x-3 gap-y-1">
+                {note}
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="flex shrink-0 items-center gap-3">{children}</div>

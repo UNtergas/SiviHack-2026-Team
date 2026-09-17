@@ -37,7 +37,7 @@ export function SetupView({
   activeSample: SampleId | null
   error: string | null
 }) {
-  const [openCriteria, setOpenCriteria] = useState(false)
+  const [openCriteria, setOpenCriteria] = useState(true)
   const ready = rfp.trim().length > 0 && proposal.trim().length > 0
   const enabled = criteria.filter((c) => c.enabled).length
 
@@ -91,7 +91,7 @@ export function SetupView({
       )}
 
       <main className="mx-auto flex w-full max-w-[112rem] flex-1 flex-col gap-6 px-5 py-6 sm:px-8">
-        <div className="border-rule flex flex-wrap items-center gap-x-1.5 gap-y-2 border px-4 py-2.5">
+        <div className="flex flex-wrap items-center gap-x-1.5 gap-y-2 py-1">
           <span className="editorial text-ink-2 mr-1.5">Load a sample</span>
           {(Object.keys(SAMPLES) as SampleId[]).map((id) => (
             <button
@@ -109,11 +109,6 @@ export function SetupView({
               {SAMPLES[id].label}
             </button>
           ))}
-          <p className="text-ink-2 ml-1 min-w-0 flex-1 text-[0.78rem] leading-snug">
-            {activeSample
-              ? SAMPLES[activeSample].note
-              : "Four responses to the same RFP, from the sponsor's sample set."}
-          </p>
         </div>
 
         <div className="grid min-h-[26rem] flex-1 gap-5 lg:grid-cols-2">
@@ -172,13 +167,6 @@ export function SetupView({
           )}
         </section>
       </main>
-
-      <footer className="border-rule-hair mx-auto w-full max-w-[112rem] border-t px-5 py-4 sm:px-8">
-        <p className="text-ink-3 text-[0.72rem]">
-          Sample documents are the sponsor&rsquo;s own set. Every party in them
-          is fictional, as the files themselves state.
-        </p>
-      </footer>
     </div>
   )
 }

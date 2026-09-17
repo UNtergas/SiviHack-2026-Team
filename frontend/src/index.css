@@ -41,9 +41,14 @@
   --cloth-stop:   #9e1b32;
   --cloth-text:   #fdfcf7;
 
-  /* Marking a collated lemma inside a witness. */
+  /* Marking a collated lemma inside a witness. Ochre is the default wash;
+     a requirement's status tints it: green addressed, crimson contradicted,
+     grey for a passage cited about something the draft does not say. */
   --lemma:        #f7e6a8;
   --lemma-edge:   #b8952c;
+  --mark-ready:   #d7e8d9;
+  --mark-stop:    #f5d4d9;
+  --mark-ink:     #e4e0d7;
 
   --font-text:  "Brygada 1918", Georgia, serif;
   --font-hand:  "Archivo Variable", "Archivo", system-ui, sans-serif;
@@ -87,6 +92,9 @@
   --color-cloth-text: var(--cloth-text);
   --color-lemma: var(--lemma);
   --color-lemma-edge: var(--lemma-edge);
+  --color-mark-ready: var(--mark-ready);
+  --color-mark-stop: var(--mark-stop);
+  --color-mark-ink: var(--mark-ink);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

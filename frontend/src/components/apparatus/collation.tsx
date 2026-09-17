@@ -7,7 +7,10 @@ import {
   type ReactNode,
 } from "react"
 
-import type { Citation, Siglum } from "@/api/schema"
+import type { Citation, RequirementStatus, Siglum } from "@/api/schema"
+
+/** How a collation is washed in the witnesses: the status it illustrates, or the plain lemma ochre. */
+export type Tone = RequirementStatus | null
 
 /**
  * Collation is the signature interaction. Clicking a citation does not scroll
@@ -29,7 +32,8 @@ interface CollationState {
   marks: Citation[]
   /** The entry that produced the current marks, so it can show as live. */
   sourceId: string | null
-  collate: (sourceId: string, citations: (Citation | null)[]) => void
+  tone: Tone
+  collate: (sourceId: string, citations: (Citation | null)[], tone?: Tone) => void
   clear: () => void
   pending: PendingFix | null
   preview: (fix: PendingFix | null) => void
@@ -40,6 +44,7 @@ const Ctx = createContext<CollationState | null>(null)
 export function CollationProvider({ children }: { children: ReactNode }) {
   const [marks, setMarks] = useState<Citation[]>([])
   const [sourceId, setSourceId] = useState<string | null>(null)
+  const [tone, setTone] = useState<Tone>(null)
   const [pending, setPending] = useState<PendingFix | null>(null)
 
   /**
@@ -48,9 +53,10 @@ export function CollationProvider({ children }: { children: ReactNode }) {
    * render, which is the point.
    */
   const collate = useCallback(
-    (nextSourceId: string, citations: (Citation | null)[]) => {
+    (nextSourceId: string, citations: (Citation | null)[], nextTone: Tone = null) => {
       setMarks(citations.filter((c): c is Citation => c !== null))
       setSourceId(nextSourceId)
+      setTone(nextTone)
     },
     [],
   )
@@ -58,14 +64,15 @@ export function CollationProvider({ children }: { children: ReactNode }) {
   const clear = useCallback(() => {
     setMarks([])
     setSourceId(null)
+    setTone(null)
     setPending(null)
   }, [])
 
   const preview = useCallback((fix: PendingFix | null) => setPending(fix), [])
 
   const value = useMemo(
-    () => ({ marks, sourceId, collate, clear, pending, preview }),
-    [marks, sourceId, collate, clear, pending, preview],
+    () => ({ marks, sourceId, tone, collate, clear, pending, preview }),
+    [marks, sourceId, tone, collate, clear, pending, preview],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

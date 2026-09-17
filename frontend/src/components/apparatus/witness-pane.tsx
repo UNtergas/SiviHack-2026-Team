@@ -2,6 +2,7 @@ import { useMemo, type ComponentPropsWithoutRef, type ReactNode } from "react"
 import Markdown, { type Components, type ExtraProps } from "react-markdown"
 import remarkGfm from "remark-gfm"
 import type { PluggableList } from "unified"
+import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import type { Witness } from "@/api/schema"
@@ -105,6 +106,14 @@ function Row({
 }
 
 type P<T extends keyof React.JSX.IntrinsicElements> = ComponentPropsWithoutRef<T> & ExtraProps
+
+/** The mark's wash: a requirement status tints the lemma ochre. */
+const WASH: Record<string, string> = {
+  addressed: "bg-mark-ready",
+  partial: "bg-lemma",
+  contradicted: "bg-mark-stop",
+  missing: "bg-mark-ink",
+}
 
 const HEADING: Record<number, string> = {
   1: "text-ink pt-1 text-[1.05em]",
@@ -226,7 +235,11 @@ function makeComponents(lines: string[]): Components {
       <mark
         ref={attr(props, "lemma-scroll") === "true" ? reveal : undefined}
         data-lemma={attr(props, "lemma")}
-        className="bg-lemma text-ink box-decoration-clone animate-[lemma-settle_200ms_ease-out]"
+        data-tone={attr(props, "tone")}
+        className={cn(
+          "text-ink box-decoration-clone animate-[lemma-settle_200ms_ease-out]",
+          WASH[attr(props, "tone") ?? ""] ?? "bg-lemma",
+        )}
       >
         {children}
       </mark>
@@ -237,11 +250,14 @@ function makeComponents(lines: string[]): Components {
 export function WitnessPane({
   witness,
   className,
+  onHide,
 }: {
   witness: Witness
   className?: string
+  /** Close this witness; the rail that replaces it reopens it. */
+  onHide?: () => void
 }) {
-  const { marks, pending } = useCollation()
+  const { marks, tone, pending } = useCollation()
   const pendingHere = pending?.witness === witness.siglum ? pending : null
   const pendingQuote = pendingHere?.at?.quote ?? null
 
@@ -249,10 +265,10 @@ export function WitnessPane({
     () => [
       ...marks
         .filter((m) => m.witness === witness.siglum)
-        .map((m) => ({ quote: m.quote, kind: "mark" as const })),
+        .map((m) => ({ quote: m.quote, kind: "mark" as const, tone: tone ?? undefined })),
       ...(pendingQuote ? [{ quote: pendingQuote, kind: "pending" as const }] : []),
     ],
-    [marks, witness.siglum, pendingQuote],
+    [marks, tone, witness.siglum, pendingQuote],
   )
   const plugins = useMemo<PluggableList>(
     () => [remarkGfm, [remarkLemma, { quotes }]],
@@ -280,6 +296,17 @@ export function WitnessPane({
             {witness.subtitle}
           </p>
         </div>
+        {onHide && (
+          <button
+            type="button"
+            onClick={onHide}
+            aria-label={`Hide the ${witness.title}`}
+            title={`Hide the ${witness.title}`}
+            className="text-cloth-text/70 hover:bg-cloth-text/15 hover:text-cloth-text ml-auto cursor-pointer p-1.5 transition-colors"
+          >
+            <X className="size-4" />
+          </button>
+        )}
       </header>
 
       <div

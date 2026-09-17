@@ -17,6 +17,8 @@ import { normalize } from "./quote"
 export interface LemmaQuote {
   quote: string
   kind: "mark" | "pending"
+  /** The wash: a requirement status, or undefined for the plain lemma ochre. */
+  tone?: string
 }
 
 interface Props extends Record<string, unknown> {
@@ -47,6 +49,7 @@ interface Segment {
   start: number
   end: number
   pending: boolean
+  tone?: string
 }
 
 export function remarkLemma(options: { quotes: LemmaQuote[] }) {
@@ -119,7 +122,7 @@ export function remarkLemma(options: { quotes: LemmaQuote[] }) {
 
     // ---- 3. match quotes, in raw offsets ------------------------------------------
     const segments: Segment[] = []
-    for (const { quote, kind } of options.quotes) {
+    for (const { quote, kind, tone } of options.quotes) {
       const q = normalize(quote).text
       if (!q) continue
       const at = norm.text.indexOf(q)
@@ -128,6 +131,7 @@ export function remarkLemma(options: { quotes: LemmaQuote[] }) {
         start: norm.map[at],
         end: norm.map[at + q.length - 1] + 1,
         pending: kind === "pending",
+        tone,
       })
     }
     if (segments.length === 0) return
@@ -139,6 +143,7 @@ export function remarkLemma(options: { quotes: LemmaQuote[] }) {
       if (last && s.start <= last.end) {
         last.end = Math.max(last.end, s.end)
         last.pending ||= s.pending
+        last.tone ??= s.tone
       } else merged.push({ ...s })
     }
 
@@ -160,6 +165,7 @@ export function remarkLemma(options: { quotes: LemmaQuote[] }) {
             hName: "mark",
             hProperties: {
               dataLemma: seg.pending ? "pending" : "mark",
+              ...(seg.tone ? { dataTone: seg.tone } : {}),
               ...(first ? { dataLemmaScroll: "true" } : {}),
             },
           },

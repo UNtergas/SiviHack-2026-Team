@@ -3,7 +3,7 @@ import type { Citation } from "@/api/schema"
 import { excerpt } from "@/lib/quote"
 
 import { Siglum } from "./siglum"
-import { useCollation } from "./collation"
+import { useCollation, type Tone } from "./collation"
 
 /**
  * `R §4.4` — the receipt. Every judgment in the apparatus carries one, and
@@ -13,12 +13,15 @@ export function CitationRef({
   citation,
   sourceId,
   also,
+  tone,
   className,
 }: {
   citation: Citation
   sourceId: string
   /** Collated at the same time, so both witnesses align together. */
   also?: (Citation | null)[]
+  /** Wash the marks in a status colour rather than the plain lemma ochre. */
+  tone?: Tone
   className?: string
 }) {
   const { collate, sourceId: live } = useCollation()
@@ -29,7 +32,7 @@ export function CitationRef({
   return (
     <button
       type="button"
-      onClick={() => collate(sourceId, [citation, ...(also ?? [])])}
+      onClick={() => collate(sourceId, [citation, ...(also ?? [])], tone ?? null)}
       title={`${citation.witness} §${citation.section}: “${excerpt(citation.quote, 12)}”`}
       className={cn(
         "group/cite inline-flex items-baseline gap-[0.3em] align-baseline",

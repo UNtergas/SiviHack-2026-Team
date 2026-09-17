@@ -66,10 +66,10 @@ Both halves matter. A rubric score without RFP grounding is generic; a finding w
 
 **Technical constraints:**
 
-- **All requests go to n8n Cloud webhooks.** One `client.ts` is the only place a request originates; each n8n Webhook node is a public endpoint the frontend calls directly. No FastAPI in the frontend's path. Raw `fetch` and `XMLHttpRequest` are banned so headers, retries, and error handling have exactly one home.
-- **Streaming is the exception to that shape.** POST to start a run, then consume its trace with `EventSource` in `api/stream.ts`. TanStack Query owns request/response; it is not a streaming tool.
-- **Scoring takes 5–30 seconds and can fail.** Every async view carries all four states — loading, empty, error, success — and a multi-step run shows which step it is on. A blank box for 20 seconds during a live demo loses points.
-- **LLM is Google Gemini (`google-genai`), on a sponsor credit with a quota.** Cache responses by input hash; build UI against saved real responses rather than live calls. If cached responses are used during the demo, that must be stated to the judges outright — a 7-minute Q&A with people reading the codebase makes discovery likely, and being caught turns a reasonable engineering decision into an honesty problem.
+- **The frontend speaks the backend's shape, not yet to the backend.** One `client.ts` is the only place a request originates. By default it answers from mock `ScoringResult`s authored for the four samples in exactly the shape `POST /score` returns (`app/schema.d.ts`), adapted into the edition's vocabulary in `api/adapt.ts`. Setting `VITE_API_URL` switches the same path to the live FastAPI backend in `app/` (the plan is `BACKEND.md`) with nothing else changing. Raw `fetch` and `XMLHttpRequest` are banned so headers, retries, and error handling have exactly one home.
+- **Streaming is the exception to that shape.** The backend answers once today, so the run trace paces itself through the steps and holds the last one until the answer lands. If a run/events endpoint is added, consume it with `EventSource` in `api/stream.ts`. TanStack Query owns request/response; it is not a streaming tool.
+- **Scoring takes seconds on the provided LLM, minutes on a local 7B, and can fail.** Every async view carries all four states — loading, empty, error, success — and a multi-step run shows which step it is on. A blank box for 20 seconds during a live demo loses points.
+- **LLM is Ollama locally for test and any OpenAI-compatible endpoint in prod, switched by env (`BACKEND.md` §3).** The backend caches RFP extraction by input hash; build UI against saved real responses rather than live calls. If cached responses are used during the demo, that must be stated to the judges outright — a 7-minute Q&A with people reading the codebase makes discovery likely, and being caught turns a reasonable engineering decision into an honesty problem.
 
 **Undecided, deliberately:**
 

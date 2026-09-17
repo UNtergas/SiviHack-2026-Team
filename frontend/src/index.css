@@ -5,6 +5,17 @@
 @import "@fontsource/brygada-1918/600.css";
 @import "@fontsource-variable/archivo/standard.css";
 
+/* shadcn's Radix components style with boolean variants (data-horizontal:,
+   data-checked:) that Radix 1.6 never emits; it sets data-orientation and
+   data-state. Mapped here once so every primitive is actually styled. */
+@custom-variant data-horizontal (&[data-orientation="horizontal"]);
+@custom-variant data-vertical (&[data-orientation="vertical"]);
+@custom-variant data-checked (&[data-state="checked"]);
+@custom-variant data-unchecked (&[data-state="unchecked"]);
+@custom-variant data-open (&[data-state="open"]);
+@custom-variant data-closed (&[data-state="closed"]);
+@custom-variant data-active (&[data-state="active"]);
+
 /* ---------------------------------------------------------------------------
    The Critical Apparatus.
    Paper white, never cream. Bookcloth carries the verdict at page scale.
@@ -182,11 +193,6 @@
    * A source line is numbered once. Where it wraps, the continuation hangs
    * indented so it reads as part of the numbered line rather than a new one.
    */
-  .witness-line {
-    display: block;
-    padding-left: 1.15em;
-    text-indent: -1.15em;
-  }
 }
 
 @layer utilities {

@@ -3,12 +3,11 @@ import {
   useCallback,
   useContext,
   useMemo,
-  useRef,
   useState,
   type ReactNode,
 } from "react"
 
-import type { Citation } from "@/api/schema"
+import type { Citation, Siglum } from "@/api/schema"
 
 /**
  * Collation is the signature interaction. Clicking a citation does not scroll
@@ -20,7 +19,9 @@ import type { Citation } from "@/api/schema"
 /** A suggested fix shown in the witness before it is committed to the draft. */
 export interface PendingFix {
   issueId: string
-  at: Citation
+  witness: Siglum
+  /** The passage the fix follows; null sets it at the end of the witness. */
+  at: Citation | null
   text: string
 }
 
@@ -30,7 +31,6 @@ interface CollationState {
   sourceId: string | null
   collate: (sourceId: string, citations: (Citation | null)[]) => void
   clear: () => void
-  registerPane: (siglum: "R" | "P", el: HTMLElement | null) => void
   pending: PendingFix | null
   preview: (fix: PendingFix | null) => void
 }
@@ -41,32 +41,16 @@ export function CollationProvider({ children }: { children: ReactNode }) {
   const [marks, setMarks] = useState<Citation[]>([])
   const [sourceId, setSourceId] = useState<string | null>(null)
   const [pending, setPending] = useState<PendingFix | null>(null)
-  const panes = useRef<Partial<Record<"R" | "P", HTMLElement | null>>>({})
 
-  const registerPane = useCallback((siglum: "R" | "P", el: HTMLElement | null) => {
-    panes.current[siglum] = el
-  }, [])
-
+  /**
+   * Marks are state; the panes set them into the text and each first mark
+   * brings its own pane to it on mount. Both witnesses align in the same
+   * render, which is the point.
+   */
   const collate = useCallback(
     (nextSourceId: string, citations: (Citation | null)[]) => {
-      const next = citations.filter((c): c is Citation => c !== null)
-      setMarks(next)
+      setMarks(citations.filter((c): c is Citation => c !== null))
       setSourceId(nextSourceId)
-
-      // Both panes move in the same frame: the alignment is the point.
-      requestAnimationFrame(() => {
-        for (const citation of next) {
-          const pane = panes.current[citation.witness]
-          const line = pane?.querySelector<HTMLElement>(
-            `[data-line="${citation.from}"]`,
-          )
-          if (!pane || !line) continue
-
-          const offset =
-            line.offsetTop - pane.clientHeight / 2 + line.clientHeight / 2
-          pane.scrollTo({ top: Math.max(0, offset), behavior: "auto" })
-        }
-      })
     },
     [],
   )
@@ -80,8 +64,8 @@ export function CollationProvider({ children }: { children: ReactNode }) {
   const preview = useCallback((fix: PendingFix | null) => setPending(fix), [])
 
   const value = useMemo(
-    () => ({ marks, sourceId, collate, clear, registerPane, pending, preview }),
-    [marks, sourceId, collate, clear, registerPane, pending, preview],
+    () => ({ marks, sourceId, collate, clear, pending, preview }),
+    [marks, sourceId, collate, clear, pending, preview],
   )
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

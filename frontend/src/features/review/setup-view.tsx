@@ -44,15 +44,15 @@ export function SetupView({
   return (
     <div className="flex min-h-svh flex-col">
       <header className="bg-ink text-cloth-text">
-        <div className="mx-auto flex max-w-[112rem] flex-col gap-5 px-5 py-7 sm:px-8 md:flex-row md:items-end md:justify-between">
-          <div className="max-w-[46ch]">
+        <div className="mx-auto flex max-w-[112rem] flex-col gap-4 px-5 py-5 sm:px-8 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-[64ch]">
             <h1
-              className="hand-condensed text-[2.25rem] leading-[0.92] font-semibold uppercase sm:text-[3rem]"
+              className="hand-condensed text-[1.6rem] leading-[0.92] font-semibold uppercase sm:text-[2rem]"
               style={{ letterSpacing: "-0.035em" }}
             >
               Proposal Scorer
             </h1>
-            <p className="text-cloth-text/75 mt-2.5 text-[0.9rem] leading-relaxed">
+            <p className="text-cloth-text/75 mt-1.5 text-[0.9rem] leading-relaxed">
               Reads your draft against the client&rsquo;s RFP and shows where it
               falls short — with the passage behind every judgment, so you can
               check the call rather than trust it.

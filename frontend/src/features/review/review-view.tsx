@@ -59,11 +59,13 @@ function MustFixLede({ issues }: { issues: Issue[] }) {
                     {issue.lemma}
                   </button>
                   <div className="mt-1 flex flex-wrap items-center gap-x-2.5 gap-y-1">
-                    <CitationRef
-                      citation={issue.location}
-                      sourceId={`iss-${issue.id}`}
-                      also={[issue.against]}
-                    />
+                    {issue.location && (
+                      <CitationRef
+                        citation={issue.location}
+                        sourceId={`iss-${issue.id}`}
+                        also={[issue.against]}
+                      />
+                    )}
                     {issue.against && (
                       <CitationRef
                         citation={issue.against}
@@ -163,8 +165,8 @@ export function ReviewView({
         <div role="status" className="border-ink bg-lemma border-b">
           <div className="mx-auto flex max-w-[112rem] flex-wrap items-center justify-between gap-3 px-5 py-2.5 sm:px-8">
             <p className="text-ink text-[0.9rem]">
-              The draft has changed since this review ran. Line numbers in the
-              citations below may no longer line up.
+              The draft has changed since this review ran. The passages the
+              citations below point at may have moved or gone.
             </p>
             <button
               type="button"

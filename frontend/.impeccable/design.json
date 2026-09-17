@@ -242,21 +242,11 @@
       },
       "headline": {
         "displayName": "Masthead",
-        "purpose": "The product masthead on the setup view. 2.25rem below sm, 3rem from sm up."
+        "purpose": "The product masthead on the setup view. 1.6rem below sm, 2rem from sm up."
       },
       "numeral": {
         "displayName": "Bound Numeral",
-        "purpose": "The overall score in its plaque on the cloth band. One responsive step: 1.6rem below sm, 2rem from sm up. Move both together.",
-        "responsive": [
-          {
-            "upTo": "640px",
-            "fontSize": "1.6rem"
-          },
-          {
-            "from": "640px",
-            "fontSize": "2rem"
-          }
-        ]
+        "purpose": "The overall score in its plaque on the cloth band. 1.5rem at every width."
       },
       "subhead": {
         "displayName": "Subhead",
@@ -377,7 +367,7 @@
       "refersTo": "cloth-band",
       "description": "The verdict as bookcloth at page scale. The traffic light is the binding, not a dot; the score is a bound numeral subordinate to it.",
       "html": "<div class=\"ds-cloth ds-cloth--stop\"><div class=\"ds-cloth-inner\"><span class=\"ds-cloth-score\"><span class=\"ds-cloth-num\">1.7</span><span class=\"ds-cloth-den\">/5</span></span><h1 class=\"ds-cloth-verdict\">Not ready</h1><div class=\"ds-cloth-actions\"><button class=\"ds-btn-outline-cloth\">Edit the draft</button><button class=\"ds-btn-primary\">Re-run</button></div></div></div>",
-      "css": ".ds-cloth { color: var(--cloth-text, #fdfcf7); transition: background-color 500ms; } .ds-cloth--ready { background: var(--cloth-ready, #1a5632); } .ds-cloth--fix { background: var(--cloth-fix, #8a5a00); } .ds-cloth--stop { background: var(--cloth-stop, #9e1b32); } .ds-cloth-inner { display: flex; align-items: center; gap: 2rem; max-width: 112rem; margin: 0 auto; padding: 1.75rem 2rem; } .ds-cloth-score { display: flex; align-items: baseline; gap: 0.125rem; flex-shrink: 0; padding: 0.5rem 0.75rem; background: rgba(20,18,16,0.2); } .ds-cloth-num { font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 2rem; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums lining-nums; } .ds-cloth-den { font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.8rem; font-weight: 600; opacity: 0.85; } .ds-cloth-verdict { flex: 1; min-width: 0; margin: 0; font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-variation-settings: 'wdth' 78; font-stretch: 78%; font-weight: 600; text-transform: uppercase; font-size: clamp(2.1rem, 6.4vw, 6rem); line-height: 0.9; letter-spacing: -0.035em; } .ds-cloth-actions { display: flex; flex-shrink: 0; gap: 0.75rem; }"
+      "css": ".ds-cloth { color: var(--cloth-text, #fdfcf7); transition: background-color 500ms; } .ds-cloth--ready { background: var(--cloth-ready, #1a5632); } .ds-cloth--fix { background: var(--cloth-fix, #8a5a00); } .ds-cloth--stop { background: var(--cloth-stop, #9e1b32); } .ds-cloth-inner { display: flex; align-items: center; gap: 1.5rem; max-width: 112rem; margin: 0 auto; padding: 1.25rem 2rem; } .ds-cloth-score { display: flex; align-items: baseline; gap: 0.125rem; flex-shrink: 0; padding: 0.375rem 0.625rem; background: rgba(20,18,16,0.2); } .ds-cloth-num { font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 1.5rem; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums lining-nums; } .ds-cloth-den { font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.8rem; font-weight: 600; opacity: 0.85; } .ds-cloth-verdict { flex: 1; min-width: 0; margin: 0; font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-variation-settings: 'wdth' 78; font-stretch: 78%; font-weight: 600; text-transform: uppercase; font-size: clamp(1.75rem, 3.4vw, 3.25rem); line-height: 0.9; letter-spacing: -0.035em; } .ds-cloth-actions { display: flex; flex-shrink: 0; gap: 0.75rem; }"
     },
     {
       "name": "Primary Button",

@@ -20,21 +20,21 @@ colors:
 typography:
   display:
     fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
-    fontSize: "clamp(2.1rem, 6.4vw, 6rem)"
+    fontSize: "clamp(1.75rem, 3.4vw, 3.25rem)"
     fontWeight: 600
     lineHeight: 0.9
     letterSpacing: "-0.035em"
     fontVariation: "'wdth' 78"
   headline:
     fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
-    fontSize: "clamp(2.25rem, 4vw, 3rem)"
+    fontSize: "clamp(1.6rem, 2.6vw, 2rem)"
     fontWeight: 600
     lineHeight: 0.92
     letterSpacing: "-0.035em"
     fontVariation: "'wdth' 78"
   numeral:
     fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
-    fontSize: "2rem"
+    fontSize: "1.5rem"
     fontWeight: 600
     lineHeight: 1
     letterSpacing: "normal"
@@ -128,7 +128,7 @@ components:
     textColor: "{colors.cloth-text}"
     typography: "{typography.display}"
     rounded: "{rounded.none}"
-    padding: "1.75rem 2rem"
+    padding: "1.25rem 2rem"
   button-primary:
     backgroundColor: "{colors.cloth-text}"
     textColor: "{colors.ink}"
@@ -179,7 +179,7 @@ components:
     typography: "{typography.lemma}"
     rounded: "{rounded.none}"
     padding: "0.75rem 0"
-  witness-line-marked:
+  witness-mark:
     backgroundColor: "{colors.lemma}"
     textColor: "{colors.ink}"
     typography: "{typography.reading}"
@@ -228,7 +228,7 @@ Two rejections are load-bearing and were argued for rather than inherited. The g
 - Rules and bands only: no cards, no shadows, `--radius` pinned to `0px`.
 - Two faces on one rule: Brygada 1918 is the witnesses, Archivo is the editor.
 - Every entry is numbered in a margin column, and every number is a link.
-- One source line renders as exactly one line, because citations point at line numbers.
+- A citation is a verbatim passage, never a line number: the apparatus marks the quoted words in the set text, so a finding survives edits, re-runs and re-wrapping.
 
 ## Colors
 
@@ -276,10 +276,10 @@ A warm paper-and-ink neutral field, cut by exactly two kinds of colour: the book
 
 The ramp is the build's, recorded step by step so a literal size in a new file can be checked against it. Everything above 1rem is the editor's Archivo except Reading and Lemma, which are the witnesses' Brygada.
 
-- **Display** (Archivo 600 `wdth 78`, `clamp(2.1rem, 6.4vw, 6rem)`, line-height 0.9, `-0.035em`, uppercase): the verdict on the cloth band, running toward the right edge. One per page.
-- **Headline** (Archivo 600 `wdth 78`, 2.25rem → 3rem at `sm`, line-height 0.92, `-0.035em`, uppercase): the product masthead on the setup view.
-- **Numeral** (Archivo 600, **1.6rem below `sm`, 2rem from `sm` up**, line-height 1, tabular): the bound score in its plaque on the cloth band. One element at two breakpoints, not two sizes — treat the pair as a single step and move both together.
-- **Subhead** (Archivo 600 `wdth 78`, 1.6rem, tight leading and tracking, uppercase): a full-page heading where there is no band to carry it — the run trace. Shares its size with the Numeral's small step by coincidence of scale, not by relation.
+- **Display** (Archivo 600 `wdth 78`, `clamp(1.75rem, 3.4vw, 3.25rem)`, line-height 0.9, `-0.035em`, uppercase): the verdict on the cloth band, running toward the right edge. One per page.
+- **Headline** (Archivo 600 `wdth 78`, 1.6rem → 2rem at `sm`, line-height 0.92, `-0.035em`, uppercase): the product masthead on the setup view.
+- **Numeral** (Archivo 600, 1.5rem, line-height 1, tabular): the bound score in its plaque on the cloth band. One size at every width, so it never competes with the verdict beside it.
+- **Subhead** (Archivo 600 `wdth 78`, 1.6rem, tight leading and tracking, uppercase): a full-page heading where there is no band to carry it — the run trace. Shares its size with the Headline's small step by coincidence of scale, not by relation.
 - **Reading** (Brygada 1918 400, 1.0625rem / line-height 1.6, `.prose-witness`): witness body text, quoted passages, suggested fix wording, and the paste textareas. Measure in the apparatus column is capped around 66–68ch.
 - **Lemma** (Brygada 1918 400, 0.95–1rem, line-height ~1.375): the quoted lemma that opens every apparatus entry, before the bracket. Serif set within a few hundredths of a rem of Reading, because both are the witnesses speaking.
 - **Title** (Archivo 600 `wdth 78`, 0.95rem, tracking `0.025em`, uppercase): witness pane headers and headings set inside a witness. Small caps-scale titles, deliberately not large.
@@ -299,9 +299,9 @@ The ramp is the build's, recorded step by step so a literal size in a new file c
 
 **The Width-Axis Rule.** Condensing is `font-variation-settings: "wdth" 78` on Archivo (`.hand-condensed`). Never load or fake a condensed face, and never use `transform: scaleX`.
 
-**The Micro-Is-Not-Reading Rule.** 0.65rem is for meta a reader glances at — a count, a scale end, a numeral inside a bar — never for anything two people lean in to read. The citation line number currently sits at this step and is the one use that does not meet the rule; it belongs at Caption (0.7rem) with the rest of the chip, and should be raised rather than copied.
+**The Micro-Is-Not-Reading Rule.** 0.65rem is for meta a reader glances at — a count, a scale end, a numeral inside a bar — never for anything two people lean in to read.
 
-**The Tabular Reference Rule.** Every number that is reference data — line numbers, scores, weights, entry refs — carries `data-numeric` and sets `tnum`/`lnum`, so numerals align in a column down the page.
+**The Tabular Reference Rule.** Every number that is reference data — gutter line numbers, scores, weights, entry refs — carries `data-numeric` and sets `tnum`/`lnum`, so numerals align in a column down the page.
 
 ## Layout
 
@@ -335,8 +335,8 @@ Closed rectangles are rationed. The only bordered box in the system is the **tra
 - **Quiet (the apparatus action):** no border, no background, `.editorial` at ink-2 with a Lucide icon at `0.875rem`; hover and active state are simply ink. Every in-entry action is this variant.
 - **Focus:** the global `:focus-visible` — a 2px Oxford Blue outline at 2px offset. Never removed, never restyled per component.
 
-### Citation Reference (`R §4.4 17`)
-The receipt on every judgment, and the system's most-used interactive element. A baseline-aligned inline row of three parts: the witness siglum square, the section label underlined in `rule` at 3px offset, and the line number in tabular ink-3. It is a button, not a link: it collates rather than navigates. Hover and live state darken the underline to ink and the text to ink; the live entry stays marked while its collation holds.
+### Citation Reference (`R §Req. 3`)
+The receipt on every judgment, and the system's most-used interactive element. A baseline-aligned inline row of two parts: the witness siglum square and the section label underlined in `rule` at 3px offset (the first words of the quote when the passage has no heading above it). Its title carries the quoted words. It is a button, not a link: it collates rather than navigates. Hover and live state darken the underline to ink and the text to ink; the live entry stays marked while its collation holds.
 
 ### Entry Reference Number
 Every apparatus entry carries its number in the 2rem margin gutter, and the number is an `<a href="#e-iss-…">` to itself (`e-iss-*`, `e-req-*`, `e-crit-*`). It is underlined in `rule` so the affordance is visible; entries set `scroll-mt-28` so a deep link lands below the fixed band.
@@ -348,12 +348,13 @@ Every apparatus entry carries its number in the 2rem margin gutter, and the numb
 Full-bleed, verdict-coloured, `transition-colors 500ms` when the verdict changes. The score is a bound numeral in an `ink/20` plaque at the far left, the verdict is display type running toward the right edge, and the actions sit flush right at cap height. The score steps through intervening tenths at 45ms a step when weights move, so a recompute is watched rather than inferred; under `prefers-reduced-motion` it returns the target during render with no animation at all.
 
 ### Witness Pane (signature)
-A document set as a page. A saturated header in the witness's own colour (Oxford Blue for R, ink for P) carrying the siglum square, title and subtitle; then a `2.75rem` number gutter beside `.prose-witness` body. Numbers print every fifth line plus any currently marked line, exactly as an edition prints them. Markdown is *set, never shown*: headings become condensed uppercase, `**bold**` becomes bold in place, table rows become spaced cells, and one source line stays exactly one rendered line. A marked line takes the full-width lemma wash and its number goes ink/semibold. The pane is `tabIndex={0}` and keeps 45% trailing space so any line can centre.
+A document set as a page. A saturated header in the witness's own colour (Oxford Blue for R, ink for P) carrying the siglum square, title and subtitle; then a `2.75rem` number gutter beside `.prose-witness` body. The text is set by react-markdown (GFM) through the edition's own components: every block — paragraph, heading, list item, table, quotation — prints its source line in the gutter, exactly as an edition numbers its lines; headings become condensed uppercase, list markers hang in the margin, tables take hairline rules. A cited passage is marked *in the text itself* by a remark plugin (`lib/remark-lemma.ts`) that finds the verbatim quote across bold, soft breaks and list items and wraps exactly those words in `<mark>` with the lemma wash; the block's number goes ink/semibold, and the first mark brings its pane to it on mount. A pending fix is set as a block after the passage it follows, or at the end when the finding has no passage. The pane is `tabIndex={0}` and keeps 45% trailing space so any passage can centre.
 
 ### Inputs / Fields
 - **Style:** the witness input is a bordered `rule` section with a coloured pane header, a full-bleed `.prose-witness` textarea on paper, and a hairline footer carrying the live line/word count and a Clear action. No inner radius, no inner shadow, `resize-none`.
 - **Focus:** the textarea suppresses its own ring (the surrounding frame and caret carry it); the caret is Oxford Blue. Every other control uses the global focus ring.
-- **Slider / Switch:** borrowed shadcn primitives, inheriting ink/rule through the mapped variables; the slider is capped at `16rem` so it reads as a control, not a bar chart.
+- **Slider:** the shadcn primitive re-set as a rule-and-band control — an 8px `rule` band for the track, the taken share in ink, and a 10×18px hollow ink caret for the thumb that fills solid on hover, drag and focus. No radius, no ring; the global focus outline applies. It sits in its grid column beside the tabular percentage, so it reads as a control, not a bar chart.
+- **Switch:** borrowed shadcn primitive, inheriting ink/rule through the mapped variables.
 
 ### Navigation
 A single hairline-bottomed tab row (Issues / Requirements / Criteria), `.editorial`, each with a tabular count at 60% opacity. The active tab is ink with a 2px ink bar sitting on the bottom hairline; the rest are ink-3 rising to ink-2 on hover. There is no sidebar, no second-level nav, and no route change anywhere in the product.
@@ -373,7 +374,7 @@ A 2.25rem-tall flat bar on `paper-inset` divided into ink / ink-2 alternating se
 - **Do** attach a citation to every claim, and make it collate both witnesses at once rather than scroll one.
 - **Do** divide with 1px hairlines (`rule` between regions, `rule-hair` between entries).
 - **Do** mark numeric reference data with `data-numeric` so it sets tabular lining figures.
-- **Do** keep one source line to one rendered line in a witness, hang-indenting wraps by `1.15em`.
+- **Do** cite by verbatim quote and mark the words themselves; never point at a line number.
 
 ### Don't:
 - **Don't** warm the background toward cream or ivory; that is this world's anti-reference.

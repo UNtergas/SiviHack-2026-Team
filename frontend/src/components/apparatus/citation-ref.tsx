@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils"
 import type { Citation } from "@/api/schema"
+import { excerpt } from "@/lib/quote"
 
 import { Siglum } from "./siglum"
 import { useCollation } from "./collation"
@@ -23,16 +24,13 @@ export function CitationRef({
   const { collate, sourceId: live } = useCollation()
   const isLive = live === sourceId
 
-  const lines =
-    citation.from === citation.to
-      ? `line ${citation.from}`
-      : `lines ${citation.from}–${citation.to}`
+  const label = citation.section || excerpt(citation.quote, 4)
 
   return (
     <button
       type="button"
       onClick={() => collate(sourceId, [citation, ...(also ?? [])])}
-      title={`${citation.witness} §${citation.section}, ${lines}`}
+      title={`${citation.witness} §${citation.section}: “${excerpt(citation.quote, 12)}”`}
       className={cn(
         "group/cite inline-flex items-baseline gap-[0.3em] align-baseline",
         "font-sans text-[0.7rem] font-semibold tracking-wide whitespace-nowrap",
@@ -49,10 +47,7 @@ export function CitationRef({
           isLive && "decoration-ink",
         )}
       >
-        §{citation.section}
-      </span>
-      <span data-numeric className="text-ink-2 text-[0.7rem] tabular-nums">
-        {citation.from}
+        §{label}
       </span>
     </button>
   )

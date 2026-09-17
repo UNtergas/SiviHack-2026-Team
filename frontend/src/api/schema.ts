@@ -11,18 +11,21 @@ export type Siglum = "R" | "P"
 
 export interface Citation {
   witness: Siglum
-  /** The source's own section label, e.g. "4.4" — what a reader would quote. */
+  /** The source's own section label, e.g. "Req. 3" — what a reader would quote. */
   section: string
-  /** 1-indexed, inclusive, into the witness's `lines`. */
-  from: number
-  to: number
+  /**
+   * Verbatim from the witness. The apparatus marks exactly this passage in
+   * the set text, matched without regard to case, spacing or Markdown marks.
+   */
+  quote: string
 }
 
 export interface Witness {
   siglum: Siglum
   title: string
   subtitle: string
-  lines: string[]
+  /** The document as written — Markdown, set as a page. */
+  text: string
 }
 
 export type RequirementStatus =
@@ -55,7 +58,8 @@ export interface Issue {
   lemma: string
   /** Verbatim from the proposal, when there is text to quote. */
   quoted: string | null
-  location: Citation
+  /** Where in the proposal the problem is; null when the draft says nothing at all. */
+  location: Citation | null
   /** The RFP passage that makes this a problem. */
   against: Citation | null
   whyItMatters: string

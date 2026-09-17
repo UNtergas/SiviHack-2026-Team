@@ -390,11 +390,13 @@ function IssueEntry({
         </button>
 
         <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
-          <CitationRef
-            citation={issue.location}
-            sourceId={`iss-${issue.id}`}
-            also={[issue.against]}
-          />
+          {issue.location && (
+            <CitationRef
+              citation={issue.location}
+              sourceId={`iss-${issue.id}`}
+              also={[issue.against]}
+            />
+          )}
           {issue.against && (
             <CitationRef
               citation={issue.against}
@@ -419,18 +421,21 @@ function IssueEntry({
               {issue.whyItMatters}
             </p>
 
-            <div className="border-rule bg-paper-inset mt-3 border">
-              <div className="border-rule-hair flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 border-b px-3 py-1.5">
-                <span className="editorial text-ink-2">Suggested fix</span>
-                <CopyFix text={issue.suggestedFix} />
+            {issue.suggestedFix && (
+              <div className="border-rule bg-paper-inset mt-3 border">
+                <div className="border-rule-hair flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5 border-b px-3 py-1.5">
+                  <span className="editorial text-ink-2">Suggested fix</span>
+                  <CopyFix text={issue.suggestedFix} />
+                </div>
+                <p className="text-ink px-3 py-2.5 font-serif text-[0.97rem] leading-relaxed whitespace-pre-wrap">
+                  {issue.suggestedFix}
+                </p>
               </div>
-              <p className="text-ink px-3 py-2.5 font-serif text-[0.97rem] leading-relaxed whitespace-pre-wrap">
-                {issue.suggestedFix}
-              </p>
-            </div>
+            )}
 
             <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-2">
               {/* These two change the draft. */}
+              {issue.suggestedFix && (
               <span className="flex items-center gap-x-4 whitespace-nowrap">
               {!applied && (
                 <button
@@ -443,6 +448,7 @@ function IssueEntry({
                     collate(`iss-${issue.id}`, [issue.location, issue.against])
                     preview({
                       issueId: issue.id,
+                      witness: "P",
                       at: issue.location,
                       text: issue.suggestedFix,
                     })
@@ -484,6 +490,7 @@ function IssueEntry({
               )}
 
               </span>
+              )}
 
               <span
                 aria-hidden

@@ -33,16 +33,16 @@ export function ClothBand({
         CLOTH[verdict],
       )}
     >
-      <div className="mx-auto flex max-w-[112rem] flex-col gap-5 px-5 py-6 sm:px-8 md:flex-row md:items-center md:gap-8 md:py-7">
-        <div className="flex min-w-0 flex-1 items-center gap-4 sm:gap-6">
+      <div className="mx-auto flex max-w-[112rem] flex-col gap-4 px-5 py-4 sm:px-8 md:flex-row md:items-center md:gap-6 md:py-5">
+        <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-5">
           <span
-            className="bg-ink/20 flex shrink-0 items-baseline gap-0.5 px-3 py-2"
+            className="bg-ink/20 flex shrink-0 items-baseline gap-0.5 px-2.5 py-1.5"
             aria-label={`Overall score ${shown.toFixed(1)} out of 5`}
           >
             <span
               data-numeric
               aria-hidden
-              className="font-sans text-[1.6rem] leading-none font-semibold tabular-nums sm:text-[2rem]"
+              className="font-sans text-[1.5rem] leading-none font-semibold tabular-nums"
             >
               {shown.toFixed(1)}
             </span>
@@ -57,7 +57,7 @@ export function ClothBand({
           <h1
             className="hand-condensed min-w-0 flex-1 leading-[0.9] font-semibold uppercase"
             style={{
-              fontSize: "clamp(2.1rem, 6.4vw, 6rem)",
+              fontSize: "clamp(1.75rem, 3.4vw, 3.25rem)",
               letterSpacing: "-0.035em",
             }}
           >

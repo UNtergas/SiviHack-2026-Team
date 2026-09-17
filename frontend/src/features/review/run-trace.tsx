@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils"
-import { RUN_STEPS } from "@/api/client"
+import { MOCK, RUN_STEPS } from "@/api/client"
 
 /**
  * The run takes time and can fail, so it shows its work. Nothing here is a
- * spinner over a blank page: the steps are the same sequence the n8n trace
- * will stream once it exists.
+ * spinner over a blank page: the steps are the sequence the backend performs,
+ * paced by the client, with the last one held until the model answers.
  */
 export function RunTrace({ active }: { active: number }) {
   return (
@@ -13,8 +13,9 @@ export function RunTrace({ active }: { active: number }) {
         Collating the draft against the RFP
       </h2>
       <p className="text-ink-2 mt-1.5 text-[0.85rem]">
-        Findings arrive as each step completes. This usually takes under a
-        minute.
+        {MOCK
+          ? "Findings arrive as each step completes."
+          : "Findings arrive when the model finishes. A local model can take a few minutes; the provided one, well under one."}
       </p>
 
       <ol className="border-rule mt-7 border-t">
@@ -74,7 +75,9 @@ export function RunTrace({ active }: { active: number }) {
       </ol>
 
       <p className="text-ink-3 mt-4 font-sans text-[0.72rem]">
-        Running on authored sample findings. No model is called in this build.
+        {MOCK
+          ? "Running on mock results in the backend's shape. No model is called in this build."
+          : "Steps advance on a timer while the model works; the last one waits for its answer."}
       </p>
     </div>
   )

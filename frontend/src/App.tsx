@@ -4,8 +4,9 @@ import { useMutation } from "@tanstack/react-query"
 import type { Criterion, Issue, Witness } from "@/api/schema"
 import { ReviewError, runReview, suggestWeights } from "@/api/client"
 import { RFP_TEXT, SAMPLES, type SampleId } from "@/api/fixtures/documents"
-import { BASE_CRITERIA } from "@/api/fixtures/reviews"
+import { BASE_CRITERIA } from "@/api/fixtures/criteria"
 import { rebalance, verdictFor, weightedScore } from "@/lib/score"
+import { insertAfterQuote } from "@/lib/quote"
 import { CollationProvider } from "@/components/apparatus/collation"
 
 import type { IssueVerdict } from "@/features/review/apparatus"
@@ -59,31 +60,28 @@ export default function App() {
         siglum: "R",
         title: "Request for Proposal",
         subtitle: "The client's brief",
-        lines: rfp.split("\n"),
+        text: rfp,
       },
       P: {
         siglum: "P",
         title: "Draft Proposal",
         subtitle: "The text under review",
-        lines: proposal.split("\n"),
+        text: proposal,
       },
     }),
     [rfp, proposal],
   )
 
   /**
-   * A fix is applied as a block after the passage it answers, so the draft can
-   * be re-run and the score watched to move. Reverting removes that exact
-   * block, which is why it is matched on its own text rather than an index
-   * that a later apply would have shifted.
+   * A fix is applied as a paragraph after the passage it answers — or at the
+   * end, when the draft says nothing at all — so the draft can be re-run and
+   * the score watched to move. Reverting removes that exact block, which is
+   * why it is matched on its own text rather than a position that a later
+   * apply would have shifted.
    */
   const applyFix = (issue: Issue) => {
-    const lines = proposal.split("\n")
-    const at = Math.min(issue.location.to, lines.length)
-    setProposal(
-      [...lines.slice(0, at), "", issue.suggestedFix, ...lines.slice(at)].join(
-        "\n",
-      ),
+    setProposal((current) =>
+      insertAfterQuote(current, issue.location?.quote ?? null, issue.suggestedFix),
     )
     setAppliedFixes((current) => ({ ...current, [issue.id]: true }))
   }

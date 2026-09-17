@@ -1,7 +1,7 @@
 /**
  * The sponsor's sample set, imported verbatim from the Markdown files rather
- * than transcribed, so line numbers in a citation always match the text on
- * screen. Copied into the app from `sample_data/` at the repo root so the
+ * than transcribed, so every authored citation quotes text that is really
+ * there. Copied into the app from `sample_data/` at the repo root so the
  * frontend builds and deploys standalone.
  *
  * All parties in these documents are fictional; the files say so themselves.
@@ -54,31 +54,4 @@ export const SAMPLES: Record<
     note: "Scope balloons past the ask and contradicts a stated constraint",
     text: stripVariantBanner(overpromise).trimEnd(),
   },
-}
-
-export const RFP_LINES = RFP_TEXT.split("\n")
-
-export const SAMPLE_LINES: Record<SampleId, string[]> = {
-  weak: SAMPLES.weak.text.split("\n"),
-  medium: SAMPLES.medium.text.split("\n"),
-  strong: SAMPLES.strong.text.split("\n"),
-  overpromise: SAMPLES.overpromise.text.split("\n"),
-}
-
-/**
- * Citations are authored against text, not counted line numbers, so editing a
- * sample can never silently move a finding onto the wrong passage.
- */
-export function lineOf(lines: string[], anchor: string): number {
-  const i = lines.findIndex((l) => l.includes(anchor))
-  if (i === -1) throw new Error(`sample anchor not found: ${anchor}`)
-  return i + 1
-}
-
-export function spanOf(
-  lines: string[],
-  startAnchor: string,
-  endAnchor = startAnchor,
-): [number, number] {
-  return [lineOf(lines, startAnchor), lineOf(lines, endAnchor)]
 }

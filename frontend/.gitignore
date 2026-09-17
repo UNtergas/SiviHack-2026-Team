@@ -26,3 +26,16 @@ dist-ssr
 # Local env
 .env
 .env.local
+
+# Impeccable live-mode session journals (config.json is tracked)
+.impeccable/live/sessions/
+.impeccable/live/roots.json
+.impeccable/live/inject-journal.json
+.impeccable/config.local.json
+.impeccable/questions
+.impeccable/live
+.impeccable/review
+.impeccable/surfaces
+
+
+

@@ -1,0 +1,541 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-17T00:00:00.000Z",
+  "title": "Design System: Proposal Scorer",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#fcfbf9",
+        "note": "True paper white. Never warmed toward cream.",
+        "tonalRamp": [
+          "#1a1917",
+          "#39362f",
+          "#57534a",
+          "#7a7468",
+          "#a09a8d",
+          "#c4bfb3",
+          "#e2ded4",
+          "#fcfbf9"
+        ]
+      },
+      "paper-inset": {
+        "role": "neutral",
+        "displayName": "Paper Inset",
+        "canonical": "#f3f1ea",
+        "tonalRamp": [
+          "#1a1916",
+          "#38362e",
+          "#565246",
+          "#797464",
+          "#9f9a88",
+          "#c3bfae",
+          "#e0dcd0",
+          "#f3f1ea"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#141210",
+        "tonalRamp": [
+          "#141210",
+          "#2b2724",
+          "#45403a",
+          "#605a51",
+          "#7d766b",
+          "#9d9589",
+          "#c2bbaf",
+          "#e6e1d8"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink Two",
+        "canonical": "#55504a",
+        "tonalRamp": [
+          "#171512",
+          "#2d2a26",
+          "#443f39",
+          "#55504a",
+          "#6f695f",
+          "#8f887c",
+          "#b6afa2",
+          "#dcd6cb"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Ink Three",
+        "canonical": "#6b645a",
+        "tonalRamp": [
+          "#191713",
+          "#302c27",
+          "#48433b",
+          "#605a50",
+          "#6b645a",
+          "#8d857a",
+          "#b4ada0",
+          "#dbd5c9"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "#c9c3b6",
+        "tonalRamp": [
+          "#1b1915",
+          "#33302a",
+          "#4c4840",
+          "#676156",
+          "#847d70",
+          "#a49c8d",
+          "#c9c3b6",
+          "#e8e4db"
+        ]
+      },
+      "rule-hair": {
+        "role": "neutral",
+        "displayName": "Rule Hair",
+        "canonical": "#e4e0d7",
+        "tonalRamp": [
+          "#1b1a16",
+          "#33302b",
+          "#4c4841",
+          "#676157",
+          "#847d71",
+          "#a49d8f",
+          "#c7c1b4",
+          "#e4e0d7"
+        ]
+      },
+      "witness-r": {
+        "role": "secondary",
+        "displayName": "Oxford Blue",
+        "canonical": "#1b3a6b",
+        "note": "Witness R, the collating RFP. Also the browser accent: focus ring, caret, accent-color.",
+        "tonalRamp": [
+          "#0a1526",
+          "#11253f",
+          "#1b3a6b",
+          "#254e8d",
+          "#3667b1",
+          "#5a86c8",
+          "#93b1dd",
+          "#cfdcef"
+        ]
+      },
+      "witness-p": {
+        "role": "secondary",
+        "displayName": "Base Ink",
+        "canonical": "#141210",
+        "note": "Witness P, the base text. It takes the ink, which is why only R carries colour.",
+        "tonalRamp": [
+          "#141210",
+          "#2b2724",
+          "#45403a",
+          "#605a51",
+          "#7d766b",
+          "#9d9589",
+          "#c2bbaf",
+          "#e6e1d8"
+        ]
+      },
+      "cloth-ready": {
+        "role": "primary",
+        "displayName": "Bookcloth Green",
+        "canonical": "#1a5632",
+        "tonalRamp": [
+          "#08190f",
+          "#0f2f1c",
+          "#164429",
+          "#1a5632",
+          "#237344",
+          "#2f985b",
+          "#5cc287",
+          "#a6e2c0"
+        ]
+      },
+      "cloth-fix": {
+        "role": "primary",
+        "displayName": "Bookcloth Ochre",
+        "canonical": "#8a5a00",
+        "tonalRamp": [
+          "#291b00",
+          "#452d00",
+          "#5f3e00",
+          "#8a5a00",
+          "#ad7200",
+          "#d18d0c",
+          "#e7b254",
+          "#f4d7a0"
+        ]
+      },
+      "cloth-stop": {
+        "role": "primary",
+        "displayName": "Bookcloth Crimson",
+        "canonical": "#9e1b32",
+        "tonalRamp": [
+          "#2d0710",
+          "#4d0d1a",
+          "#6e1424",
+          "#9e1b32",
+          "#c22a45",
+          "#d9556b",
+          "#e98d9c",
+          "#f6c6ce"
+        ]
+      },
+      "cloth-text": {
+        "role": "neutral",
+        "displayName": "Cloth Text",
+        "canonical": "#fdfcf7",
+        "tonalRamp": [
+          "#1a1914",
+          "#38352c",
+          "#565245",
+          "#797462",
+          "#9f9a86",
+          "#c3bfac",
+          "#e1decf",
+          "#fdfcf7"
+        ]
+      },
+      "lemma": {
+        "role": "tertiary",
+        "displayName": "Lemma Yellow",
+        "canonical": "#f7e6a8",
+        "note": "The collation mark, and the text-selection colour, so the tool's mark and the reader's own highlight are the same gesture.",
+        "tonalRamp": [
+          "#2b2408",
+          "#463a0d",
+          "#645213",
+          "#866f1a",
+          "#a98f2b",
+          "#cbb257",
+          "#e4d187",
+          "#f7e6a8"
+        ]
+      },
+      "lemma-edge": {
+        "role": "tertiary",
+        "displayName": "Lemma Edge",
+        "canonical": "#b8952c",
+        "note": "Motion value only: the darker flash the mark passes through as it settles. Never a resting fill.",
+        "tonalRamp": [
+          "#2a2009",
+          "#453510",
+          "#604b16",
+          "#7f631d",
+          "#a07d25",
+          "#b8952c",
+          "#d5b75c",
+          "#ecd9a1"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Verdict Display",
+        "purpose": "The verdict on the bookcloth band, running toward the right edge. Archivo at wdth 78. One per page."
+      },
+      "headline": {
+        "displayName": "Masthead",
+        "purpose": "The product masthead on the setup view. 2.25rem below sm, 3rem from sm up."
+      },
+      "numeral": {
+        "displayName": "Bound Numeral",
+        "purpose": "The overall score in its plaque on the cloth band. One responsive step: 1.6rem below sm, 2rem from sm up. Move both together.",
+        "responsive": [
+          {
+            "upTo": "640px",
+            "fontSize": "1.6rem"
+          },
+          {
+            "from": "640px",
+            "fontSize": "2rem"
+          }
+        ]
+      },
+      "subhead": {
+        "displayName": "Subhead",
+        "purpose": "A full-page heading where there is no band to carry it — the run trace. Condensed uppercase at 1.6rem."
+      },
+      "reading": {
+        "displayName": "Reading Text",
+        "purpose": "Witness body, quoted passages, suggested wording, paste textareas. Measure capped 66-68ch."
+      },
+      "lemma": {
+        "displayName": "Lemma",
+        "purpose": "The quoted lemma that opens every apparatus entry, before the bracket. Witness voice, 0.95-1rem."
+      },
+      "title": {
+        "displayName": "Pane Title",
+        "purpose": "Witness pane headers and headings set inside a witness body."
+      },
+      "body": {
+        "displayName": "Editor's Prose",
+        "purpose": "Why a finding matters, criterion weaknesses. 0.95rem, max 68ch."
+      },
+      "body-sm": {
+        "displayName": "Editor's Prose, Small",
+        "purpose": "Criterion names, panel summaries, the staleness banner, the setup description, trace step labels. 0.9rem."
+      },
+      "note": {
+        "displayName": "Note",
+        "purpose": "Short standalone notices and custom-criterion inputs — error rail, trace reassurance line. 0.85rem. Sits one notch from body-sm; prefer one of the two rather than a third size between them."
+      },
+      "reference": {
+        "displayName": "Reference",
+        "purpose": "Numbers looked up rather than read — entry ref numerals, weight percentages, the /5 beside the score, the md siglum, the no-answering-passage fallback. 0.8rem tabular."
+      },
+      "label": {
+        "displayName": "Editorial Label",
+        "purpose": "The workhorse: every apparatus label, tab, action and section heading."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Citation chips, witness pane subtitles, must-fix lede numerals. 0.7rem."
+      },
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "Non-reading meta only: numerals inside the weight-budget bar, its 0/100 scale ends, the witness input's line/word count. Not for anything read at an angle. The citation line number currently sits here and is drift — it belongs at caption."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "lemma-settle",
+        "value": "lemma-settle 200ms ease-out (transparent -> #b8952c at 45% -> #f7e6a8)",
+        "purpose": "A collated line marks itself in both witnesses. A step that settles, not a glide."
+      },
+      {
+        "name": "pending-settle",
+        "value": "pending-settle 180ms ease-out (opacity 0 / translateY(-2px) -> none)",
+        "purpose": "A suggested fix appearing in the witness before it is committed to the draft."
+      },
+      {
+        "name": "trace-sweep",
+        "value": "trace-sweep 1.1s ease-in-out infinite (translateX(-100%) -> translateX(300%))",
+        "purpose": "The running step of the run trace. The only looping motion in the system."
+      },
+      {
+        "name": "collation-scroll",
+        "value": "scrollTo({ behavior: \"auto\" }) inside a single requestAnimationFrame",
+        "purpose": "Both witness panes align in the same frame. Motion is a step, never a smooth scroll."
+      },
+      {
+        "name": "stepped-number",
+        "value": "45ms per 0.1 step",
+        "purpose": "The overall score steps through intervening values so a recompute is watched rather than inferred. Returns the target during render under reduced motion."
+      },
+      {
+        "name": "cloth-transition",
+        "value": "transition-colors 500ms",
+        "purpose": "The verdict band crossfading between bookcloth colours."
+      },
+      {
+        "name": "state-transition",
+        "value": "transition-colors 150ms",
+        "purpose": "Default for every hover and active state: colour weight only, never elevation or scale."
+      },
+      {
+        "name": "budget-width",
+        "value": "transition-[width] 200ms ease-out",
+        "purpose": "Weight segments taking width from each other, so the fixed 100 is visibly shared."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation-duration: 0.01ms; transition-duration: 0.01ms; scroll-behavior: auto",
+        "purpose": "Global honouring of prefers-reduced-motion. Every animation above is suppressed."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Cloth Band",
+      "kind": "custom",
+      "refersTo": "cloth-band",
+      "description": "The verdict as bookcloth at page scale. The traffic light is the binding, not a dot; the score is a bound numeral subordinate to it.",
+      "html": "<div class=\"ds-cloth ds-cloth--stop\"><div class=\"ds-cloth-inner\"><span class=\"ds-cloth-score\"><span class=\"ds-cloth-num\">1.7</span><span class=\"ds-cloth-den\">/5</span></span><h1 class=\"ds-cloth-verdict\">Not ready</h1><div class=\"ds-cloth-actions\"><button class=\"ds-btn-outline-cloth\">Edit the draft</button><button class=\"ds-btn-primary\">Re-run</button></div></div></div>",
+      "css": ".ds-cloth { color: var(--cloth-text, #fdfcf7); transition: background-color 500ms; } .ds-cloth--ready { background: var(--cloth-ready, #1a5632); } .ds-cloth--fix { background: var(--cloth-fix, #8a5a00); } .ds-cloth--stop { background: var(--cloth-stop, #9e1b32); } .ds-cloth-inner { display: flex; align-items: center; gap: 2rem; max-width: 112rem; margin: 0 auto; padding: 1.75rem 2rem; } .ds-cloth-score { display: flex; align-items: baseline; gap: 0.125rem; flex-shrink: 0; padding: 0.5rem 0.75rem; background: rgba(20,18,16,0.2); } .ds-cloth-num { font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 2rem; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums lining-nums; } .ds-cloth-den { font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.8rem; font-weight: 600; opacity: 0.85; } .ds-cloth-verdict { flex: 1; min-width: 0; margin: 0; font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-variation-settings: 'wdth' 78; font-stretch: 78%; font-weight: 600; text-transform: uppercase; font-size: clamp(2.1rem, 6.4vw, 6rem); line-height: 0.9; letter-spacing: -0.035em; } .ds-cloth-actions { display: flex; flex-shrink: 0; gap: 0.75rem; }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one committing action on a band: Run review, Re-run.",
+      "html": "<button class=\"ds-btn-primary\">Re-run</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--cloth-text, #fdfcf7); color: var(--ink, #141210); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; line-height: 1.1; text-transform: uppercase; border: none; border-radius: 0; padding: 0.75rem 1rem; cursor: pointer; transition: opacity 150ms; } .ds-btn-primary:hover { opacity: 0.85; } .ds-btn-primary:focus-visible { outline: 2px solid var(--witness-r, #1b3a6b); outline-offset: 2px; } .ds-btn-primary:disabled { cursor: not-allowed; opacity: 0.5; }"
+    },
+    {
+      "name": "Outline Button (on cloth)",
+      "kind": "button",
+      "refersTo": "button-outline-cloth",
+      "description": "The secondary action sitting on a bookcloth band. Hairline border, no fill until hover.",
+      "html": "<button class=\"ds-btn-outline-cloth\">Edit the draft</button>",
+      "css": ".ds-btn-outline-cloth { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: rgba(253,252,247,0.9); border: 1px solid rgba(253,252,247,0.4); border-radius: 0; padding: 0.75rem 1rem; font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; line-height: 1.1; text-transform: uppercase; cursor: pointer; transition: background-color 150ms, color 150ms; } .ds-btn-outline-cloth:hover { background: rgba(253,252,247,0.12); color: #fdfcf7; } .ds-btn-outline-cloth:focus-visible { outline: 2px solid #fdfcf7; outline-offset: 2px; }"
+    },
+    {
+      "name": "Quiet Action",
+      "kind": "button",
+      "refersTo": "button-quiet",
+      "description": "Every in-entry action: preview, apply, revert, mark fixed. No border, no fill; state is ink weight alone.",
+      "html": "<button class=\"ds-act\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/></svg>Preview in draft</button>",
+      "css": ".ds-act { display: inline-flex; align-items: center; gap: 0.375rem; background: none; border: none; padding: 0; color: var(--ink-2, #55504a); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; line-height: 1.1; text-transform: uppercase; cursor: pointer; transition: color 150ms; } .ds-act:hover, .ds-act[aria-pressed=\"true\"] { color: var(--ink, #141210); } .ds-act:focus-visible { outline: 2px solid var(--witness-r, #1b3a6b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Citation Reference",
+      "kind": "chip",
+      "refersTo": "citation-ref",
+      "description": "The receipt on every judgment: siglum square, underlined section, tabular line number. It collates both witnesses rather than navigating.",
+      "html": "<button class=\"ds-cite\"><span class=\"ds-siglum ds-siglum--r\">R</span><span class=\"ds-cite-sec\">&sect;Req. 3</span><span class=\"ds-cite-line\">17</span></button>",
+      "css": ".ds-cite { display: inline-flex; align-items: baseline; gap: 0.3em; background: none; border: none; padding: 0; white-space: nowrap; color: var(--ink-2, #55504a); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.025em; cursor: pointer; transition: color 150ms; } .ds-cite:hover, .ds-cite[data-live=\"true\"] { color: var(--ink, #141210); } .ds-cite-sec { text-decoration: underline; text-decoration-color: var(--rule, #c9c3b6); text-decoration-thickness: 1px; text-underline-offset: 3px; transition: text-decoration-color 150ms; } .ds-cite:hover .ds-cite-sec { text-decoration-color: var(--ink, #141210); } .ds-cite-line { color: var(--ink-3, #6b645a); font-size: 0.65rem; font-variant-numeric: tabular-nums lining-nums; } .ds-cite:focus-visible { outline: 2px solid var(--witness-r, #1b3a6b); outline-offset: 2px; } .ds-siglum { display: inline-grid; place-items: center; flex-shrink: 0; width: 1.15em; height: 1.15em; font-size: 0.68em; font-weight: 600; line-height: 1; color: var(--cloth-text, #fdfcf7); user-select: none; transform: translateY(0.06em); } .ds-siglum--r { background: var(--witness-r, #1b3a6b); } .ds-siglum--p { background: var(--witness-p, #141210); }"
+    },
+    {
+      "name": "Apparatus Entry",
+      "kind": "custom",
+      "refersTo": "apparatus-entry",
+      "description": "The signature row: a linked margin number, then `lemma ] reading`. The bracket is what makes it an apparatus entry rather than a styled list row.",
+      "html": "<ul class=\"ds-app\"><li class=\"ds-entry\"><a class=\"ds-ref\" href=\"#e-iss-1\">1</a><div><span class=\"ds-lemma-row\"><span class=\"ds-lemma\">the PostgreSQL constraint is never confirmed</span><span class=\"ds-bracket\">]</span><span class=\"ds-reading\">Must fix &middot; Completeness vs RFP</span></span><p class=\"ds-why\">R requires integration with the existing PostgreSQL database with no migration to a new one.</p></div></li></ul>",
+      "css": ".ds-app { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule, #c9c3b6); } .ds-entry { display: grid; grid-template-columns: 2rem 1fr; column-gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid var(--rule-hair, #e4e0d7); scroll-margin-top: 7rem; } .ds-ref { padding-top: 0.2rem; text-align: right; color: var(--ink-2, #55504a); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.8rem; font-variant-numeric: tabular-nums lining-nums; text-decoration: underline; text-decoration-color: var(--rule, #c9c3b6); text-underline-offset: 3px; transition: color 150ms, text-decoration-color 150ms; } .ds-ref:hover { color: var(--ink, #141210); text-decoration-color: var(--ink, #141210); } .ds-lemma { font-family: 'Brygada 1918', Georgia, serif; font-size: 1rem; line-height: 1.375; color: var(--ink, #141210); } .ds-bracket { font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-weight: 500; color: var(--ink-3, #6b645a); padding-inline: 0.42em; } .ds-reading { font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; line-height: 1.1; text-transform: uppercase; color: var(--ink, #141210); } .ds-why { margin: 0.625rem 0 0; max-width: 68ch; color: var(--ink, #141210); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.95rem; line-height: 1.625; }"
+    },
+    {
+      "name": "Witness Pane",
+      "kind": "custom",
+      "refersTo": "witness-header-r",
+      "description": "A document set as a page: coloured header with its siglum, strict line-number gutter, Markdown set rather than shown, one source line to one rendered line, and the collated line washed in lemma yellow.",
+      "html": "<section class=\"ds-wit\"><header class=\"ds-wit-head ds-wit-head--r\"><span class=\"ds-siglum-md\">R</span><div><h2 class=\"ds-wit-title\">Request for Proposal</h2><p class=\"ds-wit-sub\">The client's brief</p></div></header><div class=\"ds-wit-body\"><div class=\"ds-wit-line\"><span class=\"ds-wit-n\">15</span><span class=\"ds-wit-text\">Automated low-stock alerts sent to warehouse managers.</span></div><div class=\"ds-wit-line ds-wit-line--marked\"><span class=\"ds-wit-n\">17</span><span class=\"ds-wit-text\">Integration with our existing PostgreSQL inventory database.</span></div></div></section>",
+      "css": ".ds-wit { display: flex; flex-direction: column; background: var(--paper, #fcfbf9); } .ds-wit-head { display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 1rem; color: var(--cloth-text, #fdfcf7); } .ds-wit-head--r { background: var(--witness-r, #1b3a6b); } .ds-wit-head--p { background: var(--witness-p, #141210); } .ds-siglum-md { display: inline-grid; place-items: center; width: 1.5rem; height: 1.5rem; font-size: 0.8rem; font-weight: 600; line-height: 1; background: rgba(253,252,247,0.15); color: var(--cloth-text, #fdfcf7); } .ds-wit-title { margin: 0; font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-variation-settings: 'wdth' 78; font-stretch: 78%; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.025em; line-height: 1.2; text-transform: uppercase; } .ds-wit-sub { margin: 0; font-size: 0.7rem; line-height: 1.2; color: rgba(253,252,247,0.7); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; } .ds-wit-body { padding: 0.75rem 0; } .ds-wit-line { display: grid; grid-template-columns: 2.75rem 1fr; align-items: baseline; } .ds-wit-line--marked { background: var(--lemma, #f7e6a8); animation: ds-lemma-settle 200ms ease-out; } .ds-wit-n { padding-right: 0.75rem; text-align: right; user-select: none; color: var(--ink-3, #6b645a); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.75rem; line-height: 1.75; font-variant-numeric: tabular-nums lining-nums; } .ds-wit-line--marked .ds-wit-n { color: var(--ink, #141210); font-weight: 600; } .ds-wit-text { padding-right: 1rem; font-family: 'Brygada 1918', Georgia, serif; font-size: 1.0625rem; line-height: 1.6; color: var(--ink, #141210); padding-left: 1.15em; text-indent: -1.15em; } @keyframes ds-lemma-settle { from { background-color: transparent; } 45% { background-color: var(--lemma-edge, #b8952c); } to { background-color: var(--lemma, #f7e6a8); } }"
+    },
+    {
+      "name": "Witness Input",
+      "kind": "input",
+      "refersTo": "input-witness",
+      "description": "A witness declared before it can be collated: coloured header with an upload affordance, a full-bleed serif textarea on paper, a hairline footer with the live line and word count.",
+      "html": "<section class=\"ds-in\"><header class=\"ds-in-head\"><span class=\"ds-siglum-md\">P</span><div><h2 class=\"ds-wit-title\">Draft Proposal</h2><p class=\"ds-wit-sub\">The text under review</p></div></header><textarea class=\"ds-in-area\" rows=\"4\" placeholder=\"Paste the draft proposal here, or upload the .md file.\"></textarea><footer class=\"ds-in-foot\"><span class=\"ds-in-count\">38 lines &middot; 412 words</span><button class=\"ds-act\">Clear</button></footer></section>",
+      "css": ".ds-in { display: flex; flex-direction: column; border: 1px solid var(--rule, #c9c3b6); border-radius: 0; } .ds-in-head { display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 1rem; background: var(--witness-p, #141210); color: var(--cloth-text, #fdfcf7); } .ds-in-area { flex: 1; resize: none; border: none; border-radius: 0; padding: 0.875rem 1rem; background: var(--paper, #fcfbf9); color: var(--ink, #141210); font-family: 'Brygada 1918', Georgia, serif; font-size: 1.0625rem; line-height: 1.6; caret-color: var(--witness-r, #1b3a6b); } .ds-in-area::placeholder { color: var(--ink-3, #6b645a); } .ds-in-area:focus-visible { outline: none; } .ds-in-area::selection { background: var(--lemma, #f7e6a8); color: var(--ink, #141210); } .ds-in-foot { display: flex; align-items: center; justify-content: space-between; padding: 0.375rem 1rem; border-top: 1px solid var(--rule-hair, #e4e0d7); color: var(--ink-3, #6b645a); } .ds-in-count { font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.65rem; font-variant-numeric: tabular-nums lining-nums; }"
+    },
+    {
+      "name": "Panel Tabs",
+      "kind": "nav",
+      "refersTo": "button-quiet",
+      "description": "The only navigation in the product: three panels over one hairline, active marked by a 2px ink bar sitting on it. No routes, no sidebar.",
+      "html": "<nav class=\"ds-tabs\"><button class=\"ds-tab\" aria-current=\"true\">Issues<span class=\"ds-tab-n\">8</span></button><button class=\"ds-tab\">Requirements<span class=\"ds-tab-n\">9</span></button><button class=\"ds-tab\">Criteria<span class=\"ds-tab-n\">7</span></button></nav>",
+      "css": ".ds-tabs { display: flex; border-bottom: 1px solid var(--rule, #c9c3b6); } .ds-tab { position: relative; background: none; border: none; border-radius: 0; padding: 0.75rem 1rem; color: var(--ink-3, #6b645a); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; line-height: 1.1; text-transform: uppercase; cursor: pointer; transition: color 150ms; } .ds-tab:hover { color: var(--ink-2, #55504a); } .ds-tab[aria-current=\"true\"] { color: var(--ink, #141210); } .ds-tab[aria-current=\"true\"]::after { content: \"\"; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--ink, #141210); } .ds-tab-n { margin-left: 0.375rem; opacity: 0.6; font-variant-numeric: tabular-nums lining-nums; } .ds-tab:focus-visible { outline: 2px solid var(--witness-r, #1b3a6b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Transcription Inset",
+      "kind": "card",
+      "refersTo": "transcription-inset",
+      "description": "The system's only closed rectangle: text proposed but not yet part of a document. A square hairline over the recessed tone, a labelled head rule, serif body. Not a card and never used to group unrelated content.",
+      "html": "<div class=\"ds-inset\"><div class=\"ds-inset-head\"><span class=\"ds-inset-label\">Suggested fix</span><button class=\"ds-inset-copy\">Copy</button></div><p class=\"ds-inset-body\">The dashboard connects directly to your existing PostgreSQL inventory database. No migration and no schema changes are required; we read from it in place.</p></div>",
+      "css": ".ds-inset { border: 1px solid var(--rule, #c9c3b6); border-radius: 0; background: var(--paper-inset, #f3f1ea); } .ds-inset-head { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; padding: 0.375rem 0.75rem; border-bottom: 1px solid var(--rule-hair, #e4e0d7); } .ds-inset-label { font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; line-height: 1.1; text-transform: uppercase; color: var(--ink-2, #55504a); } .ds-inset-copy { display: inline-flex; align-items: center; gap: 0.375rem; background: none; border: 1px solid var(--rule, #c9c3b6); border-radius: 0; padding: 0.375rem 0.5rem; color: var(--ink-2, #55504a); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: border-color 150ms, color 150ms; } .ds-inset-copy:hover { border-color: var(--ink, #141210); color: var(--ink, #141210); } .ds-inset-body { margin: 0; padding: 0.625rem 0.75rem; color: var(--ink, #141210); font-family: 'Brygada 1918', Georgia, serif; font-size: 0.97rem; line-height: 1.625; white-space: pre-wrap; }"
+    },
+    {
+      "name": "Weight Budget Bar",
+      "kind": "custom",
+      "refersTo": "transcription-inset",
+      "description": "Criteria weights as shares of a fixed 100 that visibly compete. Alternating ink segments; raising one takes width from the others over 200ms.",
+      "html": "<div><div class=\"ds-budget\"><div class=\"ds-budget-seg ds-budget-seg--a\" style=\"width:30%\">30</div><div class=\"ds-budget-seg ds-budget-seg--b\" style=\"width:25%\">25</div><div class=\"ds-budget-seg ds-budget-seg--a\" style=\"width:20%\">20</div><div class=\"ds-budget-seg ds-budget-seg--b\" style=\"width:15%\">15</div><div class=\"ds-budget-seg ds-budget-seg--a\" style=\"width:10%\">10</div></div><div class=\"ds-budget-scale\"><span>0</span><span>5 of 7 criteria &middot; 100 shared</span><span>100</span></div></div>",
+      "css": ".ds-budget { display: flex; height: 2.25rem; width: 100%; border: 1px solid var(--rule, #c9c3b6); border-radius: 0; background: var(--paper-inset, #f3f1ea); } .ds-budget-seg { display: grid; place-items: center; min-width: 0; overflow: hidden; color: var(--cloth-text, #fdfcf7); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.65rem; font-weight: 600; font-variant-numeric: tabular-nums lining-nums; transition: width 200ms ease-out; } .ds-budget-seg--a { background: var(--ink, #141210); } .ds-budget-seg--b { background: var(--ink-2, #55504a); } .ds-budget-scale { display: flex; justify-content: space-between; margin-top: 0.375rem; color: var(--ink-3, #6b645a); font-family: 'Archivo Variable', Archivo, system-ui, sans-serif; font-size: 0.65rem; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Critical Apparatus",
+    "overview": "This is the apparatus criticus of a scholarly edition, running as software. The draft proposal is the base text and carries the siglum P; the client's RFP is the collating witness R; every judgment the tool makes is an apparatus entry set as `lemma ] reading`, keyed by siglum and line number to the passage that produced it. Nothing is asserted without a mark pointing home. The page is an edition page: numbered lines in a strict gutter, hairline rules between entries, an editor's voice in condensed sans and a witness's voice in a serif, and no ornament that a printer would not have set.\n\nThe whole surface is built for two people at one screen. A salesperson and the senior colleague leaning in beside them point at citations with a finger, read a passage aloud and argue about whether a finding is fair, so every reference is a hit target with an underline under it and every quoted passage is set at full reading size rather than shrunk into a chip. Density is high but never small: the apparatus is tight, the reading text is not.\n\nTwo rejections are load-bearing and were argued for rather than inherited. The ground is true paper white (#FCFBF9), never cream — the cream-and-serif \"serious document\" page is this world's nearest neighbour and its explicit anti-reference. And severity carries no colour: it is printed abbreviation, weight and position, exactly as an apparatus has always done it. The only colour that means anything is the bookcloth band at the top of the page and one crimson word in the apparatus.",
+    "keyCharacteristics": [
+      "True paper white ground, never cream; ink is warm black, not grey-blue.",
+      "Colour is spent on the verdict binding and the sigla — nowhere else.",
+      "Rules and bands only: no cards, no shadows, --radius pinned to 0px.",
+      "Two faces on one rule: Brygada 1918 is the witnesses, Archivo is the editor.",
+      "Every entry is numbered in a margin column, and every number is a link.",
+      "One source line renders as exactly one line, because citations point at line numbers."
+    ],
+    "rules": [
+      {
+        "name": "The Paper-Not-Cream Rule",
+        "body": "The ground is #FCFBF9 and nothing warmer. Cream is the softest rendition of this world and the one it was built to refuse; a background that reads as ivory means the world has collapsed into a generic \"serious document\" page.",
+        "section": "colors"
+      },
+      {
+        "name": "The Colourless Severity Rule",
+        "body": "Severity is never a colour, a badge or a dot. Must fix is ink at bold, should fix is ink-2 at semibold, optional is ink-3 at medium, and the group heading states the level in words. The single exception in the apparatus is a contradicted requirement, which takes Bookcloth Crimson — one word on the page.",
+        "section": "colors"
+      },
+      {
+        "name": "The Binding Is The Light Rule",
+        "body": "The traffic light is the binding. Verdict colour arrives as a full-bleed band at page scale carrying the verdict in poster type; it is never reduced to a status pip, a ring or a coloured border.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Brygada speaks for the witnesses, Archivo for the editor. A quoted passage never appears in Archivo; a judgment, label or number never appears in Brygada.",
+        "section": "typography"
+      },
+      {
+        "name": "The Width-Axis Rule",
+        "body": "Condensing is font-variation-settings: \"wdth\" 78 on Archivo (.hand-condensed). Never load or fake a condensed face, and never use transform: scaleX.",
+        "section": "typography"
+      },
+      {
+        "name": "The Micro-Is-Not-Reading Rule",
+        "body": "0.65rem is for meta a reader glances at — a count, a scale end, a numeral inside a bar — never for anything two people lean in to read. The citation line number currently sits at this step and is the one use that does not meet the rule; it belongs at Caption (0.7rem) with the rest of the chip, and should be raised rather than copied.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Reference Rule",
+        "body": "Every number that is reference data — line numbers, scores, weights, entry refs — carries data-numeric and sets tnum/lnum, so numerals align in a column down the page.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Lift Rule",
+        "body": "Nothing casts a shadow, hovers off the page, or scales on hover. State is shown by colour weight (ink-2 → ink), by a hairline darkening (rule → ink), or by a ground wash — never by elevation.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep the ground at true paper white (#FCFBF9) and put every surface on it.",
+      "Do carry severity in weight, case and position — ink bold, ink-2 semibold, ink-3 medium — and name the level in words.",
+      "Do put the verdict colour on a full-bleed band at page scale, with the score subordinate to it.",
+      "Do set every quoted passage, lemma and suggested wording in Brygada 1918, and every judgment, label and number in Archivo.",
+      "Do condense with Archivo's wdth axis (.hand-condensed, wdth 78).",
+      "Do number every entry in the margin gutter and make the number a link to itself.",
+      "Do attach a citation to every claim, and make it collate both witnesses at once rather than scroll one.",
+      "Do divide with 1px hairlines (rule between regions, rule-hair between entries).",
+      "Do mark numeric reference data with data-numeric so it sets tabular lining figures.",
+      "Do keep one source line to one rendered line in a witness, hang-indenting wraps by 1.15em."
+    ],
+    "donts": [
+      "Don't warm the background toward cream or ivory; that is this world's anti-reference.",
+      "Don't give severity a colour, a badge or a dot, and don't spend crimson anywhere but the verdict band, a contradicted requirement, and the error rail.",
+      "Don't add a box-shadow, a hover lift, or a hover scale. Depth is ink weight, hairlines and one recessed tone.",
+      "Don't round a corner. --radius is 0px, including for borrowed shadcn primitives.",
+      "Don't wrap content in a card. The only closed rectangle is the transcription inset for text proposed but not yet in a document; a preview inside a witness gets a left hairline instead.",
+      "Don't add a condensed or display font family; Archivo's width axis is the only condensing mechanism.",
+      "Don't shrink a quoted passage into a chip or a tooltip — two people are reading it aloud at an angle.",
+      "Don't collapse must-fix entries behind a tab or an accordion above the fold.",
+      "Don't replace the global focus ring (2px Oxford Blue, 2px offset) with a per-component treatment.",
+      "Don't animate a collation as a glide. It is a step: behavior: \"auto\", settled under 240ms, and suppressed entirely under prefers-reduced-motion."
+    ]
+  }
+}

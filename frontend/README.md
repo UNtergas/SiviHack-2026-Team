@@ -1,14 +1,17 @@
-# SiviHack 2026 — Frontend
+# Proposal Scorer — Frontend
 
-React + Vite + TypeScript, styled with Tailwind CSS v4 and shadcn/ui, with TanStack Query for server state.
+SiviHack 2026, FPT Software Europe challenge. Reads a draft proposal against
+the client's RFP and shows where it falls short, with the passage behind every
+judgment.
 
 ## Getting started
 
 ```bash
 npm install
-cp .env.example .env   # set VITE_API_URL
 npm run dev
 ```
+
+Open http://localhost:5173 and press one of the four sample buttons.
 
 ## Scripts
 
@@ -19,43 +22,51 @@ npm run dev
 | `npm run preview` | Serve the production build locally |
 | `npm run lint` | oxlint |
 
+## Status
+
+This build runs on the sponsor's sample set. **No model is wired up yet** — the
+review for each of the four sample responses is authored in
+`src/api/fixtures/reviews.ts`, and pasting an unrecognised document returns a
+clear error rather than inventing findings. The weak sample reproduces the
+score and findings in `sample_data/scoring_example.md`, which is the sponsor's
+own reference for what good output looks like.
+
+## Wiring up the backend
+
+Every request originates in `src/api/client.ts` — `no-restricted-globals` bans
+raw `fetch` and `XMLHttpRequest` everywhere else, so headers, retries and error
+handling have one home. To go live:
+
+1. Replace the bodies of `runReview` and `suggestWeights` with POSTs to the n8n
+   webhook URLs.
+2. Move the run trace to `src/api/stream.ts` over `EventSource`. `RUN_STEPS`
+   already mirrors the node sequence it should emit.
+
+Nothing outside `src/api/` needs to change: the signatures, the step sequence
+and `ReviewError` are what the rest of the app is written against.
+
 ## Layout
 
 ```
 src/
-  components/ui/      shadcn/ui components (generated, editable)
-  hooks/              React Query hooks (use-health.ts is the example)
-  lib/
-    api.ts            fetch wrapper, throws ApiError on non-2xx
-    query-client.ts   shared QueryClient + defaults
-    utils.ts          cn() class merger
-  providers/
-    query-provider.tsx  QueryClientProvider + devtools (dev only)
-  App.tsx
-  main.tsx
+  api/
+    schema.ts              the edition's vocabulary — Citation, Requirement, Issue, Review
+    client.ts              the one client (fixture-backed; the seam to n8n)
+    fixtures/
+      documents.ts         the sponsor's .md files, imported verbatim
+      reviews.ts           authored findings for all four sample responses
+      samples/             copies of sample_data/, so the frontend builds standalone
+  components/
+    apparatus/             the visual world: sigla, citations, collation, witness panes
+    ui/                    shadcn primitives
+  features/review/         setup, criteria, run trace, review
+  lib/score.ts             weighted scoring, weight redistribution, verdict thresholds
 ```
 
-## Adding shadcn components
+Design decisions are recorded in `DESIGN.md`; the surface's direction contract
+is in `.impeccable/surfaces/`.
 
-```bash
-npx shadcn@latest add <component>
-```
+## Stack
 
-Already installed: button, card, input, label, badge, skeleton, separator, sonner, dropdown-menu, dialog, avatar.
-
-## Data fetching
-
-Write one hook per endpoint in `src/hooks/`, using the `api()` helper:
-
-```ts
-export function useThings() {
-  return useQuery({
-    queryKey: ["things"],
-    queryFn: () => api<Thing[]>("/things"),
-  })
-}
-```
-
-Query defaults (`src/lib/query-client.ts`): 1 min `staleTime`, 5 min `gcTime`, 1 retry, no refetch on window focus.
-
-Imports use the `@/` alias for `src/`.
+React 19 · Vite · TypeScript · Tailwind v4 · shadcn/ui · TanStack Query ·
+Brygada 1918 + Archivo, self-hosted so the venue network is not a dependency.

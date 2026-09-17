@@ -1,70 +1,172 @@
-import { useQuery } from "@tanstack/react-query"
+import { useMemo, useState } from "react"
+import { useMutation } from "@tanstack/react-query"
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { Skeleton } from "@/components/ui/skeleton"
+import type { Criterion, Issue, Witness } from "@/api/schema"
+import { ReviewError, runReview, suggestWeights } from "@/api/client"
+import { RFP_TEXT, SAMPLES, type SampleId } from "@/api/fixtures/documents"
+import { BASE_CRITERIA } from "@/api/fixtures/reviews"
+import { rebalance, verdictFor, weightedScore } from "@/lib/score"
+import { CollationProvider } from "@/components/apparatus/collation"
 
-const STACK = ["React 19", "Vite", "TypeScript", "Tailwind v4", "shadcn/ui", "TanStack Query"]
+import type { IssueVerdict } from "@/features/review/apparatus"
+import { ReviewView } from "@/features/review/review-view"
+import { RunTrace } from "@/features/review/run-trace"
+import { SetupView } from "@/features/review/setup-view"
 
-function App() {
-  // Demo query against a public endpoint — swap for your own API.
-  const { data, isPending, isError, refetch, isFetching } = useQuery({
-    queryKey: ["demo"],
-    queryFn: async () => {
-      const res = await fetch("https://api.github.com/repos/TanStack/query")
-      if (!res.ok) throw new Error("Request failed")
-      return (await res.json()) as { full_name: string; stargazers_count: number }
+export default function App() {
+  const [rfp, setRfp] = useState("")
+  const [proposal, setProposal] = useState("")
+  const [criteria, setCriteria] = useState<Criterion[]>(BASE_CRITERIA)
+  const [step, setStep] = useState(0)
+  const [issueVerdicts, setIssueVerdicts] = useState<Record<string, IssueVerdict>>({})
+  const [editing, setEditing] = useState(false)
+  const [activeSample, setActiveSample] = useState<SampleId | null>(null)
+  const [appliedFixes, setAppliedFixes] = useState<Record<string, boolean>>({})
+  /** The draft the current review was computed against, for staleness. */
+  const [reviewedAgainst, setReviewedAgainst] = useState("")
+
+  const review = useMutation({
+    mutationFn: (input: { rfp: string; proposal: string; criteria: Criterion[] }) =>
+      runReview(input, { onStep: setStep }),
+    onMutate: () => {
+      setStep(0)
+      setEditing(false)
+    },
+    onSuccess: (_data, input) => {
+      setIssueVerdicts({})
+      setAppliedFixes({})
+      setReviewedAgainst(input.proposal)
     },
   })
 
+  const weights = useMutation({
+    mutationFn: (source: string) => suggestWeights(source),
+    onSuccess: (suggestions) => {
+      setCriteria((current) =>
+        rebalance(
+          current.map((c) => {
+            const found = suggestions.find((s) => s.criterionId === c.id)
+            return found ? { ...c, weight: found.weight } : c
+          }),
+        ),
+      )
+    },
+  })
+
+  const witnesses = useMemo<{ R: Witness; P: Witness }>(
+    () => ({
+      R: {
+        siglum: "R",
+        title: "Request for Proposal",
+        subtitle: "The client's brief",
+        lines: rfp.split("\n"),
+      },
+      P: {
+        siglum: "P",
+        title: "Draft Proposal",
+        subtitle: "The text under review",
+        lines: proposal.split("\n"),
+      },
+    }),
+    [rfp, proposal],
+  )
+
+  /**
+   * A fix is applied as a block after the passage it answers, so the draft can
+   * be re-run and the score watched to move. Reverting removes that exact
+   * block, which is why it is matched on its own text rather than an index
+   * that a later apply would have shifted.
+   */
+  const applyFix = (issue: Issue) => {
+    const lines = proposal.split("\n")
+    const at = Math.min(issue.location.to, lines.length)
+    setProposal(
+      [...lines.slice(0, at), "", issue.suggestedFix, ...lines.slice(at)].join(
+        "\n",
+      ),
+    )
+    setAppliedFixes((current) => ({ ...current, [issue.id]: true }))
+  }
+
+  const revertFix = (issue: Issue) => {
+    setProposal((current) => current.replace(`\n\n${issue.suggestedFix}`, ""))
+    setAppliedFixes((current) => {
+      const next = { ...current }
+      delete next[issue.id]
+      return next
+    })
+  }
+
+  const score = review.data ? weightedScore(criteria, review.data.criteria) : 0
+  const verdict = verdictFor(score)
+
+  const errorMessage =
+    review.error instanceof ReviewError
+      ? review.error.message
+      : review.error
+        ? "The review could not be completed. Check both documents and try again."
+        : null
+
+  const run = () => review.mutate({ rfp, proposal, criteria })
+
+  // Loading. The trace shows which step is running, never a blank panel.
+  if (review.isPending) {
+    return <RunTrace active={step} />
+  }
+
+  // Success.
+  if (review.data && !editing) {
+    return (
+      <CollationProvider>
+        <ReviewView
+          review={review.data}
+          criteria={criteria}
+          onCriteria={setCriteria}
+          witnesses={witnesses}
+          score={score}
+          verdict={verdict}
+          verdicts={issueVerdicts}
+          onVerdict={(id, next) =>
+            setIssueVerdicts((current) => ({ ...current, [id]: next }))
+          }
+          onEdit={() => setEditing(true)}
+          onRerun={run}
+          rerunning={review.isPending}
+          stale={proposal !== reviewedAgainst}
+          appliedFixes={appliedFixes}
+          onApply={applyFix}
+          onRevert={revertFix}
+        />
+      </CollationProvider>
+    )
+  }
+
+  // Empty, and error — the same view, which is also where recovery happens.
   return (
-    <main className="flex min-h-svh items-center justify-center bg-background p-6">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>SiviHack 2026 — Frontend</CardTitle>
-          <CardDescription>
-            Stack is wired up and ready to build on.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex flex-wrap gap-2">
-            {STACK.map((item) => (
-              <Badge key={item} variant="secondary">
-                {item}
-              </Badge>
-            ))}
-          </div>
-
-          <Separator />
-
-          <div className="space-y-2">
-            <p className="text-sm font-medium">React Query smoke test</p>
-            {isPending ? (
-              <Skeleton className="h-5 w-48" />
-            ) : isError ? (
-              <p className="text-sm text-destructive">Failed to load.</p>
-            ) : (
-              <p className="text-muted-foreground text-sm">
-                {data.full_name} — {data.stargazers_count.toLocaleString()} stars
-              </p>
-            )}
-          </div>
-
-          <Button onClick={() => refetch()} disabled={isFetching} className="w-full">
-            {isFetching ? "Refetching…" : "Refetch"}
-          </Button>
-        </CardContent>
-      </Card>
-    </main>
+    <SetupView
+      rfp={rfp}
+      proposal={proposal}
+      onRfp={(v) => {
+        setRfp(v)
+        setActiveSample(null)
+      }}
+      onProposal={(v) => {
+        setProposal(v)
+        setActiveSample(null)
+      }}
+      criteria={criteria}
+      onCriteria={setCriteria}
+      onSuggest={() => weights.mutate(rfp || RFP_TEXT)}
+      suggestions={weights.data ?? null}
+      suggesting={weights.isPending}
+      onRun={run}
+      onSample={(id) => {
+        setRfp(RFP_TEXT)
+        setProposal(SAMPLES[id].text)
+        setActiveSample(id)
+      }}
+      activeSample={activeSample}
+      error={errorMessage}
+    />
   )
 }
-
-export default App

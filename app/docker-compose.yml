@@ -1,0 +1,58 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - HF_HOME=/hf_cache                 # cache CLINC downloads in a volume
+    volumes:
+      - .:/app                            # hot reload
+      - /app/.venv                        # preserve the container's Linux venv (critical)
+      - hf_cache:/hf_cache                # dataset cache persists across restarts
+    command: uvicorn router.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      db:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+
+  db: 
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: router
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data 
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+
+  n8n:
+    image: n8nio/n8n 
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_SECURE_COOKIE=value
+      - N8N_RUNNERS_ENABLED=true
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./fixtures:/data 
+
+
+volumes:
+  pgdata:
+  n8n_data:
+  ollama_data:
+  hf_cache:

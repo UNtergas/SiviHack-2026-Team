@@ -41,7 +41,7 @@ export const STATUS_STYLE: Record<RequirementStatus, string> = {
 export const STATUS_SWATCH: Record<RequirementStatus, string> = {
   addressed: "bg-cloth-ready",
   partial: "bg-cloth-fix",
-  missing: "bg-ink",
+  missing: "bg-ink-3", // the lighter ink: a 0.875rem square of the deep green reads as black beside true ink
   contradicted: "bg-cloth-stop",
 }
 

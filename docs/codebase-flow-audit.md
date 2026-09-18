@@ -1313,3 +1313,36 @@ The quoted warning remains correct for a frontend built without `VITE_API_URL`: 
 The README's description of samples and real bids answering from a warmed backend cache assumes `USE_CACHE=true`. At the time of this check, the running backend has it set to `false`, so warming the cache does not make those reviews use saved answers. A new Run review goes through the live API path; dragging weights only recalculates the existing result in the browser.
 
 Verification was limited to source/configuration inspection, allowlisted running-container settings, the served JavaScript, a health request, and the local weight-calculation probe. No scoring request or paid model call was made, and no application settings were changed.
+
+## Current PDF extraction path
+
+**Checked on 2026-09-18 at approximately 11:57 UTC, with repository HEAD `14e3eac`. Uploading a PDF converts it locally on the backend to Markdown. Gemini receives the resulting text later, when the user runs a review; the upload does not send the PDF or page images to Gemini.** This is distinct from the later AI step that extracts requirements from the RFP text.
+
+1. **Browser upload.** [`witness-input.tsx`](../frontend/src/features/review/witness-input.tsx) recognizes a PDF by its MIME type or `.pdf` filename extension. For either the RFP or proposal input, it calls [`convertDocument`](../frontend/src/api/client.ts), which posts multipart form data with a `file` field to `/api/documents/convert`. Markdown and plain-text files are read directly in the browser. Browser mock mode refuses PDF conversion because it has no backend connection.
+2. **API validation.** [`main.py`](../app/src/app/main.py) reads the upload, rejects files larger than `40 * 1024 * 1024` bytes with HTTP 413, then invokes `pdf_to_markdown`. The helper requires the bytes to start with `%PDF`; failure produces HTTP 415. The nginx request limit is separately set to 50m to accommodate the upload envelope.
+3. **Existing-text check.** [`convert.py`](../app/src/app/convert.py) opens the bytes with `pymupdf.open(stream=data, filetype="pdf")`. A page counts as having text only when `page.get_text("text").strip()` contains at least 20 characters. For a nonempty PDF, conversion is refused with HTTP 422 if `text_pages < max(1, pages // 5)`. This is a heuristic: a nine-page document with only one qualifying text page passes, while a ten-page document needs two. It is not a check that every page was extracted successfully.
+4. **Markdown conversion.** The helper calls `pymupdf4llm.to_markdown(doc)` with default options. The installed versions inspected were PyMuPDF, PyMuPDF4LLM, and PyMuPDF Layout 1.28.2, matching `requirements.txt`. The installed wrapper activates its layout engine, recognizes text structure, assigns heading levels using detected headings/font sizes, and renders detected tables in Markdown. The app does not request embedded images, image files, page chunks, or page separators. Successful conversion does not guarantee accurate reading order or table reconstruction for every layout.
+5. **Cleanup and response.** The app removes HTML comments and `<mark>` tags, collapses runs of three or more newlines, and returns `{name, text, pages, textPages}`. The browser normalizes the returned text and places it in the editable input. If `textPages < pages`, it shows a warning that some pages had no text and were skipped.
+6. **Normal review pipeline.** On Run review, the converted text is sent as `rfp`/`proposal` to the same scoring API used for pasted Markdown. [`splitter.py`](../app/src/app/splitter.py) derives section/paragraph IDs from that text; prompts and grounding use those IDs. The conversion response does not preserve a mapping from quotations to original PDF page coordinates or page numbers. [`llm.py`](../app/src/app/llm.py) sends text prompts through `contents=prompt`, with no PDF attachment or page-image input in this path.
+
+### Scans and the converter's OCR defaults
+
+The application refuses PDFs that fail its existing-text check before calling the Markdown converter. There is no app-level OCR fallback for those rejected files. The checked local installation's `select_ocr_function()` returned `None`, so its converter had no available OCR engine. The Dockerfile and declared application dependencies do not install/configure a separate OCR engine.
+
+There is an implementation nuance behind the comments saying “no OCR”: the installed PyMuPDF4LLM layout wrapper defaults to `use_ocr=True`, and the application does not override it. The library may select an available OCR engine for an accepted document; without an engine it processes without OCR. This behavior is described in the [official OCR documentation](https://pymupdf.readthedocs.io/en/latest/pymupdf4llm/ocr-plugins.html) and was checked against the installed package source. Thus OCR availability could change accepted mixed-document behavior across environments, while the app's initial scan rejection would remain. Merely installing an OCR engine would not make fully scanned PDFs pass the current precheck.
+
+The UI's “pages were skipped” message is derived from the count of pages with at least 20 existing text characters, calculated before conversion. The helper actually passes the entire document to the converter. That count does not prove a page contributed nothing: a sparse page can contain fewer than 20 characters, or an available OCR engine could recover text later. For the checked installation with no OCR engine, image-only content cannot be recovered as text.
+
+### Verification and limits
+
+The existing conversion suite passed: **3 tests**, covering generated text PDFs and heading extraction, scan rejection, and HTTP 200/422/415 responses. It emitted nine dependency deprecation warnings. No Gemini calls were involved.
+
+Read-only probes of the included PDF samples through the actual application converter produced:
+
+| Input | Result |
+|---|---|
+| `sample_data/pdf/rfp_nordframe.pdf` | Converted: 1 page, 1 qualifying text page, 1,399 Markdown characters, 6 heading lines. |
+| `sample_data/pdf/response_1_weak.pdf` | Converted: 1 page, 1 qualifying text page, 1,421 Markdown characters, 8 heading lines. |
+| `sample_data/pdf/scanned_example.pdf` | Rejected: “3 of 3 pages have no text layer.” |
+
+These checks establish the basic extraction route, not full fidelity for complex tables, charts, multi-column layouts, or long RFPs. The byte signature and text-count checks also do not validate PDF integrity or extraction completeness. Corrupt/encrypted-file errors are not translated by this route into dedicated user-facing responses, and the size check occurs after the whole upload has been read. No application code or settings were changed for this check.

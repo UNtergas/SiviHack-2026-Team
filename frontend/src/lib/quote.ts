@@ -14,9 +14,37 @@ export interface Normalized {
 /** Heading hashes, list bullets and numbers, blockquote marks — at line start. */
 const BLOCK_MARKER = /^[ \t]{0,3}(?:#{1,6}[ \t]+|[-*+][ \t]+|\d+[.)][ \t]+|>[ \t]?)/
 
-/** Table pipes are structure, not words, so a quoted row matches its cells. */
+/**
+ * The backend folds typographic characters before it compares (app/src/app/normalize.py:
+ * curly quotes, dashes, the ellipsis). So must we, or a quote the backend verified fails
+ * to mark here because the model wrote a hyphen for the RFP's en dash. Same table.
+ */
+const FOLD: Record<string, string> = {
+  "\u201c": "\"",
+  "\u201d": "\"",
+  "\u201e": "\"",
+  "\u00ab": "\"",
+  "\u00bb": "\"",
+  "\u2018": "'",
+  "\u2019": "'",
+  "\u201a": "'",
+  "\u2039": "'",
+  "\u203a": "'",
+  "\u2013": "-",
+  "\u2014": "-",
+  "\u2011": "-",
+  "\u2212": "-",
+  "\u2026": "...",
+}
+
+/** Table pipes are structure, not words, so a quoted row matches its cells; so are the odd spaces. */
 const isSpace = (ch: string) =>
-  ch === " " || ch === "\t" || ch === "\r" || ch === "\f" || ch === "|"
+  ch === " " ||
+  ch === "\t" ||
+  ch === "\r" ||
+  ch === "\f" ||
+  ch === "|" ||
+  ch === "\u00a0" || ch === "\u202f" || ch === "\u2009"
 
 export function normalize(source: string): Normalized {
   const text: string[] = []
@@ -38,8 +66,10 @@ export function normalize(source: string): Normalized {
         map.push(pendingSpace)
       }
       pendingSpace = -1
-      text.push(ch.toLowerCase())
-      map.push(offset + j)
+      for (const folded of (FOLD[ch] ?? ch).toLowerCase()) {
+        text.push(folded)
+        map.push(offset + j) // an ellipsis becomes three dots that all point at it
+      }
     }
     if (pendingSpace < 0) pendingSpace = offset + line.length
     offset += line.length + 1

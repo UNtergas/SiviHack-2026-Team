@@ -17,7 +17,7 @@ import {
 
 import type { Criterion, Issue, RequirementStatus, Review, Witness } from "@/api/schema"
 import { CONSTRAINT_LABEL, FINDING_LABEL } from "@/features/review/apparatus"
-import { NO_VERDICT_LABEL, VERDICT_LABEL } from "@/lib/score"
+import { NO_VERDICT_LABEL, VERDICT_LABEL, verdictFor } from "@/lib/score"
 
 /**
  * The review as a document to hand to the proposal writer. One report model, two renderers:
@@ -86,8 +86,11 @@ export function reportBlocks(
   witnesses: { R: Witness; P: Witness },
 ): Block[] {
   const names = new Map(criteria.map((c) => [c.id, c.name]))
-  const verdict = score === null || !review.verdict ? NO_VERDICT_LABEL : VERDICT_LABEL[review.verdict]
-  const tone: Tone = score === null || !review.verdict ? "ink" : VERDICT_TONE[review.verdict]
+  // The word follows the number: both come from the weights as they are now, not as they were
+  // when the run was made, so a moved slider never exports "Not ready 3.0 / 5".
+  const current = verdictFor(score)
+  const verdict = current ? VERDICT_LABEL[current] : NO_VERDICT_LABEL
+  const tone: Tone = current ? VERDICT_TONE[current] : "ink"
   const title = titleOf(witnesses.P.text)
   const today = new Date().toISOString().slice(0, 10)
   const blocks: Block[] = []
@@ -162,7 +165,7 @@ export function reportBlocks(
           b(`${CONSTRAINT_LABEL[c.kind]} — ${c.label}: `),
           i(`“${c.source.quote ?? ""}”`, "muted"),
           t(` (R ${c.source.label}) — `),
-          violated ? b("violated", "stop") : b("respected", "ready"),
+          review.error ? t("not assessed", "muted") : violated ? b("violated", "stop") : b("respected", "ready"),
         ],
       })
     }
@@ -177,8 +180,9 @@ export function reportBlocks(
       items: open.filter((x) => x.kind !== "violation" && x.severity === sev),
     })),
   ].filter((g) => g.items.length > 0)
-  blocks.push({ kind: "h", level: 2, text: `Issues (${open.length})` })
-  if (open.length === 0) blocks.push({ kind: "p", runs: [t("No issues found: every requirement is addressed and nothing was flagged.")] })
+  blocks.push({ kind: "h", level: 2, text: review.error ? "Issues" : `Issues (${open.length})` })
+  if (review.error) blocks.push({ kind: "p", runs: [t("Issues were not assessed: the analysis call failed.")] })
+  else if (open.length === 0) blocks.push({ kind: "p", runs: [t("No issues found: every requirement is addressed and nothing was flagged.")] })
   for (const g of groups) {
     blocks.push({ kind: "h", level: 3, text: `${g.title} (${g.items.length})`, tone: g.tone })
     for (const issue of g.items) {

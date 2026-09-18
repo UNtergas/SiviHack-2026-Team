@@ -384,7 +384,7 @@ export const zRequirementsFrame = z.object({
     data: zRequirementsEvent
 });
 
-export const zWeights = z.record(z.string(), z.number());
+export const zWeights = z.record(z.string(), z.number().gte(0));
 
 /**
  * ScoreRequest

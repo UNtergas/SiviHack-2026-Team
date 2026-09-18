@@ -1560,7 +1560,8 @@
       },
       "Weights": {
         "additionalProperties": {
-          "type": "number"
+          "type": "number",
+          "minimum": 0.0
         },
         "type": "object"
       }

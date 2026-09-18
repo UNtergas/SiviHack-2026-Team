@@ -61,9 +61,10 @@ CRITERION_LABELS: dict[str, str] = {
 # by code — the model never scores it.
 LLM_CRITERIA: list[CriterionId] = [c for c in CRITERIA if c != "completeness"]
 
-# Relative weights, 1 = neutral; never sent to the LLM. Keys: the seven CriterionIds plus the
-# ids of the request's custom criteria (`custom-…`).
-type Weights = dict[str, float]
+# Relative weights, 1 = neutral, never negative (a negative weight would push the mean off the
+# 1–5 scale); never sent to the LLM. Keys: the seven CriterionIds plus the ids of the
+# request's custom criteria (`custom-…`).
+type Weights = dict[str, Annotated[float, Field(ge=0, allow_inf_nan=False)]]
 type CoverageStatus = Literal["ADDRESSED", "PARTIAL", "MISSING", "CONTRADICTED"]
 type Severity = Literal["HIGH", "MEDIUM", "LOW"]
 type ConstraintKind = Literal["BUDGET", "DEADLINE", "TECHNOLOGY", "SCOPE", "LEGAL", "OTHER"]

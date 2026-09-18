@@ -38,7 +38,10 @@ def test_contract_carries_everything_a_generator_needs():
     result = c["ScoringResult"]
     assert result["properties"]["sections"] == {"$ref": "#/components/schemas/Outlines"}
     assert result["properties"]["weights"] == {"$ref": "#/components/schemas/Weights"}
-    assert c["Weights"] == {"additionalProperties": {"type": "number"}, "type": "object"}
+    assert c["Weights"] == {
+        "additionalProperties": {"type": "number", "minimum": 0.0},
+        "type": "object",
+    }
     custom = c["ScoreRequest"]["properties"]["customCriteria"]
     assert custom["items"] == {"$ref": "#/components/schemas/CustomCriterion"}
     assert custom["maxItems"] == 5

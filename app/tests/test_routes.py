@@ -106,6 +106,19 @@ def test_health_and_validation():
     assert client.post("/score", json=six).status_code == 422
     undeclared = {"proposal": "p", "weights": {"custom-gdpr": 2}}
     assert client.post("/score", json=undeclared).status_code == 422
+    # a weight is finite and never negative: the UI cannot send one, the API must not take one
+    assert (
+        client.post(
+            "/score", json={"proposal": "p", "weights": {"pricing_clarity": -1}}
+        ).status_code
+        == 422
+    )
+    # (NaN and Infinity are rejected too, but FastAPI cannot serialise the offending input into
+    # the 422 body, so that path answers 500; browsers never produce them in JSON.)
+    assert (
+        client.post("/score", json={"proposal": "p", "weights": {"pricing_clarity": 0}}).status_code
+        != 422
+    )
     assert client.post("/rfp/extract", json={"rfp": " "}).status_code == 400
 
 

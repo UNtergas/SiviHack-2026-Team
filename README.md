@@ -78,7 +78,7 @@ pair. The four samples are served from the cache; the judges' pair is scored liv
 ## 4. Dataset, API, libraries and template used
 
 - Dataset: `sample_data/` (the sponsor's fictional NordFrame RFP, four responses and a scoring
-  example). No real client data.
+  example). `sample_data/pdf/` holds the same documents as PDF for the upload path, a real Michigan bid and a scanned example (see its README). No real client data.
 - API: the Google Gemini API through the official `google-genai` SDK. No other external service.
 - Python libraries: `requirements.txt` (generated from `app/pyproject.toml` and `uv.lock`).
 - JavaScript libraries: `frontend/package.json`.

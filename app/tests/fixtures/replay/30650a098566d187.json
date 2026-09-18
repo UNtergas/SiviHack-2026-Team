@@ -1,0 +1,13 @@
+{
+ "kind": "group:risk",
+ "model": "gemini-3.8-flash",
+ "prompt_head": "You score a draft PROPOSAL on 1 review criterion. Group id: risk. Other reviewer",
+ "truncated": false,
+ "usage": {
+  "prompt": 1977,
+  "output": 323,
+  "thinking": 0,
+  "cached": 0
+ },
+ "text": "{\n  \"findings\": [\n    {\n      \"type\": \"OVERCOMMIT\",\n      \"severity\": \"HIGH\",\n      \"location\": \"§3\",\n      \"proposalQuote\": \"deliver the complete suite — including the platform migration and all analytics modules — within **8 weeks**\",\n      \"explanation\": \"Promising a full cloud database migration alongside multiple predictive AI modules in just eight weeks introduces extreme delivery risk without acknowledging technical realities.\",\n      \"fix\": \"Align the schedule with standard delivery benchmarks and detail the specific technical prerequisites required to complete the migration and module deployment safely.\"\n    }\n  ],\n  \"scores\": [\n    {\n      \"id\": \"risk_transparency\",\n      \"label\": \"Risk/Assumptions Transparency\",\n      \"score\": 1,\n      \"strengths\": null,\n      \"weaknesses\": \"The proposal omits all project risks, dependencies, and assumptions requested in the RFP while making high-risk migration commitments without acknowledging any potential pitfalls.\",\n      \"citations\": [\n        {\n          \"source\": \"rfp\",\n          \"section\": \"§r7\",\n          \"quote\": \"Clear documentation of any assumptions, limitations, or risks\"\n        },\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§2\",\n          \"quote\": \"we recommend migrating away from your current PostgreSQL database to our proprietary cloud data platform\"\n        }\n      ],\n      \"note\": null\n    }\n  ]\n}"
+}

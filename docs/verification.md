@@ -33,10 +33,12 @@ Draft Proposal as .md" with `sample_data/response_2_medium.md` → the draft pan
 same "33 lines · 195 words" as the sample button does (the `**Variant**` banner is dropped on
 upload). "Run review" → a full review with no "no recording" rail. This proves paste, upload
 and the sample buttons send identical canonical text.
-PDF: "Upload the Draft Proposal as .md or .pdf" with a text PDF (for instance
-docs/realworld/raw/pair3/concourse/…/…RFP.pdf) → the button reads "Reading the PDF…" for a
-moment, then the textbox fills with Markdown that keeps the headings. A scanned PDF → an inline
-line "this PDF has no text layer (… pages): it is a scan…" and the textbox is unchanged.
+PDF: "Upload the Request for Proposal as .md or .pdf" with `sample_data/pdf/rfp_nordframe.pdf`
+and the draft with `sample_data/pdf/response_4_overpromise.pdf` → the button reads "Reading the
+PDF…" for a moment, then each textbox fills with Markdown that keeps the headings; Run → the
+same review as from the .md files, the PostgreSQL violation included (first time live, about
+three cents). `sample_data/pdf/scanned_example.pdf` → an inline line "this PDF has no text layer
+(3 of 3 pages…): it is a scan…" and the textbox is unchanged.
 
 ## E3. Run Medium and watch the trace
 

@@ -48,6 +48,10 @@ def test_normalize_weights_fills_all_seven_and_casts():
     assert set(w) == set(CRITERIA) and w["pricing_clarity"] == 3.0 and w["completeness"] == 1.0
     assert "bogus" not in w
     assert normalize_weights(None) == dict.fromkeys(CRITERIA, 1.0)
+    # custom criteria come after the seven, at 1.0 unless given; an undeclared id is dropped
+    w = normalize_weights({"custom-gdpr": 2, "custom-nope": 5}, ["custom-gdpr", "custom-a11y"])
+    assert list(w) == [*CRITERIA, "custom-gdpr", "custom-a11y"]
+    assert w["custom-gdpr"] == 2.0 and w["custom-a11y"] == 1.0 and "custom-nope" not in w
 
 
 def test_weighted_overall_skips_null_scores_and_returns_none_when_nothing_scored():

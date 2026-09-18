@@ -29,6 +29,19 @@ export const zCriterionId = z.enum([
 ]);
 
 /**
+ * CustomCriterion
+ *
+ * A criterion the reviewer adds for one run: a name and what to check, scored 1–5 by the
+ * model in its own call and weighted like any other. The client chooses the id (`custom-`
+ * plus a slug of the name), so the same criterion is a cache hit next time.
+ */
+export const zCustomCriterion = z.object({
+    id: z.string().max(48).regex(/^custom-[a-z0-9]+(?:-[a-z0-9]+)*$/),
+    name: z.string().min(1).max(80),
+    whatToCheck: z.string().min(1).max(400)
+});
+
+/**
  * ErrorDetail
  *
  * The body of every 4xx / 5xx this API raises (FastAPI's HTTPException shape).
@@ -283,7 +296,7 @@ export const zCitation = z.object({
  * CriterionScore
  */
 export const zCriterionScore = z.object({
-    id: zCriterionId,
+    id: z.string(),
     label: z.string().default(''),
     score: z.int().gte(1).lte(5).nullable(),
     strengths: z.string().nullable(),
@@ -379,7 +392,8 @@ export const zWeights = z.record(z.string(), z.number());
 export const zScoreRequest = z.object({
     rfp: z.string().optional().default(''),
     proposal: z.string(),
-    weights: zWeights.nullish()
+    weights: zWeights.nullish(),
+    customCriteria: z.array(zCustomCriterion).max(5).optional().default([])
 });
 
 /**

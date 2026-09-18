@@ -15,9 +15,9 @@ Three things about the LLM-output models matter more than they look:
   `llm.llm_schema`); the grounding pass sets it after the fact.
 """
 
-from typing import Annotated, Literal
+from typing import Annotated, Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class Model(BaseModel):
@@ -61,8 +61,9 @@ CRITERION_LABELS: dict[str, str] = {
 # by code — the model never scores it.
 LLM_CRITERIA: list[CriterionId] = [c for c in CRITERIA if c != "completeness"]
 
-# Relative weights, 1 = neutral; never sent to the LLM.
-type Weights = dict[CriterionId, float]
+# Relative weights, 1 = neutral; never sent to the LLM. Keys: the seven CriterionIds plus the
+# ids of the request's custom criteria (`custom-…`).
+type Weights = dict[str, float]
 type CoverageStatus = Literal["ADDRESSED", "PARTIAL", "MISSING", "CONTRADICTED"]
 type Severity = Literal["HIGH", "MEDIUM", "LOW"]
 type ConstraintKind = Literal["BUDGET", "DEADLINE", "TECHNOLOGY", "SCOPE", "LEGAL", "OTHER"]
@@ -166,13 +167,20 @@ class Finding(Model):
 
 
 class CriterionScore(Model):
-    id: CriterionId
-    label: str = ""  # filled by code from CRITERION_LABELS
+    id: str  # a CriterionId, or a custom criterion's id ("custom-…")
+    label: str = ""  # filled by code: CRITERION_LABELS, or the custom criterion's name
     score: int | None = Field(ge=1, le=5)  # required-but-nullable; null = not assessable
     strengths: str | None = None  # one sentence, or null
     weaknesses: str  # one sentence naming the exact gap
     citations: list[Citation] = []
     note: str | None = None  # e.g. "not assessable: no RFP provided"
+
+
+class FixedCriterionScore(CriterionScore):
+    """What the fixed-criteria calls return: the id is one of the rubric's, so the model cannot
+    invent one. The wire shape (`CriterionScore`) also carries custom ids."""
+
+    id: CriterionId  # pyright: ignore[reportIncompatibleVariableOverride]
 
 
 # ---- LLM call 2 output shapes — ORDER IS REASONING ORDER ----
@@ -188,6 +196,13 @@ class GroupLlmOutput(Model):
     justify."""
 
     findings: list[Finding]
+    scores: list[FixedCriterionScore]
+
+
+class CustomScoresLlmOutput(Model):
+    """Call 2b-custom (either mode): the criteria the reviewer defined for this run, scored in
+    their own call so the fixed calls keep their cache. No findings: the other calls own them."""
+
     scores: list[CriterionScore]
 
 
@@ -224,10 +239,35 @@ class Signals(Model):
 
 
 # ---- API request / response ----
+CUSTOM_ID = r"^custom-[a-z0-9]+(?:-[a-z0-9]+)*$"
+MAX_CUSTOM_CRITERIA = 5
+
+
+class CustomCriterion(Model):
+    """A criterion the reviewer adds for one run: a name and what to check, scored 1–5 by the
+    model in its own call and weighted like any other. The client chooses the id (`custom-`
+    plus a slug of the name), so the same criterion is a cache hit next time."""
+
+    id: str = Field(pattern=CUSTOM_ID, max_length=48)
+    name: str = Field(min_length=1, max_length=80)
+    whatToCheck: str = Field(min_length=1, max_length=400)
+
+
 class ScoreRequest(Model):
     rfp: str = ""  # optional: without it, coverage is empty and completeness is null
     proposal: str
     weights: Weights | None = None  # e.g. {"pricing_clarity": 2}; never sent to the LLM
+    customCriteria: list[CustomCriterion] = Field(default=[], max_length=MAX_CUSTOM_CRITERIA)
+
+    @model_validator(mode="after")
+    def _weights_name_known_criteria(self) -> Self:
+        ids = [c.id for c in self.customCriteria]
+        if len(set(ids)) != len(ids):
+            raise ValueError("customCriteria ids must be unique")
+        unknown = set(self.weights or {}) - set(CRITERIA) - set(ids)
+        if unknown:
+            raise ValueError(f"weights name unknown criteria: {sorted(unknown)}")
+        return self
 
 
 class ExtractRequest(Model):
@@ -267,7 +307,7 @@ class ScoringMeta(Model):
 
 class ScoringResult(Model):
     overall: float | None  # None when partial or nothing scorable
-    weights: Weights  # always the seven ids, as normalised by aggregate.normalize_weights
+    weights: Weights  # the seven ids plus any custom ids, as aggregate.normalize_weights fills them
     scores: list[CriterionScore]
     coverage: list[CoverageItem]
     constraintViolations: list[ConstraintViolation]

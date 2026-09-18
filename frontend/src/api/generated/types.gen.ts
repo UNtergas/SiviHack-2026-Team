@@ -140,7 +140,10 @@ export type CriterionId = 'problem_understanding' | 'scope_clarity' | 'pricing_c
  * CriterionScore
  */
 export type CriterionScore = {
-    id: CriterionId;
+    /**
+     * Id
+     */
+    id: string;
     /**
      * Label
      */
@@ -165,6 +168,28 @@ export type CriterionScore = {
      * Note
      */
     note: string | null;
+};
+
+/**
+ * CustomCriterion
+ *
+ * A criterion the reviewer adds for one run: a name and what to check, scored 1–5 by the
+ * model in its own call and weighted like any other. The client chooses the id (`custom-`
+ * plus a slug of the name), so the same criterion is a cache hit next time.
+ */
+export type CustomCriterion = {
+    /**
+     * Id
+     */
+    id: string;
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Whattocheck
+     */
+    whatToCheck: string;
 };
 
 /**
@@ -436,6 +461,10 @@ export type ScoreRequest = {
      */
     proposal: string;
     weights?: Weights | null;
+    /**
+     * Customcriteria
+     */
+    customCriteria?: Array<CustomCriterion>;
 };
 
 /**
@@ -691,7 +720,7 @@ export type WeightSuggestion = {
 };
 
 export type Weights = {
-    [key in CriterionId]?: number;
+    [key: string]: number;
 };
 
 export type MetaHealthData = {

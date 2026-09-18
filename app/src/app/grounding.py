@@ -15,6 +15,7 @@ it claims to come from:
 the merged (single-call) shape.
 """
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import NamedTuple
 
@@ -30,6 +31,7 @@ from app.schema import (
     ConstraintViolation,
     CoverageItem,
     CriterionScore,
+    CustomCriterion,
     Finding,
     GroundingStatus,
     RfpExtraction,
@@ -205,23 +207,26 @@ def ground_scores(
     rfp: Document,
     proposal: Document,
     stats: GroundingStats,
+    custom: Sequence[CustomCriterion] = (),
 ) -> list[CriterionScore]:
-    """Exactly one score per criterion, in CRITERIA order, labels filled, citations checked
-    (section exists; quote verified like any other).
-    First occurrence wins; completeness is always the code-computed one."""
+    """Exactly one score per criterion — the seven in CRITERIA order, then the run's custom
+    criteria in request order — labels filled, citations checked (section exists; quote
+    verified like any other). First occurrence wins; completeness is always the code-computed
+    one; a criterion the model skipped is null with a note."""
     by_id: dict[str, CriterionScore] = {}
     for s in scores:
         by_id.setdefault(s.id, s)
     by_id["completeness"] = completeness_from_coverage(coverage, ext.requirements)
+    labels: dict[str, str] = {**CRITERION_LABELS, **{c.id: c.name for c in custom}}
     out: list[CriterionScore] = []
-    for cid in CRITERIA:
+    for cid in (*CRITERIA, *(c.id for c in custom)):
         s = by_id.get(cid) or CriterionScore(
             id=cid,
             score=None,
             weaknesses="",
             note="not assessable: the model returned no score for this criterion",
         )
-        s.label = CRITERION_LABELS[cid]
+        s.label = labels[cid]
         if cid != "completeness":
             s.citations = _ground_citations(s.citations, rfp, proposal, stats)
         out.append(s)

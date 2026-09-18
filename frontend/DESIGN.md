@@ -398,6 +398,9 @@ A single hairline-bottomed tab row (Issues / Requirements / Criteria), `.editori
 ### Weight Budget Bar
 A 2.25rem-tall flat bar on `paper-inset` divided into ink / ink-2 alternating segments sized by percentage, each showing its share when it exceeds 7%. Widths transition over 200ms so raising one weight is visibly taken from the others. It is the visible form of the rule that weights are shares of a fixed 100.
 
+### Custom Criterion
+The reviewer's own criterion is a row like the seven, with a `custom` Label after its name and a remove cross at the row's end. It is added through a two-field form (Name, What to check) on a hairline border under the list, never a modal, and the form says what it costs: one extra model call. Its id is a slug of its name, so the same criterion is a cache hit next time and a duplicate name is refused in place. In the review it is scored, cited and weighted like the rest, with the same `custom` Label; a criterion added after a run reads "Not scored in this run" until the next one. Five per run at most; at the limit the button gives way to a Note saying so.
+
 ## Do's and Don'ts
 
 ### Do:

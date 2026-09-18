@@ -5,7 +5,7 @@ LLM, never enter a cache key. Dragging a slider is a pure recomputation here (or
 with the same formula), not an LLM call.
 """
 
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 
 from app.normalize import normalize
 from app.schema import (
@@ -26,9 +26,14 @@ _COV = {"CONTRADICTED": 3, "MISSING": 2, "PARTIAL": 1, "ADDRESSED": 0}
 COMPLETENESS_CREDIT = {"ADDRESSED": 1.0, "PARTIAL": 0.5, "MISSING": 0.0, "CONTRADICTED": 0.0}
 
 
-def normalize_weights(weights: Mapping[str, float] | Mapping[CriterionId, float] | None) -> Weights:
-    weights = weights or {}
-    return {c: float(weights.get(c, 1.0)) for c in CRITERIA}
+def normalize_weights(
+    weights: Mapping[str, float] | Mapping[CriterionId, float] | None,
+    custom_ids: Sequence[str] = (),
+) -> Weights:
+    """Every scored criterion gets a weight: the seven fixed ids, then the run's custom ids,
+    1.0 where none was given. Other keys are dropped (the request validator rejects them)."""
+    given = {str(k): float(v) for k, v in (weights or {}).items()}
+    return {c: given.get(c, 1.0) for c in (*CRITERIA, *custom_ids)}
 
 
 def weighted_overall(scores: list[CriterionScore], weights: Weights) -> float | None:

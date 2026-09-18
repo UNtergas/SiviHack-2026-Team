@@ -32,10 +32,12 @@ def _outlines(rfp: int = 0, proposal: int = 0) -> Outlines:
     )
 
 
-def _result(overall: float | None = 1.7, weights=None, partial: bool = False) -> ScoringResult:
+def _result(
+    overall: float | None = 1.7, weights=None, partial: bool = False, custom=()
+) -> ScoringResult:
     return ScoringResult(
         overall=overall,
-        weights=normalize_weights(weights),
+        weights=normalize_weights(weights, [c.id for c in custom]),
         scores=[],
         coverage=[],
         constraintViolations=[],
@@ -90,28 +92,52 @@ def test_health_and_validation():
     assert r.status_code == 400 and r.headers["content-type"].startswith("application/json")
     assert client.post("/score", json={"proposal": "p"}).status_code != 422  # rfp is optional
     assert client.post("/score", json={"proposal": "p", "weights": {"bogus": 1}}).status_code == 422
+    crit = {"id": "custom-gdpr", "name": "GDPR", "whatToCheck": "Where is the data hosted?"}
+    for bad in (
+        {**crit, "id": "GDPR compliance"},  # not custom-<slug>
+        {**crit, "name": ""},
+        {**crit, "whatToCheck": "x" * 401},
+    ):
+        r = client.post("/score", json={"proposal": "p", "customCriteria": [bad]})
+        assert r.status_code == 422, bad
+    dup = {"proposal": "p", "customCriteria": [crit, crit]}
+    assert client.post("/score", json=dup).status_code == 422
+    six = {"proposal": "p", "customCriteria": [{**crit, "id": f"custom-{i}"} for i in range(6)]}
+    assert client.post("/score", json=six).status_code == 422
+    undeclared = {"proposal": "p", "weights": {"custom-gdpr": 2}}
+    assert client.post("/score", json=undeclared).status_code == 422
     assert client.post("/rfp/extract", json={"rfp": " "}).status_code == 400
 
 
 def test_score_blocking_returns_result_partial_and_error(monkeypatch: pytest.MonkeyPatch):
     client = TestClient(app)
 
-    async def fake(rfp, proposal, weights=None):
-        return _result(weights=weights)
+    async def fake(rfp, proposal, weights=None, custom=()):
+        return _result(weights=weights, custom=custom)
 
     monkeypatch.setattr(main, "score_proposal", fake)
     r = client.post("/score", json={"rfp": "r", "proposal": "p", "weights": {"completeness": 2}})
     assert r.status_code == 200 and r.json()["overall"] == 1.7
     assert r.json()["weights"]["completeness"] == 2.0 and r.json()["partial"] is False
+    # a declared custom criterion may carry a weight, and it reaches the pipeline
+    r = client.post(
+        "/score",
+        json={
+            "proposal": "p",
+            "weights": {"custom-gdpr": 3},
+            "customCriteria": [{"id": "custom-gdpr", "name": "GDPR", "whatToCheck": "x"}],
+        },
+    )
+    assert r.status_code == 200 and r.json()["weights"]["custom-gdpr"] == 3.0
 
-    async def partial(rfp, proposal, weights=None):
+    async def partial(rfp, proposal, weights=None, custom=()):
         return _result(overall=None, partial=True)
 
     monkeypatch.setattr(main, "score_proposal", partial)
     r = client.post("/score", json={"rfp": "r", "proposal": "p"})
     assert r.status_code == 200 and r.json()["partial"] is True and r.json()["overall"] is None
 
-    async def boom(rfp, proposal, weights=None):
+    async def boom(rfp, proposal, weights=None, custom=()):
         raise RuntimeError("gemini down")
 
     monkeypatch.setattr(main, "score_proposal", boom)
@@ -120,7 +146,7 @@ def test_score_blocking_returns_result_partial_and_error(monkeypatch: pytest.Mon
 
 
 def test_stream_emits_events_in_order(monkeypatch: pytest.MonkeyPatch):
-    async def fake_run(rfp, proposal, weights=None, provider=None):
+    async def fake_run(rfp, proposal, weights=None, provider=None, custom=()):
         yield "sections", _outlines(1, 2)
         yield (
             "requirements",
@@ -147,7 +173,7 @@ def test_stream_emits_events_in_order(monkeypatch: pytest.MonkeyPatch):
 
 
 def test_stream_turns_exception_into_error_event(monkeypatch: pytest.MonkeyPatch):
-    async def fake_run(rfp, proposal, weights=None, provider=None):
+    async def fake_run(rfp, proposal, weights=None, provider=None, custom=()):
         yield "sections", _outlines()
         raise RuntimeError("gemini down")
 
@@ -164,7 +190,7 @@ def test_stream_turns_exception_into_error_event(monkeypatch: pytest.MonkeyPatch
 def test_sse_pings_while_waiting(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(fastapi.routing, "_PING_INTERVAL", 0.01)
 
-    async def slow(rfp, proposal, weights=None, provider=None):
+    async def slow(rfp, proposal, weights=None, provider=None, custom=()):
         yield "sections", _outlines()
         await asyncio.sleep(0.05)
         yield "done", _result()
@@ -199,7 +225,7 @@ def test_rfp_extract_maps_success_and_failure(monkeypatch: pytest.MonkeyPatch):
 
 
 def test_budget_exhaustion_is_a_502(monkeypatch: pytest.MonkeyPatch):
-    async def broke(rfp, proposal, weights=None):
+    async def broke(rfp, proposal, weights=None, custom=()):
         raise usage.BudgetExceeded("LLM budget reached: $5.01 of $5.00 spent")
 
     monkeypatch.setattr(main, "score_proposal", broke)

@@ -1,8 +1,9 @@
-import { Loader2 } from "lucide-react"
+import { useState } from "react"
+import { Loader2, Plus, X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import type { Criterion, WeightSuggestion } from "@/api/schema"
-import { rebalance, redistribute } from "@/lib/score"
+import { customId, isCustom, MAX_CUSTOM, rebalance, redistribute } from "@/lib/score"
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 
@@ -56,7 +57,99 @@ function BudgetRule({ criteria }: { criteria: Criterion[] }) {
   )
 }
 
-/** The seven criteria: include or not, and how much each counts. */
+const NAME_MAX = 80
+const CHECK_MAX = 400
+
+/**
+ * The reviewer's own criterion: a name and what to check. The backend scores it 1–5 in one
+ * extra model call and cites the text like any other; the seven fixed criteria keep their
+ * cache. Its id is a slug of the name, so the same criterion is a cache hit next time.
+ */
+function AddCriterion({
+  criteria,
+  onAdd,
+  onCancel,
+}: {
+  criteria: Criterion[]
+  onAdd: (c: Criterion) => void
+  onCancel: () => void
+}) {
+  const [name, setName] = useState("")
+  const [whatToCheck, setWhatToCheck] = useState("")
+  const id = customId(name)
+  const taken = name.trim() !== "" && criteria.some((c) => c.id === id)
+  const ready = name.trim() !== "" && whatToCheck.trim() !== "" && !taken
+
+  const submit = () => {
+    if (!ready) return
+    const enabled = criteria.filter((c) => c.enabled).length
+    onAdd({
+      id,
+      name: name.trim(),
+      whatToCheck: whatToCheck.trim(),
+      enabled: true,
+      weight: Math.round(100 / (enabled + 1)),
+    })
+  }
+
+  return (
+    <form
+      aria-label="Add a custom criterion"
+      onSubmit={(e) => {
+        e.preventDefault()
+        submit()
+      }}
+      className="border-rule mt-4 border p-4"
+    >
+      <div className="grid gap-3 sm:grid-cols-2">
+        <label className="block">
+          <span className="editorial text-ink-2 mb-1.5 block">Name</span>
+          <input
+            autoFocus
+            value={name}
+            maxLength={NAME_MAX}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="GDPR & data protection"
+            className="border-rule bg-paper focus-visible:border-ink w-full border px-2.5 py-1.5 text-[0.85rem] focus-visible:outline-none"
+          />
+        </label>
+        <label className="block">
+          <span className="editorial text-ink-2 mb-1.5 block">What to check</span>
+          <input
+            value={whatToCheck}
+            maxLength={CHECK_MAX}
+            onChange={(e) => setWhatToCheck(e.target.value)}
+            placeholder="Does it say where personal data is hosted and how it is protected?"
+            className="border-rule bg-paper focus-visible:border-ink w-full border px-2.5 py-1.5 text-[0.85rem] focus-visible:outline-none"
+          />
+        </label>
+      </div>
+      <p className="text-ink-3 mt-2 text-[0.75rem] leading-snug">
+        {taken
+          ? "A criterion with this name is already listed."
+          : "Scored 1–5 by the model in one extra call, with the passage that justifies it, like the rest."}
+      </p>
+      <div className="mt-3 flex gap-2">
+        <button
+          type="submit"
+          disabled={!ready}
+          className="editorial bg-ink text-paper hover:bg-ink-2 cursor-pointer px-3 py-2 transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          Add criterion
+        </button>
+        <button
+          type="button"
+          onClick={onCancel}
+          className="editorial text-ink-2 hover:text-ink cursor-pointer px-3 py-2 transition-colors"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  )
+}
+
+/** The seven criteria plus the reviewer's own: include or not, and how much each counts. */
 export function CriteriaSetup({
   criteria,
   onChange,
@@ -81,6 +174,8 @@ export function CriteriaSetup({
 }) {
   const reasonFor = (id: string) => suggestions?.find((s) => s.criterionId === id)?.reason ?? null
   const pending = suggestState === "pending"
+  const [adding, setAdding] = useState(false)
+  const customCount = criteria.filter(isCustom).length
 
   return (
     <div>
@@ -147,7 +242,10 @@ export function CriteriaSetup({
                     className="mt-0.5 shrink-0"
                   />
                   <div className="min-w-0">
-                    <h3 className="text-ink text-[0.9rem] leading-tight font-semibold">{c.name}</h3>
+                    <h3 className="text-ink text-[0.9rem] leading-tight font-semibold">
+                      {c.name}
+                      {isCustom(c) && <span className="editorial text-ink-3 ml-2">custom</span>}
+                    </h3>
                     <p className="text-ink-2 mt-0.5 max-w-[62ch] text-[0.78rem] leading-snug">
                       {c.whatToCheck}
                     </p>
@@ -157,6 +255,17 @@ export function CriteriaSetup({
                       </p>
                     )}
                   </div>
+                  {isCustom(c) && (
+                    <button
+                      type="button"
+                      aria-label={`Remove ${c.name}`}
+                      disabled={disabled}
+                      onClick={() => onChange(rebalance(criteria.filter((x) => x.id !== c.id)))}
+                      className="text-ink-3 hover:text-ink ml-auto shrink-0 cursor-pointer transition-colors"
+                    >
+                      <X className="size-4" />
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -182,6 +291,29 @@ export function CriteriaSetup({
           )
         })}
       </ul>
+
+      {adding ? (
+        <AddCriterion
+          criteria={criteria}
+          onAdd={(c) => {
+            onChange(rebalance([...criteria, c]))
+            setAdding(false)
+          }}
+          onCancel={() => setAdding(false)}
+        />
+      ) : customCount < MAX_CUSTOM ? (
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={() => setAdding(true)}
+          className="editorial text-ink-2 hover:text-ink mt-4 inline-flex cursor-pointer items-center gap-2 transition-colors disabled:opacity-50"
+        >
+          <Plus className="size-3.5" />
+          Add a custom criterion
+        </button>
+      ) : (
+        <p className="text-ink-3 mt-4 text-[0.78rem]">Up to {MAX_CUSTOM} custom criteria per run.</p>
+      )}
     </div>
   )
 }

@@ -7,7 +7,7 @@ FastAPI backend for the FPT "Proposal Scorer" track, on a **uv** project layout
 ## Pipeline
 
 ```
-POST /score/stream {rfp?, proposal, weights?}            (POST /score = same, blocking; POST /rfp/extract = call 1 only)
+POST /score/stream {rfp?, proposal, weights?, customCriteria?}   (POST /score = same, blocking; POST /rfp/extract = call 1 only)
 
 1. parse        code   → sections with hierarchical ids (§2, §3.1; ¶n fallback)   → event: sections
 2. LLM call 1   →  requirements[] + constraints[] + suggestedWeights[]              → event: requirements
@@ -37,6 +37,7 @@ mode exists for a single local GPU (`LLM_SPLIT_CALLS=auto` picks by provider).
 | Config | `max_tokens` / `num_predict` explicit and high; `reasoning_effort` low for scoring, medium for coverage; `num_ctx` 16k on Ollama (default 4k silently cut the *prompt*); `finish_reason` checked on every call | `llm.py`, `config.py` |
 | Smaller output | coverage carries a quote only for PARTIAL / CONTRADICTED; citations are section ids, not sentences; every quote ≤ 20 words; every free-text field one sentence; completeness never asked of the model | `schema.py`, `prompts.py` |
 | Split calls | 2a triage, then three parallel groups each owning a subset of criteria and finding types; per-group failure nulls only that group's criteria | `pipeline.py`, `prompts.GROUPS` |
+| Custom criteria | up to five per request (`customCriteria`: id `custom-<slug>`, name, what to check), scored in one extra call under group `custom` in either mode, cached on the criteria text; the fixed calls' cache keys and recordings never change | `prompts.build_custom_prompt`, `schema.CustomCriterion` |
 | Salvage | a cut or malformed answer goes through `json_repair`; if the prefix validates it is used and reported (`meta.truncated`, `warnings`, `partial: true`); otherwise one retry with the problem appended and a strict schema | `llm.call_json` |
 
 ### Nothing blanks the screen
@@ -47,6 +48,7 @@ mode exists for a single local GPU (`LLM_SPLIT_CALLS=auto` picks by provider).
 | call 1 fails (after retry) | HTTP 502 / SSE `error` — there is nothing worth showing |
 | 2a (or the merged call) fails | `done` with `partial: true`, `error`, and the requirements from call 1 |
 | a 2b group fails | its criteria `null` with a note; the other groups score; `warnings`, `partial: true` |
+| the custom-criteria call fails | those criteria `null` with a note; the seven fixed still score; `warnings`, `partial: true` |
 | an output is cut | salvaged prefix used; `meta.truncated`, `warnings`, `partial: true`; the cache remembers it |
 
 ## Run with Docker (the demo path)

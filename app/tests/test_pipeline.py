@@ -16,11 +16,19 @@ from app.prompts import (
     GROUPS,
     PROMPT_VERSION,
     build_coverage_prompt,
+    build_custom_prompt,
     build_extract_prompt,
     build_group_prompt,
     build_score_prompt,
+    custom_group,
 )
-from app.schema import CRITERIA, CoverageLlmOutput, RfpExtraction, ScoringResult
+from app.schema import (
+    CRITERIA,
+    CoverageLlmOutput,
+    CustomCriterion,
+    RfpExtraction,
+    ScoringResult,
+)
 from app.signals import compute_signals, render_signals
 from app.splitter import parse
 
@@ -166,6 +174,16 @@ ANSWERS: dict[str, dict[str, Any]] = {
     "merged": MERGED,
     **{f"group:{gid}": ans for gid, ans in GROUP_ANSWERS.items()},
 }
+CUSTOM = [
+    CustomCriterion(
+        id="custom-gdpr",
+        name="GDPR compliance",
+        whatToCheck="Does the proposal say where personal data is hosted and how it is protected?",
+    )
+]
+ANSWERS["group:custom"] = {
+    "scores": [_score("custom-gdpr", 2, [{"source": "proposal", "section": "§4", "quote": None}])]
+}
 # equal weights except risk ×2: (2 + 3 + 4 + 2 + completeness 4 + 3 + 1·2) / 8
 # completeness: r1 1 + r3 0 + r6 0.5 + r8 1 = 2.5/4 → round(1 + 2.5) = 4
 EXPECTED_OVERALL = round((2 + 3 + 4 + 2 + 4 + 3 + 1 * 2) / 8, 2)
@@ -209,9 +227,11 @@ class FakeProvider(LlmProvider):
         return Completion(text, False)
 
 
-def _events(rfp: str, proposal: str, weights=None, provider=None) -> list[tuple[str, Any]]:
+def _events(
+    rfp: str, proposal: str, weights=None, provider=None, custom=()
+) -> list[tuple[str, Any]]:
     async def collect():
-        return [(e, p) async for e, p in pipeline.run(rfp, proposal, weights, provider)]
+        return [(e, p) async for e, p in pipeline.run(rfp, proposal, weights, provider, custom)]
 
     return asyncio.run(collect())
 
@@ -552,3 +572,91 @@ def test_progress_notes_say_what_each_stage_is_doing(cache: Path, split: None, c
     assert any(" done in " in line and "overall=" in line for line in lines)
     tags = {line.split(" ")[0] for line in lines if line.startswith("[")}
     assert len(tags) == 1 and len(next(iter(tags))) == 6  # "[abcd]"
+
+
+# ---- custom criteria ---------------------------------------------------------------------
+
+
+def test_custom_prompt_carries_the_reviewers_criteria_and_asks_for_no_findings():
+    rdoc, pdoc = parse(RFP), parse(OVER)
+    ext = RfpExtraction.model_validate(EXTRACT)
+    cov = CoverageLlmOutput.model_validate(COVERAGE)
+    g = custom_group(CUSTOM)
+    assert g.id == "custom" and g.criteria == ("custom-gdpr",) and g.finding_types == ()
+    cp = build_custom_prompt(CUSTOM, ext, pdoc, cov.coverage, cov.constraintViolations, rdoc)
+    assert cp.startswith("You score") and "Group id: custom" in cp
+    assert "custom-gdpr — GDPR compliance" in cp and "What to check: Does the proposal say" in cp
+    assert "exactly 1 object," in cp and "ids exactly: custom-gdpr" in cp
+    assert "findings[]" not in cp and "[§1 Background]" in cp and "VIOLATION c1 HIGH" in cp
+
+
+def test_custom_criteria_score_in_their_own_call_and_leave_the_fixed_calls_cached(
+    cache: Path, split: None
+):
+    p = FakeProvider()
+    asyncio.run(pipeline.score_proposal(RFP, OVER, provider=p))  # the five fixed calls, now cached
+    done = asyncio.run(
+        pipeline.score_proposal(RFP, OVER, {"custom-gdpr": 2}, provider=p, custom=CUSTOM)
+    )
+    assert p.calls[5:] == ["group:custom"]  # one extra call; nothing fixed re-runs
+    assert [s.id for s in done.scores] == [*CRITERIA, "custom-gdpr"]
+    gdpr = done.scores[-1]
+    assert gdpr.label == "GDPR compliance" and gdpr.score == 2
+    assert [(c.section, c.grounding) for c in gdpr.citations] == [("§4", "verified")]
+    assert done.weights["custom-gdpr"] == 2.0 and done.weights["completeness"] == 1.0
+    assert done.overall == round((2 + 3 + 4 + 2 + 4 + 3 + 1 + 2 * 2) / 9, 2)
+    assert done.partial is False and done.meta.llmCalls == 1 and done.meta.scoreCached is False
+    assert len(done.findings) == 2  # the fixed groups' findings, untouched
+
+    # the custom call is cached on the criterion's text: same text → no call, new text → one
+    asyncio.run(pipeline.score_proposal(RFP, OVER, provider=p, custom=CUSTOM))
+    assert len(p.calls) == 6
+    reworded = [
+        CUSTOM[0].model_copy(update={"whatToCheck": "Is a data processing agreement offered?"})
+    ]
+    asyncio.run(pipeline.score_proposal(RFP, OVER, provider=p, custom=reworded))
+    assert p.calls[6:] == ["group:custom"]
+
+    # the trace names the extra group and reports it without a findings count
+    notes = [n.message for e, n in _events(RFP, OVER, provider=p, custom=CUSTOM) if e == "progress"]
+    assert len(p.calls) == 7
+    assert any(
+        "scoring 7 criteria in 4 parallel groups: understanding, commercials, risk, custom" in m
+        for m in notes
+    )
+    assert any(m.startswith("custom scored: 1 criterion") and "finding" not in m for m in notes)
+
+
+def test_custom_group_failure_nulls_only_the_custom_criteria(cache: Path, split: None):
+    p = FakeProvider(fail={"group:custom"})
+    done = asyncio.run(pipeline.score_proposal(RFP, OVER, provider=p, custom=CUSTOM))
+    assert p.calls.count("group:custom") == 2  # its strict retry failed too
+    gdpr = done.scores[-1]
+    assert gdpr.score is None and gdpr.label == "GDPR compliance"
+    assert "'custom' failed" in (gdpr.note or "")
+    assert done.partial is True and any("scoring group 'custom' failed" in w for w in done.warnings)
+    assert done.overall == round(19 / 7, 2)  # the seven fixed criteria at equal weight
+    assert len(done.findings) == 2
+
+
+def test_custom_criteria_are_scored_in_merged_mode_too(cache: Path):
+    p = FakeProvider()
+    events = _events(RFP, OVER, provider=p, custom=CUSTOM)
+    done = events[-1][1]
+    assert p.calls == ["extract", "merged", "group:custom"] and done.meta.mode == "merged"
+    assert done.scores[-1].id == "custom-gdpr" and done.scores[-1].score == 2
+    assert any("in one more call" in n.message for e, n in events if e == "progress")
+
+
+def test_custom_criterion_the_model_skipped_is_null_with_a_note(cache: Path, split: None):
+    two = [
+        *CUSTOM,
+        CustomCriterion(
+            id="custom-accessibility", name="Accessibility", whatToCheck="WCAG 2.2 AA committed?"
+        ),
+    ]
+    done = asyncio.run(pipeline.score_proposal(RFP, OVER, provider=FakeProvider(), custom=two))
+    assert [s.id for s in done.scores[-2:]] == ["custom-gdpr", "custom-accessibility"]
+    skipped = done.scores[-1]
+    assert skipped.score is None and skipped.label == "Accessibility"
+    assert "returned no score" in (skipped.note or "") and done.partial is False

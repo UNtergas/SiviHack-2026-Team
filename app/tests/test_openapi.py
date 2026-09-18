@@ -38,7 +38,13 @@ def test_contract_carries_everything_a_generator_needs():
     result = c["ScoringResult"]
     assert result["properties"]["sections"] == {"$ref": "#/components/schemas/Outlines"}
     assert result["properties"]["weights"] == {"$ref": "#/components/schemas/Weights"}
-    assert c["Weights"]["propertyNames"] == {"$ref": "#/components/schemas/CriterionId"}
+    assert c["Weights"] == {"additionalProperties": {"type": "number"}, "type": "object"}
+    custom = c["ScoreRequest"]["properties"]["customCriteria"]
+    assert custom["items"] == {"$ref": "#/components/schemas/CustomCriterion"}
+    assert custom["maxItems"] == 5
+    assert c["CustomCriterion"]["properties"]["id"]["pattern"].startswith("^custom-")
+    assert c["CriterionScore"]["properties"]["id"] == {"type": "string", "title": "Id"}
+    assert "FixedCriterionScore" not in c  # LLM-facing only; the wire carries custom ids too
     assert {"quote", "grounding"} <= set(c["Citation"]["required"])
     assert {"partial", "warnings", "error"} <= set(result["required"])
     assert not [k for k in c if k.endswith("-Input") or k.endswith("-Output")]

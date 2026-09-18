@@ -1,7 +1,8 @@
 """FastAPI routes. nginx strips /api, so these are /health, /score, /score/stream, /rfp/extract.
 
 POST /score          blocking: the full ScoringResult (200 even when `partial`); 400 blank
-                     proposal; 502 when the LLM call failed after its retry.
+                     proposal; 502 when the LLM call failed after its retry. `customCriteria`
+                     (up to five) are scored in one extra model call.
 POST /score/stream   Server-Sent Events, one frame per stage (schema.StreamEvent):
                      sections → requirements → coverage → scores → findings → done, or `error`
                      (terminal). FastAPI's native SSE adds `: ping` every 15 s while a call is
@@ -66,7 +67,7 @@ async def health() -> dict[str, bool]:
 @app.post("/score", tags=["score"], responses={400: BLANK_PROPOSAL, 502: UPSTREAM})
 async def score(req: Annotated[ScoreRequest, Depends(valid_score_request)]) -> ScoringResult:
     try:
-        return await score_proposal(req.rfp, req.proposal, req.weights)
+        return await score_proposal(req.rfp, req.proposal, req.weights, custom=req.customCriteria)
     except Exception as e:
         log.exception("scoring failed")
         raise HTTPException(502, f"scoring failed: {type(e).__name__}: {e}") from e
@@ -99,7 +100,9 @@ async def stream(
     socket."""
     stage = "sections"
     try:
-        async for event, payload in run(req.rfp, req.proposal, req.weights):
+        async for event, payload in run(
+            req.rfp, req.proposal, req.weights, custom=req.customCriteria
+        ):
             stage = event
             yield ServerSentEvent(event=event, data=payload)
     except Exception as e:

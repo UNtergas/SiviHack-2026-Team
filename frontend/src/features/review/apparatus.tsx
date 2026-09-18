@@ -7,7 +7,6 @@ import type {
   Constraint,
   ConstraintKind,
   Criterion,
-  CriterionId,
   CriterionScore,
   FindingType,
   Issue,
@@ -20,7 +19,7 @@ import { CitationRef } from "@/components/apparatus/citation-ref"
 import { Lemma } from "@/components/apparatus/lemma"
 import { useCollation } from "@/components/apparatus/collation"
 import { Slider } from "@/components/ui/slider"
-import { redistribute } from "@/lib/score"
+import { isCustom, redistribute } from "@/lib/score"
 
 /* --------------------------------------------------------------------------
    Severity is set in type, not in colour. Position, weight and case carry the
@@ -195,7 +194,7 @@ function ScoreMarks({ score }: { score: number | null }) {
 }
 
 /** What code found in the draft for this criterion; absence is evidence too. */
-function EvidenceLine({ id, signals }: { id: CriterionId; signals: Signal[] }) {
+function EvidenceLine({ id, signals }: { id: string; signals: Signal[] }) {
   const expects =
     id === "pricing_clarity"
       ? { kind: "amount", words: "amounts" }
@@ -231,7 +230,7 @@ export function CriteriaPanel({
 }: {
   criteria: Criterion[]
   scores: CriterionScore[]
-  evidence: Partial<Record<CriterionId, Signal[]>>
+  evidence: Partial<Record<string, Signal[]>>
   /** When present, weights become live and the verdict recomputes as they move. */
   onCriteria?: (next: Criterion[]) => void
 }) {
@@ -244,7 +243,7 @@ export function CriteriaPanel({
         .map((c) => {
           const s = byId.get(c.id) ?? null
           const score = s?.score ?? null
-          const rawNote = s ? s.note : "No score returned."
+          const rawNote = s ? s.note : "Not scored in this run: added after it. Re-run to include it."
           const note = rawNote
             ? capital(rawNote) + (score === null && !rawNote.endsWith(".") ? "." : "") + (score === null ? " Not counted in the overall." : "")
             : null
@@ -259,6 +258,7 @@ export function CriteriaPanel({
                     className="text-[1rem] leading-snug font-semibold"
                   >
                     {c.name}
+                    {isCustom(c) && <span className="editorial text-ink-3 ml-2 font-sans font-normal">custom</span>}
                   </Lemma>
                   <div className="flex items-center gap-2.5">
                     <ScoreMarks score={score} />

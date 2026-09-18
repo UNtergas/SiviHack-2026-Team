@@ -1,0 +1,13 @@
+{
+ "kind": "group:custom",
+ "model": "gemini-3.8-flash",
+ "prompt_head": "You score a draft PROPOSAL on 1 review criterion that the reviewer defined for t",
+ "truncated": false,
+ "usage": {
+  "prompt": 2176,
+  "output": 149,
+  "thinking": 0,
+  "cached": 0
+ },
+ "text": "{\n  \"scores\": [\n    {\n      \"id\": \"custom-gdpr-data-protection\",\n      \"label\": \"GDPR & data protection\",\n      \"score\": 1,\n      \"strengths\": null,\n      \"weaknesses\": \"A score of 5 would require detailing the hosting location for personal data along with specific technical and organizational security measures.\",\n      \"citations\": [\n        {\n          \"source\": \"rfp\",\n          \"section\": \"§1\",\n          \"quote\": \"NordFrame Logistics operates 6 regional warehouses across Germany and Austria.\"\n        }\n      ],\n      \"note\": null\n    }\n  ]\n}"
+}

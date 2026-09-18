@@ -7,7 +7,8 @@
 4. LLM call 2           split (gemini):  2a coverage + violations               → "coverage"
                                          2b three groups in parallel: findings → scores
                         merged (local):  one call, coverage → violations → findings → scores
-                        cache: hash(prompt version, model, rfp, proposal[, group])
+                        either:          2b+ the reviewer's own criteria, one extra call
+                        cache: hash(prompt version, model, rfp, proposal[, group[, criteria]])
 5. grounding    code    normalise + fuzzy + section check; drop unverified, count them;
                         completeness computed from coverage; findings de-duplicated
 6. aggregate    code    overall = Σ(score × weight) / Σ(weight); sort by severity → "scores", "findings", "done"
@@ -24,7 +25,7 @@ import json
 import logging
 import secrets
 import time
-from collections.abc import AsyncIterator
+from collections.abc import AsyncIterator, Sequence
 from pathlib import Path
 from typing import Any
 
@@ -47,13 +48,16 @@ from app.grounding import (
 )
 from app.llm import CallStats, LlmProvider, call_json, get_provider
 from app.prompts import (
+    CUSTOM_GROUP_ID,
     GROUPS,
     PROMPT_VERSION,
     Group,
     build_coverage_prompt,
+    build_custom_prompt,
     build_extract_prompt,
     build_group_prompt,
     build_score_prompt,
+    custom_group,
 )
 from app.schema import (
     LLM_CRITERIA as LLM_CRITERIA_IDS,
@@ -62,6 +66,8 @@ from app.schema import (
     CoverageEvent,
     CoverageLlmOutput,
     CriterionScore,
+    CustomCriterion,
+    CustomScoresLlmOutput,
     EventPayload,
     Finding,
     FindingsEvent,
@@ -213,7 +219,11 @@ async def extract_rfp(
     return ext, st, hit, gstats
 
 
-_PLURALS = {"criterion": "criteria", "near match": "near matches"}
+_PLURALS = {
+    "criterion": "criteria",
+    "custom criterion": "custom criteria",
+    "near match": "near matches",
+}
 
 
 def _plural(n: int, word: str) -> str:
@@ -237,11 +247,12 @@ async def run(
     proposal: str,
     weights: Weights | None = None,
     provider: LlmProvider | None = None,
+    custom: Sequence[CustomCriterion] = (),
 ) -> AsyncIterator[Event]:
     t0 = time.time()
     tag = f"[{secrets.token_hex(2)}]"  # one run's lines stay readable when two people run at once
     provider = provider or get_provider()
-    norm_weights = normalize_weights(weights)
+    norm_weights = normalize_weights(weights, [c.id for c in custom])
     mode: ScoringMode = "split" if split_mode(provider) else "merged"
     calls = CallStats()
     warnings: list[str] = []
@@ -265,6 +276,10 @@ async def run(
         provider.name,
         provider.model,
     )
+    if custom:
+        log.info(
+            "%s run: %d custom criteria: %s", tag, len(custom), ", ".join(c.id for c in custom)
+        )
     yield "sections", sections
 
     # -- call 1 ----------------------------------------------------------------------------
@@ -405,28 +420,52 @@ async def run(
         )
     yield "coverage", CoverageEvent(coverage=coverage, constraintViolations=violations)
 
-    # -- call 2b: three groups in parallel (split) --------------------------------------------
+    # -- call 2b: three groups in parallel (split), plus one for the reviewer's own criteria --
     stage = "scores"
     raw_scores: list[CriterionScore] = []
     raw_findings: list[Finding] = []
     failed: dict[str, str] = {}
+    groups: list[Group] = [] if merged is not None else list(GROUPS)
+    if custom:
+        groups.append(custom_group(custom))
     if merged is not None:
-        raw_scores, raw_findings = merged.scores, merged.findings
+        raw_scores, raw_findings = list(merged.scores), list(merged.findings)
         yield progress(
             f"{_plural(len(merged.scores), 'criterion score')} and {_plural(len(merged.findings), 'finding')} returned"
         )
-    else:
-        yield progress(
-            f"Found {_plural(n_sig, 'signal')} in the draft (vague phrases, amounts, dates); "
-            f"scoring {len(LLM_CRITERIA_IDS)} criteria in {len(GROUPS)} parallel groups: "
-            + ", ".join(g.id for g in GROUPS)
-            + "…"
+    if groups:
+        if merged is None:
+            yield progress(
+                f"Found {_plural(n_sig, 'signal')} in the draft (vague phrases, amounts, dates); "
+                f"scoring {len(LLM_CRITERIA_IDS) + len(custom)} criteria in {len(groups)} parallel groups: "
+                + ", ".join(g.id for g in groups)
+                + "…"
+            )
+        else:
+            yield progress(
+                f"Scoring your {_plural(len(custom), 'custom criterion')} in one more call…"
+            )
+        # The custom call's cache key carries the criteria text; the fixed groups' keys do not.
+        custom_key = json.dumps(
+            [c.model_dump() for c in custom], ensure_ascii=False, sort_keys=True
         )
 
         async def scored(
             g: Group,
-        ) -> tuple[Group, tuple[GroupLlmOutput, CallStats, bool] | BaseException]:
+        ) -> tuple[
+            Group, tuple[GroupLlmOutput | CustomScoresLlmOutput, CallStats, bool] | BaseException
+        ]:
             try:
+                if g.id == CUSTOM_GROUP_ID:
+                    return g, await cached_call(
+                        f"group:{g.id}",
+                        (*doc_key, custom_key),
+                        CustomScoresLlmOutput,
+                        build_custom_prompt(custom, ext, pdoc, coverage, violations, rdoc),
+                        provider,
+                        _reasoning(config.REASONING_EFFORT),
+                        tag,
+                    )
                 return g, await cached_call(
                     f"group:{g.id}",
                     doc_key,
@@ -447,8 +486,8 @@ async def run(
             except Exception as e:
                 return g, e
 
-        outputs: dict[str, GroupLlmOutput] = {}
-        for fut in asyncio.as_completed([scored(g) for g in GROUPS]):
+        outputs: dict[str, GroupLlmOutput | CustomScoresLlmOutput] = {}
+        for fut in asyncio.as_completed([scored(g) for g in groups]):
             g, res = await fut
             if isinstance(res, BaseException):
                 failed[g.id] = f"{type(res).__name__}: {res}"
@@ -462,21 +501,29 @@ async def run(
             score_cached &= hit
             outputs[g.id] = out
             yield progress(
-                f"{g.id} scored: {_plural(len(out.scores), 'criterion')}, "
-                f"{_plural(len(out.findings), 'finding')}" + (" (from cache)" if hit else "")
+                f"{g.id} scored: {_plural(len(out.scores), 'criterion')}"
+                + (
+                    f", {_plural(len(out.findings), 'finding')}"
+                    if isinstance(out, GroupLlmOutput)
+                    else ""
+                )
+                + (" (from cache)" if hit else "")
             )
-        for g in GROUPS:  # a fixed order, whatever the completion order was
-            if g.id in outputs:
-                raw_scores += outputs[g.id].scores
-                raw_findings += outputs[g.id].findings
+        for g in groups:  # a fixed order, whatever the completion order was
+            out = outputs.get(g.id)
+            if out is None:
+                continue
+            raw_scores += out.scores
+            if isinstance(out, GroupLlmOutput):
+                raw_findings += out.findings
         for gid, err in failed.items():
             warnings.append(f"scoring group '{gid}' failed: {err}")
 
     # -- grounding + aggregation ----------------------------------------------------------------
     stage = "findings"
     before = (gstats.dropped, gstats.fuzzy)
-    scores = ground_scores(raw_scores, coverage, ext, rdoc, pdoc, gstats)
-    for g in GROUPS:
+    scores = ground_scores(raw_scores, coverage, ext, rdoc, pdoc, gstats, custom)
+    for g in groups:
         if g.id in failed:
             for s_ in scores:
                 if s_.id in g.criteria:
@@ -530,9 +577,10 @@ async def score_proposal(
     proposal: str,
     weights: Weights | None = None,
     provider: LlmProvider | None = None,
+    custom: Sequence[CustomCriterion] = (),
 ) -> ScoringResult:
     """Blocking form of `run`: the payload of the final "done" event."""
-    async for event, payload in run(rfp, proposal, weights, provider):
+    async for event, payload in run(rfp, proposal, weights, provider, custom):
         if event == "done":
             assert isinstance(payload, ScoringResult)
             return payload

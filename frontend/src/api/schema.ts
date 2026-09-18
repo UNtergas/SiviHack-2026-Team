@@ -31,8 +31,11 @@ export type {
 
 export type Siglum = "R" | "P"
 
-/** UI weights: shares of 100 keyed by criterion; a disabled criterion is sent as 0. */
-export type Weights = Record<CriterionId, number>
+/**
+ * UI weights: shares of 100 keyed by criterion id. A disabled fixed criterion is sent as 0;
+ * a disabled custom one is not sent at all (it would cost a model call for nothing).
+ */
+export type Weights = Record<string, number>
 
 export interface Citation {
   witness: Siglum
@@ -119,7 +122,8 @@ export interface Constraint {
 }
 
 export interface Criterion {
-  id: CriterionId
+  /** A backend `CriterionId`, or `custom-<slug>` for one the reviewer added (`isCustom`). */
+  id: string
   name: string
   whatToCheck: string
   enabled: boolean
@@ -128,7 +132,7 @@ export interface Criterion {
 }
 
 export interface CriterionScore {
-  criterionId: CriterionId
+  criterionId: string
   /** 1–5, or null when not assessable (see `note`). */
   score: number | null
   strength: string | null

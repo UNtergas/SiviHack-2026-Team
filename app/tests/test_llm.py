@@ -22,7 +22,13 @@ from app.llm import (
     llm_schema,
     strict_schema,
 )
-from app.schema import GroupLlmOutput, RfpExtraction, ScoreLlmOutput
+from app.schema import (
+    CRITERIA,
+    CustomScoresLlmOutput,
+    GroupLlmOutput,
+    RfpExtraction,
+    ScoreLlmOutput,
+)
 
 EXTRACT: dict[str, Any] = {
     "requirements": [{"id": "r1", "label": "x", "rfpQuote": "q", "section": None}],
@@ -57,7 +63,14 @@ def test_llm_schema_hides_code_owned_fields_and_keeps_reasoning_order():
         assert "grounding" not in node.get("properties", {})
         assert "grounding" not in node.get("required", [])
     assert list(schema["properties"]) == ["coverage", "constraintViolations", "findings", "scores"]
-    assert list(llm_schema(GroupLlmOutput)["properties"]) == ["findings", "scores"]
+    group = llm_schema(GroupLlmOutput)
+    assert list(group["properties"]) == ["findings", "scores"]
+    # a fixed-criteria call can only name the rubric's ids; the custom call takes any id
+    fixed_id = group["$defs"]["FixedCriterionScore"]["properties"]["id"]
+    assert fixed_id == {"$ref": "#/$defs/CriterionId"}
+    assert set(group["$defs"]["CriterionId"]["enum"]) == set(CRITERIA)
+    custom_id = llm_schema(CustomScoresLlmOutput)["$defs"]["CriterionScore"]["properties"]["id"]
+    assert custom_id == {"type": "string", "title": "Id"}
     cs = schema["$defs"]["CriterionScore"]
     assert "score" in cs["required"]  # required-but-nullable: the model must write null
     assert {"type": "null"} in cs["properties"]["score"]["anyOf"]

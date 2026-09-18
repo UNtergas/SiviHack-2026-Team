@@ -14,6 +14,9 @@ stage by stage:
   deliverables, pricing, timeline, completeness vs RFP, tone, risk transparency), each with a
   one-sentence weakness and, where earned, a strength. The overall is a weighted mean computed
   in code; the weight sliders recompute it instantly without a model call.
+- **Configurable criteria**: switch any of the seven off, change its weight, or add up to
+  five of your own (a name and what to check). A custom criterion is scored 1–5 by the model
+  in one extra call and cited like the rest; the seven fixed criteria keep their cache.
 - **Requirement coverage table** derived from the RFP: every explicit ask marked addressed,
   partial, not found or contradicted, with the RFP passage and the answering proposal passage.
 - **Constraint violations kept apart from risk findings**: a proposal that crosses a hard
@@ -95,8 +98,11 @@ code in `app/src/app/aggregate.py` and `frontend/src/lib/score.ts`; streaming in
 
 - Markdown and plain text only; no PDF or PowerPoint import.
 - English prompts and rubric.
-- Five model calls per review (about 5–20 seconds and about USD 0.06 on Gemini 3.8 Flash);
-  a free-tier key can hit its per-minute limit when two people run at once.
+- Five model calls per review, six with custom criteria (about 5–20 seconds and about
+  USD 0.06 on Gemini 3.8 Flash); a free-tier key can hit its per-minute limit when two
+  people run at once.
+- A custom criterion is judged on its one-line instruction with generic 1 / 3 / 5 anchors,
+  not a tuned rubric, and it yields a score with citations but no findings of its own.
 - Quotes are at most 20 words and are dropped when the model paraphrases (the count is in
   `meta.ungroundedDropped`); a near match is shown with a "≈" mark.
 - Completeness is derived from coverage, not judged by the model.

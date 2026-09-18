@@ -1,4 +1,10 @@
-import type { RequirementsEvent, ScoreRequest, ScoringResult, StreamEvent } from "@/api/generated/types.gen"
+import type {
+  CriterionScore,
+  RequirementsEvent,
+  ScoreRequest,
+  ScoringResult,
+  StreamEvent,
+} from "@/api/generated/types.gen"
 import { zRequirementsEvent, zScoringResult } from "@/api/generated/zod.gen"
 import type { ReviewInput, WeightAdvice } from "@/api/schema"
 import { adaptSuggestions } from "@/api/adapt"
@@ -11,7 +17,7 @@ import medium from "@/api/fixtures/results/medium.json"
 import strong from "@/api/fixtures/results/strong.json"
 import overpromise from "@/api/fixtures/results/overpromise.json"
 import { canonical } from "@/lib/quote"
-import { overallOf, weightsOf } from "@/lib/score"
+import { customOf, overallOf, weightsOf } from "@/lib/score"
 
 /**
  * The one client. Every request in the app originates here or in `stream.ts`, so headers,
@@ -29,12 +35,13 @@ export const MOCK = API === ""
 
 const MOCK_LATENCY = { step: 420, jitter: 160 }
 
-/** The request as the backend takes it: canonical text, the current weights. */
+/** The request as the backend takes it: canonical text, the current weights, the reviewer's own criteria. */
 export function requestFor(input: ReviewInput): ScoreRequest {
   return {
     rfp: canonical(input.rfp),
     proposal: canonical(input.proposal),
     weights: weightsOf(input.criteria),
+    customCriteria: customOf(input.criteria),
   }
 }
 
@@ -129,8 +136,21 @@ async function* mockStream(input: ReviewInput, signal?: AbortSignal): AsyncGener
   }
   const weights = weightsOf(input.criteria)
   const base = recorded(sample)
+  // The recording holds the seven fixed scores; a custom criterion needs the live backend.
+  const scores: CriterionScore[] = [
+    ...base.scores,
+    ...customOf(input.criteria).map((c) => ({
+      id: c.id,
+      label: c.name,
+      score: null,
+      strengths: null,
+      weaknesses: "",
+      citations: [],
+      note: "not assessable: custom criteria are scored by the live backend; this build replays recordings",
+    })),
+  ]
   // The recording was made with equal weights; apply this run's weights the way the backend would.
-  const result: ScoringResult = { ...base, weights, overall: overallOf(base.scores, weights) }
+  const result: ScoringResult = { ...base, weights, scores, overall: overallOf(scores, weights) }
   for (const frame of eventsFrom(result)) {
     await wait(MOCK_LATENCY.step + Math.random() * MOCK_LATENCY.jitter, signal)
     yield frame

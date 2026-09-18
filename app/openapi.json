@@ -525,7 +525,8 @@
       "CriterionScore": {
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/CriterionId"
+            "type": "string",
+            "title": "Id"
           },
           "label": {
             "type": "string",
@@ -591,6 +592,36 @@
           "note"
         ],
         "title": "CriterionScore"
+      },
+      "CustomCriterion": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 48,
+            "pattern": "^custom-[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "whatToCheck": {
+            "type": "string",
+            "maxLength": 400,
+            "minLength": 1,
+            "title": "Whattocheck"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "whatToCheck"
+        ],
+        "title": "CustomCriterion",
+        "description": "A criterion the reviewer adds for one run: a name and what to check, scored 1–5 by the\nmodel in its own call and weighted like any other. The client chooses the id (`custom-`\nplus a slug of the name), so the same criterion is a cache hit next time."
       },
       "DocOutline": {
         "properties": {
@@ -1044,6 +1075,15 @@
                 "type": "null"
               }
             ]
+          },
+          "customCriteria": {
+            "items": {
+              "$ref": "#/components/schemas/CustomCriterion"
+            },
+            "type": "array",
+            "maxItems": 5,
+            "title": "Customcriteria",
+            "default": []
           }
         },
         "type": "object",
@@ -1521,9 +1561,6 @@
       "Weights": {
         "additionalProperties": {
           "type": "number"
-        },
-        "propertyNames": {
-          "$ref": "#/components/schemas/CriterionId"
         },
         "type": "object"
       }

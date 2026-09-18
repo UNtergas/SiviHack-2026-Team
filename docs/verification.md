@@ -116,6 +116,17 @@ button is greyed with "Paste the RFP first." Run, then "Apply to draft" on the f
 "applied to the draft" beside its chips and the banner "The draft has changed since this
 review ran…" with "Re-run against the edited draft"; "Revert" removes both.
 
+Custom criterion: under the criteria list, "Add a custom criterion" → Name "GDPR & data
+protection", What to check "Does it say where personal data is hosted and how it is
+protected?" → "Add criterion" → an eighth row with a `custom` tag, a "Remove GDPR & data
+protection" cross and a share of the 100; the budget bar re-proportions. Run → the trace
+reads "scoring 7 criteria in 4 parallel groups: understanding, commercials, risk, custom…"
+then "custom scored: 1 criterion"; Criteria shows "GDPR & data protection custom ] N/5"
+with a weakness and a citation, and "Criteria 8". In replay mode exactly this wording is
+recorded (id `custom-gdpr-data-protection`); any other text is a replay miss, which the
+review reports as the custom group failing: "Partial review" and the row reading "—".
+Remove the row → the next run sends no extra call.
+
 ## E11. Mock mode (no backend)
 
 Restart Terminal 2 as `npm run dev` with no `VITE_API_URL`. "Medium" → Run → the review from

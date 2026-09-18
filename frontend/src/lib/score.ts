@@ -1,4 +1,34 @@
+import type { CustomCriterion } from "@/api/generated/types.gen"
 import type { Criterion, CriterionScore, Verdict, Weights } from "@/api/schema"
+
+/** The reviewer's own criteria carry a `custom-` id; the backend scores them in an extra call. */
+export const isCustom = (c: { id: string }) => c.id.startsWith("custom-")
+
+/** The backend's ceiling per run (schema.MAX_CUSTOM_CRITERIA). */
+export const MAX_CUSTOM = 5
+
+/**
+ * The id the backend expects for a custom criterion: `custom-` plus a slug of the name. It is
+ * deterministic on purpose, so the same criterion is a cache hit on the next run.
+ */
+export function customId(name: string): string {
+  const slug = name
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 40)
+    .replace(/-+$/, "")
+  return `custom-${slug || "criterion"}`
+}
+
+/** The custom criteria to send: the enabled ones, in the backend's shape. */
+export function customOf(criteria: Criterion[]): CustomCriterion[] {
+  return criteria
+    .filter((c) => c.enabled && isCustom(c))
+    .map(({ id, name, whatToCheck }) => ({ id, name, whatToCheck }))
+}
 
 /**
  * Weights are shares of a fixed 100 and they compete: raising one takes from
@@ -73,9 +103,11 @@ function settle(criteria: Criterion[], pinned?: string): Criterion[] {
   return criteria.map((c) => (c.enabled ? { ...c, weight: floors.get(c.id) ?? 0 } : c))
 }
 
-/** The weights as the backend takes them: every criterion, disabled ones at 0. */
+/** The weights as the backend takes them: every fixed criterion (disabled at 0); custom ones only while enabled. */
 export function weightsOf(criteria: Criterion[]): Weights {
-  return Object.fromEntries(criteria.map((c) => [c.id, c.enabled ? c.weight : 0])) as Weights
+  return Object.fromEntries(
+    criteria.filter((c) => c.enabled || !isCustom(c)).map((c) => [c.id, c.enabled ? c.weight : 0]),
+  )
 }
 
 /**

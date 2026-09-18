@@ -290,7 +290,7 @@ export function WitnessPane({
 
       <div
         data-pane
-        className="relative min-h-0 flex-1 overflow-y-auto overscroll-contain py-3 [&>:first-child]:mt-0"
+        className="relative min-h-0 flex-1 overflow-y-auto py-3 xl:overscroll-contain [&>:first-child]:mt-0"
         tabIndex={0}
       >
         <Markdown remarkPlugins={plugins} components={components}>

@@ -558,7 +558,7 @@ function ReviewBody({
 
   const apparatus = (
     <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-      <nav className="border-rule flex shrink-0 gap-0 overflow-x-auto border-b" aria-label="Review sections">
+      <nav className="border-rule flex shrink-0 flex-wrap gap-0 border-b" aria-label="Review sections">
         {PANELS.map((p) => (
           <button
             key={p.id}
@@ -740,7 +740,7 @@ function ReviewBody({
           {noRfp ? null : showR ? (
             <WitnessPane
               witness={witnesses.R}
-              className="border-rule min-h-[22rem] border-t"
+              className="border-rule max-h-svh min-h-[22rem] border-t"
               onHide={() => toggle("R")}
             />
           ) : (
@@ -749,7 +749,7 @@ function ReviewBody({
           {shown.P ? (
             <WitnessPane
               witness={witnesses.P}
-              className="border-rule min-h-[22rem] border-t"
+              className="border-rule max-h-svh min-h-[22rem] border-t"
               onHide={() => toggle("P")}
             />
           ) : (

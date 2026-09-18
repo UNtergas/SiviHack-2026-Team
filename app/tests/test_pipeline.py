@@ -660,3 +660,11 @@ def test_custom_criterion_the_model_skipped_is_null_with_a_note(cache: Path, spl
     skipped = done.scores[-1]
     assert skipped.score is None and skipped.label == "Accessibility"
     assert "returned no score" in (skipped.note or "") and done.partial is False
+
+
+def test_trailing_whitespace_never_changes_the_cache_key(cache: Path, split: None):
+    """The UI trims, run.sh trims, a file read does not: all three must be one cache entry."""
+    p = FakeProvider()
+    asyncio.run(pipeline.score_proposal(RFP, OVER, provider=p))
+    asyncio.run(pipeline.score_proposal(RFP + "\n\n", OVER.rstrip() + "\n", provider=p))
+    assert len(p.calls) == 5  # the second run was served from the cache

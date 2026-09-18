@@ -6,7 +6,7 @@ import { suggestWeights } from "@/api/client"
 import { ReviewError } from "@/api/errors"
 import { EMPTY_PROGRESS } from "@/api/progress"
 import { reviewKey, useReview, type RunRequest } from "@/api/use-review"
-import { RFP_TEXT, SAMPLES, type SampleId } from "@/api/fixtures/documents"
+import { SAMPLES, type SampleId } from "@/api/fixtures/documents"
 import { BASE_CRITERIA } from "@/api/fixtures/criteria"
 import { rebalance, verdictFor, weightedScore } from "@/lib/score"
 import { ReviewView } from "@/features/review/review-view"
@@ -142,7 +142,7 @@ export default function App() {
       }
       onRun={startRun}
       onSample={(id) => {
-        setRfp(RFP_TEXT)
+        setRfp(SAMPLES[id].rfp)
         setProposal(SAMPLES[id].text)
         setActiveSample(id)
       }}

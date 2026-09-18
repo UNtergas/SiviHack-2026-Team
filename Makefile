@@ -24,8 +24,9 @@ record:           # costs money only for prompts without a recording
 requirements:
 	cd app && uv export --no-dev --no-hashes --no-emit-project --no-header --format requirements-txt -o ../requirements.txt
 
-warm:             # fill app/data/cache from the recordings, $0
+warm:             # fill app/data/cache from the recordings, $0: the 4 samples and the real-world pairs
 	cd app && LLM_PROVIDER=replay USE_CACHE=true uv run --env-file .env python tests/regression.py
+	cd app && LLM_PROVIDER=replay USE_CACHE=true uv run --env-file .env python ../docs/realworld/tools/run_pair.py ../docs/realworld/pair2-lims/rfp.md ../docs/realworld/pair2-lims/onq.md
 
 spend:
 	cd app && uv run --env-file .env python -m app.usage

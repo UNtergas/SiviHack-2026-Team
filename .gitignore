@@ -3,3 +3,6 @@
 .env.*
 !.env.example
 !.env.replay
+
+# real-world procurement documents (fetched by docs/realworld/fetch.md; only extracted text is committed)
+docs/realworld/raw/

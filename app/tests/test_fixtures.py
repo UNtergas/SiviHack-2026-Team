@@ -59,3 +59,15 @@ def test_result_fixtures_validate_and_match_a_replay_run(monkeypatch: pytest.Mon
 def test_requirements_txt_is_current():
     out = subprocess.run(EXPORT, cwd=ROOT / "app", check=True, capture_output=True, text=True)
     assert (ROOT / "requirements.txt").read_text() == out.stdout, "run: make requirements"
+
+
+REALWORLD = {  # frontend copy → the pair file it must equal (docs/realworld)
+    "lims-rfp.md": ROOT / "docs" / "realworld" / "pair2-lims" / "rfp.md",
+    "lims-onq.md": ROOT / "docs" / "realworld" / "pair2-lims" / "onq.md",
+}
+
+
+def test_frontend_realworld_copies_match_the_pair_files():
+    copies = ROOT / "frontend" / "src" / "api" / "fixtures" / "realworld"
+    for name, src in REALWORLD.items():
+        assert (copies / name).read_bytes() == src.read_bytes(), f"cp {src} {copies / name}"

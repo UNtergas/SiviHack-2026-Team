@@ -3,7 +3,8 @@ import { ArrowRight, ChevronDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import type { Criterion, WeightSuggestion } from "@/api/schema"
-import { SAMPLES, type SampleId } from "@/api/fixtures/documents"
+import { MOCK } from "@/api/client"
+import { SAMPLE_GROUPS, SAMPLES, type SampleId } from "@/api/fixtures/documents"
 
 import { CriteriaSetup, type SuggestState } from "./criteria-setup"
 import { WitnessInput } from "./witness-input"
@@ -101,23 +102,28 @@ export function SetupView({
       )}
 
       <main className="mx-auto flex w-full max-w-[112rem] flex-1 flex-col gap-6 px-5 py-6 sm:px-8">
-        <div className="flex flex-wrap items-center gap-x-1.5 gap-y-2 py-1">
-          <span className="editorial text-ink-2 mr-1.5">Load a sample</span>
-          {(Object.keys(SAMPLES) as SampleId[]).map((id) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => onSample(id)}
-              aria-pressed={activeSample === id}
-              className={cn(
-                "editorial cursor-pointer border px-2.5 py-1.5 transition-colors",
-                activeSample === id
-                  ? "border-ink bg-ink text-paper"
-                  : "border-rule text-ink-2 hover:border-ink hover:text-ink",
-              )}
-            >
-              {SAMPLES[id].label}
-            </button>
+        <div className="flex flex-col gap-y-2 py-1">
+          {SAMPLE_GROUPS.filter((g) => !(g.live && MOCK)).map((g) => (
+            <div key={g.label} className="flex flex-wrap items-center gap-x-1.5 gap-y-2">
+              <span className="editorial text-ink-2 mr-1.5">{g.label}</span>
+              {g.ids.map((id) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => onSample(id)}
+                  aria-pressed={activeSample === id}
+                  title={SAMPLES[id].note}
+                  className={cn(
+                    "editorial cursor-pointer border px-2.5 py-1.5 transition-colors",
+                    activeSample === id
+                      ? "border-ink bg-ink text-paper"
+                      : "border-rule text-ink-2 hover:border-ink hover:text-ink",
+                  )}
+                >
+                  {SAMPLES[id].label}
+                </button>
+              ))}
+            </div>
           ))}
         </div>
 

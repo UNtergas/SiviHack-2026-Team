@@ -233,7 +233,7 @@ def _plural(n: int, word: str) -> str:
 async def extract_requirements(rfp: str, provider: LlmProvider | None = None) -> RequirementsEvent:
     """POST /rfp/extract: call 1 only. Same cache key as a full run, so a run right after
     costs nothing extra."""
-    ext, _, hit, _ = await extract_rfp(parse(rfp), provider or get_provider())
+    ext, _, hit, _ = await extract_rfp(parse(rfp.rstrip()), provider or get_provider())
     return RequirementsEvent(
         requirements=ext.requirements,
         constraints=ext.constraints,
@@ -265,7 +265,9 @@ async def run(
             stage=stage, message=message, elapsedMs=int((time.time() - t0) * 1000)
         )
 
-    rdoc, pdoc = parse(rfp), parse(proposal)
+    # Trailing whitespace is not content: the cache and the recordings key on the text, and
+    # the same document must hit whether it arrives from the UI, a file or curl.
+    rdoc, pdoc = parse(rfp.rstrip()), parse(proposal.rstrip())
     sections = Outlines(rfp=rdoc.outline(), proposal=pdoc.outline())
     log.info(
         "%s run: rfp %d sections, proposal %d sections, %s mode via %s (%s)",

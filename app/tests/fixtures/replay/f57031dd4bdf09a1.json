@@ -1,0 +1,13 @@
+{
+ "kind": "group:risk",
+ "model": "gemini-3.8-flash",
+ "prompt_head": "You score a draft PROPOSAL on 1 review criterion. Group id: risk. Other reviewer",
+ "truncated": false,
+ "usage": {
+  "prompt": 60181,
+  "output": 395,
+  "thinking": 0,
+  "cached": 0
+ },
+ "text": "{\n  \"findings\": [\n    {\n      \"type\": \"OVERCOMMIT\",\n      \"severity\": \"HIGH\",\n      \"proposalQuote\": \"QLIMS has been tested to handle 250 concurrent users. This is made possible through carefully selecting infrastructure which can scale infinitely\",\n      \"explanation\": \"Claiming that infrastructure scales infinitely without acknowledging operational bottlenecks or cost constraints creates unrealistic service expectations for the State.\",\n      \"fix\": \"Revise the statement to define specific, tested auto-scaling thresholds and parameters (e.g., up to 250 concurrent users within defined resource limits) rather than claiming infinite scalability.\"\n    }\n  ],\n  \"scores\": [\n    {\n      \"id\": \"risk_transparency\",\n      \"label\": \"Risk/Assumptions Transparency\",\n      \"score\": 2,\n      \"strengths\": \"The proposal provides a clear 'QLIMS Customisation and Configuration Risk Impact Statement' outlining architectural isolation and modularity as mitigations for custom developments.\",\n      \"weaknesses\": \"In §20.2, the proposal acknowledges using personnel located in Australia and New Zealand to perform Level 3 support without recognizing this as a direct violation of mandatory RFP constraints prohibiting offshore resources and offshore environment access.\",\n      \"citations\": [\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§20.2\",\n          \"quote\": \"We have team members in Australia and New Zealand who perform level 3 support and will also be working\"\n        },\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§7.2\",\n          \"quote\": \"Custom development is containerized and modular, isolating it from the core QLIMS source code and preventing unintended impacts\"\n        }\n      ],\n      \"note\": null\n    }\n  ]\n}"
+}

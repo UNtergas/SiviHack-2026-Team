@@ -28,6 +28,7 @@ services:
     volumes:
       - ./data:/app/data             # LLM cache + usage ledger + regression outputs persist
       - ../sample_data:/sample_data:ro   # the 6 sponsor .md files, for tests/regression.py
+      - ../docs/realworld:/realworld:ro   # the real procurement pairs, for run.sh warm
 
   frontend:
     # The Vite build served by nginx on :3000 (see ../frontend/Dockerfile).

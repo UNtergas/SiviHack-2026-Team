@@ -95,7 +95,8 @@ async function extractLive(rfp: string, signal?: AbortSignal): Promise<Requireme
 
 /* ---- mock mode: the recorded results, replayed as the backend would stream them ---------- */
 
-const RECORDED: Record<SampleId, unknown> = { weak, medium, strong, overpromise }
+/** The sponsor's four responses have recorded results; a real-world pair needs the backend. */
+const RECORDED: Partial<Record<SampleId, unknown>> = { weak, medium, strong, overpromise }
 const parsed = new Map<SampleId, ScoringResult>()
 
 /** Validated on first use, so a stale recording fails at the first mock run, not at app start. */
@@ -113,7 +114,7 @@ const normalise = (s: string) => s.replace(/\s+/g, " ").trim()
 /** Which sample is on the table, for the mock build. */
 function identify(proposal: string): SampleId | null {
   const needle = normalise(proposal)
-  const ids = Object.keys(SAMPLES) as SampleId[]
+  const ids = Object.keys(RECORDED) as SampleId[]
   return ids.find((id) => normalise(SAMPLES[id].text) === needle) ?? null
 }
 

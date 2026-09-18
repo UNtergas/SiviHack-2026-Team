@@ -1275,3 +1275,41 @@ Recommended rollout:
 3. **Evidence and readiness upgrade:** introduce richer assessments, stricter grounding/status invariants, and the readiness gate as a coordinated backend/frontend change. Regenerate contracts and test current/custom/no-RFP, split/merged, partial failure, cache, replay, streaming, reweighting, and export paths as applicable.
 
 The first step can keep the existing routes, event sequence, schema, fixed criterion set, and normal model-call count. It still requires replay/cache versioning and fresh review-quality evaluation. The later steps should only become the default after their software and quality checks pass; the prior mode provides a rollback path.
+
+## Current demo mode: running deployment versus local build
+
+**Checked on 2026-09-18 at approximately 11:30 UTC, with repository HEAD `005fba0`. The Docker demo served at `http://localhost` is configured for live Gemini calls with backend caching disabled.** The separate local `frontend/dist` directory contains an offline browser-demo build. These are different artifacts, so inspecting the local build alone would give the wrong answer about the running Docker demo.
+
+| Item inspected | Observed state | Meaning |
+|---|---|---|
+| JavaScript actually served by `http://localhost/` | `/assets/index-AL6ZOkbV.js` embeds API base `/api`; its review function directly calls the streaming API client. The bundle contains `/score/stream` and `/rfp/extract`. | Browser reviews are sent to the backend. The browser's fixed-result branch is absent from this served client. |
+| Running `app-backend-1` container environment | `LLM_PROVIDER=gemini`, `GEMINI_MODEL=gemini-3.8-flash`, `USE_CACHE=false`, `LLM_SPLIT_CALLS=auto`; `LLM_RECORD_DIR` and `LLM_REPLAY_DIR` are unset. | Configured to make fresh model calls, including for sample documents; neither backend replay nor the recording wrapper is selected. Existing disk-cache entries are bypassed. |
+| Routed health check | `GET http://localhost/api/health` returned HTTP 200 and `{"ok":true}`. | The browser's API route reaches a healthy backend. This check does not exercise Gemini or establish that a scoring request will succeed. |
+| Local `frontend/dist/index.html` | References `/assets/index-DcU83ZSC.js`, whose review function calls the mock stream directly; the live scoring/extraction route strings are absent. | Serving this existing local directory gives the offline browser demo with fixed sample answers. It is not the artifact served by Docker at the checked URL. |
+| Frontend environment files | No active frontend `.env`, `.env.local`, or mode-specific `.env` files were present; only `.env.example`. | Bare `npm run dev` with no externally supplied `VITE_API_URL` selects browser demo mode. The documented live dev command supplies `VITE_API_URL=/api`. |
+| Docker frontend build | [`frontend/Dockerfile`](../frontend/Dockerfile) sets `ENV VITE_API_URL=/api` before building. | The API setting is embedded during compilation; it need not appear in the final nginx container's runtime environment. |
+
+The served bundle's SHA-256 was `e58cf495333b0a92b4b351f20e7bb92c009d12514c16c7aa1ae76aeaa969ccd7`; the separate local bundle's SHA-256 was `3b1078c704ad1d3e4909da2c1101a1f651bc27dae78336aa902f244bf396c79f`. These identify the artifacts checked, rather than assuming that repository files, local output, and running container images are identical.
+
+### Weight changes do not invoke the model
+
+This behavior applies in both live and browser-demo modes. [`App.tsx`](../frontend/src/App.tsx) recomputes the weighted score and numeric verdict from the existing criterion scores whenever the weights change. [`client.ts`](../frontend/src/api/client.ts) also applies the requested weights to a recorded result when running a mock review. The individual scores, findings, and explanations remain unchanged by reweighting alone.
+
+A read-only Node probe executed the actual `overallOf` and `verdictFor` functions from [`score.ts`](../frontend/src/lib/score.ts) against the four bundled results, and verified that the original score objects were not mutated:
+
+| Recorded sample | Equal-weight overall | Pricing weighted 100%, other criteria 0% | Verdict under those two weight sets |
+|---|---:|---:|---|
+| Weak | 1.14 | 1.00 | Not ready → Not ready |
+| Medium | 2.29 | 2.00 | Not ready → Not ready |
+| Strong | 4.57 | 5.00 | Ready → Ready |
+| Overpromise | 1.86 | 3.00 | Not ready → Fix before sending |
+
+These are explicit probe weight sets, not a claim about the UI's default weights. They demonstrate that a changed overall score, or even a changed numeric verdict, does not prove a new AI evaluation occurred.
+
+### Implications for the demo instructions
+
+The quoted warning remains correct for a frontend built without `VITE_API_URL`: backend `USE_CACHE=false` cannot change a client that never calls it. However, that is not the current Docker deployment at `http://localhost`.
+
+The README's description of samples and real bids answering from a warmed backend cache assumes `USE_CACHE=true`. At the time of this check, the running backend has it set to `false`, so warming the cache does not make those reviews use saved answers. A new Run review goes through the live API path; dragging weights only recalculates the existing result in the browser.
+
+Verification was limited to source/configuration inspection, allowlisted running-container settings, the served JavaScript, a health request, and the local weight-calculation probe. No scoring request or paid model call was made, and no application settings were changed.

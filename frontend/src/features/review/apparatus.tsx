@@ -320,16 +320,12 @@ export type RequirementFilter = RequirementStatus | "all"
 
 export function RequirementsPanel({
   requirements,
-  constraints,
-  issues,
   unassessed,
   emptyReason,
   filter,
   onFilter,
 }: {
   requirements: Requirement[]
-  constraints: Constraint[]
-  issues: Issue[]
   filter: RequirementFilter
   onFilter: (next: RequirementFilter) => void
   /** The analysis call failed: the requirements are real, their statuses are not. */
@@ -353,8 +349,6 @@ export function RequirementsPanel({
 
   const shown =
     unassessed || filter === "all" ? requirements : requirements.filter((r) => r.status === filter)
-
-  const violated = (c: Constraint) => issues.some((i) => i.id === `vio-${c.id}`)
 
   return (
     <div>
@@ -455,46 +449,84 @@ export function RequirementsPanel({
           </li>
         ))}
       </ul>
+    </div>
+  )
+}
 
-      {constraints.length > 0 && (
-        <section className="mt-8">
-          <GroupHead label="Constraints" count={constraints.length} className="text-ink" />
-          <ul>
-            {constraints.map((c) => (
-              <li
-                key={c.id}
-                id={`e-con-${c.id}`}
-                className="border-rule-hair grid scroll-mt-28 grid-cols-[1fr_auto] gap-x-3 border-b py-3"
+/* ------------------------------------------------------------ constraints -- */
+
+/**
+ * The hard limits the RFP sets, each with its kind, the RFP's words and a sign: crimson
+ * when the draft crosses it (a violation entry exists under Issues), hollow when respected.
+ */
+export function ConstraintsPanel({
+  constraints,
+  issues,
+  unassessed,
+  emptyReason,
+}: {
+  constraints: Constraint[]
+  issues: Issue[]
+  /** The analysis call failed: the constraints are real, whether they hold is unknown. */
+  unassessed: boolean
+  emptyReason: EmptyReason
+}) {
+  const violated = (c: Constraint) => issues.some((i) => i.id === `vio-${c.id}`)
+  const nViolated = unassessed ? 0 : constraints.filter(violated).length
+
+  if (constraints.length === 0) {
+    return (
+      <p className="text-ink-2 border-rule border-t py-8 text-center text-[0.9rem]">
+        {emptyReason === "no-rfp"
+          ? "No client constraints to check against — no RFP was provided. Add the RFP and re-run."
+          : "The RFP sets no hard limits: nothing was extracted as a constraint."}
+      </p>
+    )
+  }
+
+  return (
+    <div>
+      <p className="text-ink-2 mb-4 text-[0.9rem]">
+        {unassessed
+          ? "Whether the draft respects these limits was not assessed — the analysis call failed. Re-run to check."
+          : nViolated === 0
+            ? `The draft respects all ${constraints.length} of the RFP's hard limits.`
+            : `The draft crosses ${nViolated} of the RFP's ${constraints.length} hard limits; each is an entry under Issues.`}
+      </p>
+      <ul className="border-rule border-t">
+        {constraints.map((c) => (
+          <li
+            key={c.id}
+            id={`e-con-${c.id}`}
+            className="border-rule-hair grid scroll-mt-28 grid-cols-[1fr_auto] gap-x-3 border-b py-3"
+          >
+            <div className="min-w-0">
+              <Lemma
+                reading={CONSTRAINT_LABEL[c.kind]}
+                readingClassName="text-ink-2"
+                className="text-[0.98rem] leading-snug"
               >
-                <div className="min-w-0">
-                  <Lemma
-                    reading={CONSTRAINT_LABEL[c.kind]}
-                    readingClassName="text-ink-2"
-                    className="text-[0.98rem] leading-snug"
-                  >
-                    {c.label}
-                  </Lemma>
-                  {c.source.quote && (
-                    <p className="text-ink-2 mt-1 max-w-[68ch] font-serif text-[0.92rem] leading-snug italic">
-                      {c.source.quote}
-                    </p>
-                  )}
-                  <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
-                    <CitationRef citation={c.source} sourceId={`con-${c.id}`} />
-                  </div>
-                </div>
-                {unassessed ? (
-                  <StatusSign status="unassessed" />
-                ) : violated(c) ? (
-                  <StatusSign status="contradicted" title="Violated" />
-                ) : (
-                  <StatusSign status="respected" />
-                )}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+                {c.label}
+              </Lemma>
+              {c.source.quote && (
+                <p className="text-ink-2 mt-1 max-w-[68ch] font-serif text-[0.92rem] leading-snug italic">
+                  {c.source.quote}
+                </p>
+              )}
+              <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+                <CitationRef citation={c.source} sourceId={`con-${c.id}`} />
+              </div>
+            </div>
+            {unassessed ? (
+              <StatusSign status="unassessed" />
+            ) : violated(c) ? (
+              <StatusSign status="contradicted" title="Violated" />
+            ) : (
+              <StatusSign status="respected" />
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

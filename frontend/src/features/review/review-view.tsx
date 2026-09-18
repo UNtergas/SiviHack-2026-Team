@@ -35,6 +35,7 @@ import {
 
 import {
   CONSTRAINT_LABEL,
+  ConstraintsPanel,
   CriteriaPanel,
   IssuesPanel,
   RequirementsPanel,
@@ -44,7 +45,7 @@ import {
   type RequirementFilter,
 } from "./apparatus"
 
-type Panel = "issues" | "requirements" | "criteria"
+type Panel = "issues" | "requirements" | "constraints" | "criteria"
 
 /* ----------------------------------------------------------- notices -- */
 
@@ -234,6 +235,7 @@ function ReviewNotice({
 const PANELS: { id: Panel; label: string }[] = [
   { id: "issues", label: "Issues" },
   { id: "requirements", label: "Requirements" },
+  { id: "constraints", label: "Constraints" },
   { id: "criteria", label: "Criteria" },
 ]
 
@@ -461,6 +463,7 @@ function ReviewBody({
   const counts: Record<Panel, string> = {
     issues: String(review.issues.length),
     requirements: String(review.requirements.length),
+    constraints: String(review.constraints.length),
     criteria: scored < enabled.length ? `${scored}/${enabled.length}` : String(enabled.length),
   }
 
@@ -591,12 +594,18 @@ function ReviewBody({
         {panel === "requirements" && (
           <RequirementsPanel
             requirements={review.requirements}
-            constraints={review.constraints}
-            issues={review.issues}
             unassessed={unassessed}
             emptyReason={emptyReason}
             filter={filter}
             onFilter={onFilter}
+          />
+        )}
+        {panel === "constraints" && (
+          <ConstraintsPanel
+            constraints={review.constraints}
+            issues={review.issues}
+            unassessed={unassessed}
+            emptyReason={noRfp ? "no-rfp" : review.constraints.length === 0 ? "nothing-extracted" : null}
           />
         )}
         {panel === "criteria" && (

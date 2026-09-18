@@ -393,7 +393,7 @@ A document set as a page. A saturated header in the witness's own colour (Oxford
 - **Switch:** borrowed shadcn primitive, inheriting ink/rule through the mapped variables.
 
 ### Navigation
-A single hairline-bottomed tab row (Issues / Requirements / Criteria), `.editorial`, each with a tabular count at 60% opacity. The active tab is ink with a 2px ink bar sitting on the bottom hairline; the rest are ink-3 rising to ink-2 on hover. There is no sidebar, no second-level nav, and no route change anywhere in the product.
+A single hairline-bottomed tab row (Issues / Requirements / Constraints / Criteria), `.editorial`, each with a tabular count at 60% opacity. The active tab is ink with a 2px ink bar sitting on the bottom hairline; the rest are ink-3 rising to ink-2 on hover. There is no sidebar, no second-level nav, and no route change anywhere in the product.
 
 ### Weight Budget Bar
 A 2.25rem-tall flat bar on `paper-inset` divided into ink / ink-2 alternating segments sized by percentage, each showing its share when it exceeds 7%. Widths transition over 200ms so raising one weight is visibly taken from the others. It is the visible form of the rule that weights are shares of a fixed 100.

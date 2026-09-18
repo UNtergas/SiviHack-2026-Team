@@ -52,8 +52,9 @@ fix" with Copy; entries carry chips like "R §2 · Requirements" and "P §4 · P
 wording". "Requirements 10": the strip "Asked / Contradicted / Not found / Partial /
 Addressed" filters the rows; each row has the requirement's name, the italic RFP quote, a
 note (except addressed ones), R and P chips or "no answering passage", and a coloured
-square; below the list "Constraints 4" with Technology / Budget / Deadline readings and hollow
-"Respected" squares. "Criteria 7": seven rows with N/5, five marks, a percentage and a slider,
+square. "Constraints 4": a lead line ("The draft crosses 1 of the RFP's 4 hard limits…" or
+"respects all 4"), then one row per constraint with its Technology / Budget / Deadline reading,
+the RFP's words, an R chip and a crimson "Violated" or hollow "Respected" square. "Criteria 7": seven rows with N/5, five marks, a percentage and a slider,
 a note where there is one ("Computed from coverage…" on Completeness), a strength, a weakness
 and chips; one chip on Risk & Assumptions carries "≈" (near match) with a hover title. Under
 Pricing Clarity an "Evidence from the text" line lists €70,000 and €110,000 with chips and

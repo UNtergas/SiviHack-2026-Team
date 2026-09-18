@@ -100,7 +100,9 @@ PY
 warm() {
   info "filling data/cache from the recorded answers (no model call, no cost)..."
   docker compose exec -T backend env LLM_PROVIDER=replay USE_CACHE=true python tests/regression.py /sample_data
-  docker compose exec -T backend env LLM_PROVIDER=replay USE_CACHE=true python /realworld/tools/run_pair.py /realworld/pair2-lims/rfp.md /realworld/pair2-lims/onq.md
+  for v in onq clinisys; do
+    docker compose exec -T backend env LLM_PROVIDER=replay USE_CACHE=true python /realworld/tools/run_pair.py /realworld/pair2-lims/rfp.md /realworld/pair2-lims/$v.md
+  done
   ok "cache warm: the 4 samples and the real-world pair now answer from disk on the demo machine."
 }
 

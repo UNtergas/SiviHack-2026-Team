@@ -77,3 +77,28 @@ hundreds of numbered requirements and one extraction call returns twenty, so req
 gaps are under-reported and completeness is optimistic. The fix is a chunked extraction (one
 call per section group, merged) and a coverage pass that runs per chunk when the list is long;
 until then, real RFPs should be read as "constraints and the big asks", not as a compliance matrix.
+
+## The winner, for comparison (Clinisys, from the OCR'd scan, same run settings)
+
+Five calls, 41 seconds, USD 0.19. `clinisys.md` about 41k tokens: the bidder's answers only, the
+checkbox tables lost to OCR, pricing and the project plan being separate attachments.
+
+| | Clinisys (won, 107.25) | OnQ (lost, 48.5) |
+|---|---|---|
+| Overall | 2.3 / 5, Not ready | 2.4 / 5, Not ready |
+| Violations | 1: offshore resources, a security officer based in the United Kingdom | 2: offshore access, offshore resources |
+| Coverage of the 21 extracted requirements | 13 addressed, 6 partial, 2 missing | 16 addressed, 3 partial, 2 missing |
+| Pricing / timeline / risk | 1 / 1 / 1 (the answers point to Schedule B and a separate project plan) | 1 / 2 / 2 |
+| Findings | "see the separately provided Project Plan", customisation wording, exchange mechanisms "to be determined" | deferred pricing, a WBS without dates, an unbounded scalability claim |
+
+**The reviewer does not reproduce the State's ranking on this pair.** The State separated the two on
+Schedule A sections 8–13, the functional requirements (49.75 against 12.5 of 62.5 points), which is
+exactly the level the single extraction call does not reach: with 21 requirements for both, coverage
+cannot tell a bid that meets the reporting-rules, administration and interface requirements from one
+that marks them "requires customization". What the reviewer does see, commercial clarity, is thin in
+both bids because both keep pricing and the plan in attachments. The UK security officer is a
+defensible catch the State did not raise.
+
+Two changes would make this pair discriminating: chunked extraction so the numbered requirements
+are covered one by one, and folding the pricing schedule and project plan attachments into the
+proposal text.

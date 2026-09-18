@@ -1,0 +1,1883 @@
+{
+  "overall": 2.29,
+  "weights": {
+    "problem_understanding": 1.0,
+    "scope_clarity": 1.0,
+    "pricing_clarity": 1.0,
+    "timeline_clarity": 1.0,
+    "completeness": 1.0,
+    "tone_persuasiveness": 1.0,
+    "risk_transparency": 1.0
+  },
+  "scores": [
+    {
+      "id": "problem_understanding",
+      "label": "Problem Understanding",
+      "score": 3,
+      "strengths": "The vendor demonstrates familiarity with state public health laboratory operations, specifically referencing MDHHS BOL needs, CDC interoperability, and regional partner environments.",
+      "weaknesses": "In §41, the vendor proposes key personnel located in the United Kingdom despite the State's explicit prohibition against offshore resources.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§2",
+          "quote": "designed to meet the diverse needs of the Michigan Department of Health and Human Services (MDHHS) Bureau of Laboratories",
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§41",
+          "quote": "Colin Pembroke-Hoggett Address: Clinisys - United Kingdom",
+          "grounding": "verified"
+        }
+      ],
+      "note": "Score is capped at 3 due to the hard constraint violation regarding offshore resources (c3)."
+    },
+    {
+      "id": "scope_clarity",
+      "label": "Scope & Deliverables Clarity",
+      "score": 3,
+      "strengths": "The proposal clearly enumerates functional application modules, COTS features, and administrative capabilities across testing workflows.",
+      "weaknesses": "In §41 and §42, the proposal creates ambiguity around technical deliverables by stating 'software development is not part of the scope of work' while leaving customization and interface mechanisms conditional.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§42",
+          "quote": "Please note that software development is not part of the scope of work for this project.",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "pricing_clarity",
+      "label": "Pricing Clarity",
+      "score": 1,
+      "strengths": null,
+      "weaknesses": "The proposal contains zero money amounts, pricing tables, or cost breakdowns for the software, hosting, or implementation services.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§43",
+          "quote": "Since our Implementation service is Fixed Fee, these details would not normally be provided.",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "timeline_clarity",
+      "label": "Timeline Clarity",
+      "score": 1,
+      "strengths": null,
+      "weaknesses": "Section §44.2 and §48 fail to provide any specific calendar dates, schedule durations, or milestone deadlines for the implementation project.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§48",
+          "quote": "Please see the separately provided Project Plan document.",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "completeness",
+      "label": "Completeness vs. RFP Requirements",
+      "score": 4,
+      "strengths": "13 of 21 requirements addressed: r1 Hosting Model Disclosure, r2 SLA Compliance Confirmation, r4 Concurrent User Capacity, r6 User Access Audit Trail, r7 Configurable Reporting Rules Engine, r8 Legacy Data Migration Strategy, r9 Implementation and User Training, r10 Transition In and Out Plan, r11 Comprehensive Solution Documentation, r13 Milestone Work Breakdown Structure, r17 Application Response Time Standards, r18 Mandatory System-to-System Interfaces, r21 Regulatory Standards Compliance.",
+      "weaknesses": "8 of 21 requirements not fully addressed: r3 ADA WCAG 2.1 Compliance (PARTIAL); r5 MiLogin Identity Federation Integration (PARTIAL); r12 SUITE Methodology Utilization (PARTIAL); r14 In-Person Project Kickoff Meeting (PARTIAL); r15 Staff Background and Drug Screening (PARTIAL); r16 Software Bill of Materials (MISSING); r19 Financial Record Retention Audit (MISSING); r20 Data Encryption Standards (PARTIAL).",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§14",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§15",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§16",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§17.1",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§49.6",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§18.3",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§31",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§32",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§33",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§34",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§44.1",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§48",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§43",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§42",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§29.1",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§30",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§2",
+          "quote": null,
+          "grounding": "verified"
+        }
+      ],
+      "note": "computed from coverage: 16/21 credit (ADDRESSED = 1, PARTIAL = 0.5, MISSING / CONTRADICTED = 0)"
+    },
+    {
+      "id": "tone_persuasiveness",
+      "label": "Tone & Persuasiveness",
+      "score": 3,
+      "strengths": "The proposal maintains a professional and capable tone while referencing relevant public health state laboratory case studies such as CDPHE and Alabama.",
+      "weaknesses": "In §30, the vendor repeats the exact phrase 'Same answer as above applies' across numerous distinct interface requirements, weakening confidence and persuasiveness.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§30",
+          "quote": "Same answer as above applies.",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "risk_transparency",
+      "label": "Risk/Assumptions Transparency",
+      "score": 1,
+      "strengths": null,
+      "weaknesses": "The proposal fails to acknowledge or provide mitigations for assigning key personnel located in the United Kingdom despite the RFP's strict offshore prohibitions (§41).",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§41",
+          "quote": "Address: Clinisys - United Kingdom",
+          "grounding": "verified"
+        },
+        {
+          "source": "rfp",
+          "section": "§30",
+          "quote": "Use of Offshore Resources is prohibited per the Schedule E – Data Security Requirements.",
+          "grounding": "fuzzy"
+        }
+      ],
+      "note": "Per scoring rules, an unacknowledged hard constraint violation requires risk_transparency <= 2."
+    }
+  ],
+  "coverage": [
+    {
+      "requirementId": "r16",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "The proposal does not provide or commit to delivering a Software Bill of Materials.",
+      "fix": "Add a Software Bill of Materials detailing component supply chain relationships to §29.2.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r19",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "The proposal fails to address the mandatory seven-year financial and accounting record retention requirement.",
+      "fix": "Add a commitment to retain all contract-related financial and accounting records for seven years to §6.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r3",
+      "status": "PARTIAL",
+      "proposalSection": "§15",
+      "proposalQuote": "There are parts of the application that have not yet been fully assessed for this",
+      "explanation": "Core application accessibility assessment is incomplete and meeting standards remains on the product roadmap.",
+      "fix": "Commit to achieving full WCAG 2.1 AA compliance across all application modules before implementation.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r5",
+      "status": "PARTIAL",
+      "proposalSection": "§17.1",
+      "proposalQuote": "The system can integrate directly with an OpenID compatible identity provider.",
+      "explanation": "The proposal states generic OpenID compatibility but does not confirm integration with MiLogin.",
+      "fix": "Explicitly confirm that the solution integrates directly with the State's MiLogin IAM environment.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r12",
+      "status": "PARTIAL",
+      "proposalSection": "§44.1",
+      "proposalQuote": "We propose to utilize our own documents, including the Project Plan",
+      "explanation": "The vendor proposes proprietary documentation rather than committing to mandatory State SUITE methodologies.",
+      "fix": "Explicitly commit to utilizing the State's SUITE methodologies and templates during project execution.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r14",
+      "status": "PARTIAL",
+      "proposalSection": "§43",
+      "proposalQuote": "Meeting held, often remote, Following the Intro Call, with all project team members.",
+      "explanation": "The vendor plans a remote kickoff meeting instead of the required in-person meeting.",
+      "fix": "Commit to facilitating an in-person kickoff meeting supported by the State Project Manager.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r15",
+      "status": "PARTIAL",
+      "proposalSection": "§42",
+      "proposalQuote": "request that our existing background check certifications be accepted in lieu of the additional checks",
+      "explanation": "The proposal seeks to bypass State background checks and omits drug screening entirely.",
+      "fix": "Agree to provide satisfactory ICHAT and drug screening certifications for all project personnel.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r20",
+      "status": "PARTIAL",
+      "proposalSection": "§2",
+      "proposalQuote": "supports encryption of data in transit and at rest",
+      "explanation": "The proposal mentions encryption in transit and rest but omits FIPS-validated AES module compliance.",
+      "fix": "Confirm that encryption in transit and at rest utilizes FIPS-validated AES encryption modules.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r1",
+      "status": "ADDRESSED",
+      "proposalSection": "§14",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r2",
+      "status": "ADDRESSED",
+      "proposalSection": "§14",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r4",
+      "status": "ADDRESSED",
+      "proposalSection": "§16",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r6",
+      "status": "ADDRESSED",
+      "proposalSection": "§49.6",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r7",
+      "status": "ADDRESSED",
+      "proposalSection": "§18.3",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r8",
+      "status": "ADDRESSED",
+      "proposalSection": "§31",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r9",
+      "status": "ADDRESSED",
+      "proposalSection": "§32",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r10",
+      "status": "ADDRESSED",
+      "proposalSection": "§33",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r11",
+      "status": "ADDRESSED",
+      "proposalSection": "§34",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r13",
+      "status": "ADDRESSED",
+      "proposalSection": "§48",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r17",
+      "status": "ADDRESSED",
+      "proposalSection": "§29.1",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r18",
+      "status": "ADDRESSED",
+      "proposalSection": "§30",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r21",
+      "status": "ADDRESSED",
+      "proposalSection": "§2",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    }
+  ],
+  "constraintViolations": [
+    {
+      "constraintId": "c3",
+      "proposalSection": "§41",
+      "proposalQuote": "Address: Clinisys - United Kingdom",
+      "violation": "The vendor proposes a key personnel resource located in the United Kingdom, violating the prohibition against offshore resources.",
+      "severity": "HIGH",
+      "fix": "Replace the offshore key resource with a qualified personnel member based in the United States.",
+      "grounding": "verified"
+    }
+  ],
+  "findings": [
+    {
+      "type": "VAGUENESS",
+      "severity": "HIGH",
+      "location": "§48",
+      "proposalQuote": "Please see the separately provided Project Plan document.",
+      "explanation": "Deferring the milestone schedule and critical path entirely to a separate unincluded document deprives the State of enforceable contractual timelines.",
+      "fix": "Incorporate the full milestone work breakdown structure with concrete phase durations and target completion dates directly into the implementation schedule.",
+      "grounding": "verified"
+    },
+    {
+      "type": "INCONSISTENCY",
+      "severity": "MEDIUM",
+      "location": "§42",
+      "proposalQuote": "if software development is required for any true customizations, Clinisys may use highly qualified resources based in India.",
+      "explanation": "Stating that offshore developers in India may be used directly contradicts the vendor's earlier assurance that no subcontractors are involved and violates the State's strict prohibition on offshore resources.",
+      "fix": "Commit explicitly to performing all software development and customization work using only personnel located within the United States.",
+      "grounding": "verified"
+    },
+    {
+      "type": "VAGUENESS",
+      "severity": "MEDIUM",
+      "location": "§49.7",
+      "proposalQuote": "Specific exchange mechanisms will be determined based on requirements and capabilities.",
+      "explanation": "Leaving mandatory interface integration protocols uncommitted risks unexpected delays and architecture conflicts during onboarding.",
+      "fix": "Specify the precise data exchange mechanisms and standards that will be deployed for each required interface.",
+      "grounding": "verified"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "r1",
+      "label": "Hosting Model Disclosure",
+      "rfpQuote": "Bidder must disclose if it is proposing a Contractor Hosted or State Hosted application.",
+      "section": "§4",
+      "grounding": "verified"
+    },
+    {
+      "id": "r2",
+      "label": "SLA Compliance Confirmation",
+      "rfpQuote": "Bidder must confirm and describe how they will meet the requirements of SCHEDULE D – Service Level Agreement .",
+      "section": "§4",
+      "grounding": "verified"
+    },
+    {
+      "id": "r3",
+      "label": "ADA WCAG 2.1 Compliance",
+      "rfpQuote": "The Contractor must meet minimum ADA requirements Web Content Accessibility Guidelines (WCAG) 2.1.",
+      "section": "§5",
+      "grounding": "verified"
+    },
+    {
+      "id": "r4",
+      "label": "Concurrent User Capacity",
+      "rfpQuote": "Contractor Solution must meet the expected number of concurrent Users below.",
+      "section": "§6",
+      "grounding": "verified"
+    },
+    {
+      "id": "r5",
+      "label": "MiLogin Identity Federation Integration",
+      "rfpQuote": "The Contractor’s solution must implement identity federation with the State’s MiLogin IT Identity and Access Management (IAM) environment",
+      "section": "§7",
+      "grounding": "verified"
+    },
+    {
+      "id": "r6",
+      "label": "User Access Audit Trail",
+      "rfpQuote": "Create an audit trail of who, when, where, and what functions were accessed by a specific user.",
+      "section": "§7.2",
+      "grounding": "verified"
+    },
+    {
+      "id": "r7",
+      "label": "Configurable Reporting Rules Engine",
+      "rfpQuote": "Utilize a configurable reporting rules engine to determine the recipients of laboratory test result reports",
+      "section": "§8.3",
+      "grounding": "verified"
+    },
+    {
+      "id": "r8",
+      "label": "Legacy Data Migration Strategy",
+      "rfpQuote": "Contractor must develop a strategy for migrating the data identified in the table below:",
+      "section": "§22",
+      "grounding": "verified"
+    },
+    {
+      "id": "r9",
+      "label": "Implementation and User Training",
+      "rfpQuote": "The Contractor must provide administration and end-user training for implementation, go-live support, and operational handoff.",
+      "section": "§24",
+      "grounding": "verified"
+    },
+    {
+      "id": "r10",
+      "label": "Transition In and Out Plan",
+      "rfpQuote": "Bidder must provide a detailed transition-in and transition-out plan in Schedule G – Transition In and Out Plan",
+      "section": "§25",
+      "grounding": "verified"
+    },
+    {
+      "id": "r11",
+      "label": "Comprehensive Solution Documentation",
+      "rfpQuote": "Contractor must provide all user manuals, operating manuals, technical manuals and any other instructions, specifications, documents or materials",
+      "section": "§26",
+      "grounding": "verified"
+    },
+    {
+      "id": "r12",
+      "label": "SUITE Methodology Utilization",
+      "rfpQuote": "the Contractor is required to utilize the applicable State Unified Information Technology Environment (SUITE) methodologies",
+      "section": "§33.1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r13",
+      "label": "Milestone Work Breakdown Structure",
+      "rfpQuote": "Bidder must submit a high-level project plan (Work Breakdown Structure) detailing how they will achieve the milestones",
+      "section": "§33.2",
+      "grounding": "verified"
+    },
+    {
+      "id": "r14",
+      "label": "In-Person Project Kickoff Meeting",
+      "rfpQuote": "the Contractor Project Manager must facilitate an in-person project kick off meeting with the support from the State’s Project Manager",
+      "section": "§32",
+      "grounding": "verified"
+    },
+    {
+      "id": "r15",
+      "label": "Staff Background and Drug Screening",
+      "rfpQuote": "Contractor must present certifications evidencing satisfactory ICHAT and drug test results for all staff identified for assignment to this project",
+      "section": "§30",
+      "grounding": "verified"
+    },
+    {
+      "id": "r16",
+      "label": "Software Bill of Materials",
+      "rfpQuote": "Contractor must provide a Software Bill of Materials (SBOM) containing details and supply chain relationships of various components",
+      "section": "§20",
+      "grounding": "verified"
+    },
+    {
+      "id": "r17",
+      "label": "Application Response Time Standards",
+      "rfpQuote": "The application must meet minimum performance measures or response times deemed acceptable by LIMS Administrators",
+      "section": "§20.3",
+      "grounding": "verified"
+    },
+    {
+      "id": "r18",
+      "label": "Mandatory System-to-System Interfaces",
+      "rfpQuote": "Contractor must interface their solution to the following technologies:",
+      "section": "§21",
+      "grounding": "verified"
+    },
+    {
+      "id": "r19",
+      "label": "Financial Record Retention Audit",
+      "rfpQuote": "Retain all financial and accounting records related to this Contract for a period of 7 years",
+      "section": "§18",
+      "grounding": "verified"
+    },
+    {
+      "id": "r20",
+      "label": "Data Encryption Standards",
+      "rfpQuote": "Ensure that State Data is encrypted in transit and at rest using FIPS validated AES encryption modules",
+      "section": "§19.1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r21",
+      "label": "Regulatory Standards Compliance",
+      "rfpQuote": "Comply with all data processing requirements of CLIA, the College of American Pathologists (CAP), American Industrial Hygiene Association",
+      "section": "§19.3",
+      "grounding": "verified"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "c1",
+      "kind": "DEADLINE",
+      "label": "Maximum Implementation Timeline Limit",
+      "rfpQuote": "The State expects implementation to be completed no later than a year and half from Contract execution.",
+      "section": "§33.2",
+      "grounding": "verified"
+    },
+    {
+      "id": "c2",
+      "kind": "LEGAL",
+      "label": "Prohibition of Offshore System Access",
+      "rfpQuote": "Contractor will not access State environments or State Systems from locations outside the United States",
+      "section": "§20.2",
+      "grounding": "verified"
+    },
+    {
+      "id": "c3",
+      "kind": "LEGAL",
+      "label": "Prohibition of Offshore Resources",
+      "rfpQuote": "Use of Offshore Resources is prohibited per the Schedule E – Data Security Requirements.",
+      "section": "§30",
+      "grounding": "verified"
+    },
+    {
+      "id": "c4",
+      "kind": "SCOPE",
+      "label": "Concurrent User Capacity Ceiling",
+      "rfpQuote": "The total number of concurrent users will not exceed 250 users.",
+      "section": "§6",
+      "grounding": "verified"
+    },
+    {
+      "id": "c5",
+      "kind": "TECHNOLOGY",
+      "label": "Domestic US Data Storage",
+      "rfpQuote": "Store data within the United States.",
+      "section": "§19.2",
+      "grounding": "verified"
+    },
+    {
+      "id": "c6",
+      "kind": "LEGAL",
+      "label": "Prior Written Approval for Data Destruction",
+      "rfpQuote": "Contractor will not dispose of, delete, or destroy State Data without the prior written approval of the State.",
+      "section": "§18",
+      "grounding": "verified"
+    },
+    {
+      "id": "c7",
+      "kind": "LEGAL",
+      "label": "Prohibition of Forced Labor",
+      "rfpQuote": "The Contractor certifies that it will not furnish any Deliverable that was produced fully or partially by forced labor",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "c8",
+      "kind": "LEGAL",
+      "label": "Mandatory GDBE Subcontracting Allocation",
+      "rfpQuote": "at least 20% of that subcontracted work must be awarded to Michigan-based Geographically Disadvantaged Business Enterprises (GDBE).",
+      "section": "§30",
+      "grounding": "verified"
+    },
+    {
+      "id": "c9",
+      "kind": "OTHER",
+      "label": "State Business Hours Availability",
+      "rfpQuote": "Contractor personnel must be available within the State’s business hours 8am-5pm, Eastern time, Monday through Friday.",
+      "section": "§30",
+      "grounding": "verified"
+    }
+  ],
+  "suggestedWeights": [
+    {
+      "criterionId": "problem_understanding",
+      "weight": 2.0,
+      "reason": "The State requires deep domain knowledge across diverse public health disciplines including clinical diagnostics, infectious disease, genomics, and toxicology."
+    },
+    {
+      "criterionId": "scope_clarity",
+      "weight": 2.5,
+      "reason": "The RFP sets forth dozens of detailed technical tables and functional requirements that must each be designated by capability and configuration need."
+    },
+    {
+      "criterionId": "pricing_clarity",
+      "weight": 1.0,
+      "reason": "Clear pricing is required across software licensing, hardware, subcontractor costs, and ongoing training support."
+    },
+    {
+      "criterionId": "timeline_clarity",
+      "weight": 2.0,
+      "reason": "The RFP establishes a hard implementation cap of 1.5 years and requires a detailed milestone schedule tied to SUITE methodologies."
+    },
+    {
+      "criterionId": "completeness",
+      "weight": 2.5,
+      "reason": "The worksheet demands explicit responses and exception logs for every numbered requirement, legal certification, and interface specification."
+    },
+    {
+      "criterionId": "tone_persuasiveness",
+      "weight": 1.0,
+      "reason": "Responses must maintain a professional and compliant tone aligned with State of Michigan procurement standards."
+    },
+    {
+      "criterionId": "risk_transparency",
+      "weight": 2.0,
+      "reason": "Bidders are explicitly instructed to identify the impacted risk for any customized or configured requirement across all functional areas."
+    }
+  ],
+  "signals": {
+    "vaguePhrases": [
+      {
+        "phrase": "will be provided",
+        "section": "§28",
+        "context": "…onment. The State's Account Executive will communicate when new releases are available. These notes will be provided with the software as standard, and any upgrade will be accompanied by the appropriate release docum…"
+      },
+      {
+        "phrase": "will be provided",
+        "section": "§28",
+        "context": "…hard and soft copy. A version of the release notes is also included in the updated help files which will be provided with each new release as part of the standard change control process. > making process for upgrade…"
+      },
+      {
+        "phrase": "where appropriate",
+        "section": "§28.5",
+        "context": "…Clinisys has reviewed the provided Schedule E and provided redlines for the State's consideration, where appropriate. The Clinisys Information Security Management System (ISMS) Document outlines the policies and proc…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§31",
+        "context": "…ncluding: • Laboratory Scalability: The cloud-based environment allows your lab to expand resources as needed. Whether you're handling more samples, adding new tests, or accommodating growth, Clinisys adapts s…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§41",
+        "context": "…vered. Project impacts are documented and related artifacts (i.e., contract, schedule) are modified as needed."
+      },
+      {
+        "phrase": "as needed",
+        "section": "§43",
+        "context": "…east, Client and Clinisys PMs should be copied on email communications where project plan tasks are As needed complete, at risk, delayed, or stalled so that the Project Managers can update project documentatio…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§43",
+        "context": "…help to clear roadblocks Meeting held, usually via emote technology, for eviewing, troubleshooting, As needed and configuring the technical aspects of the hardware or > software application. Training schedule…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§43",
+        "context": "…issue or task that is behind schedule or at risk to the next level for esolution, as per the agreed As needed pon Project Governance. Project Governance is agreed upon and discussed during the Planning phase o…"
+      },
+      {
+        "phrase": "upon request",
+        "section": "§49.2",
+        "context": "…ONSE: Below are some additional State-level labs using CLS as their LIMS. Contact details available upon request. • District of Columbia Public Health Lab • Idaho Department of Health and Welfare • Kansas Departm…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§49.3",
+        "context": "…ructions for necessary configurations in CLS. Patch releases, which include bug fixes, are provided as needed and automatically applied to environments. All patch and version releases are first deployed to the…"
+      },
+      {
+        "phrase": "on request",
+        "section": "§49.4",
+        "context": "…matically applied logically to environments with client notification with the option to defer/delay on request. Features and functions that are part of the out of the box offering are automatically included as…"
+      },
+      {
+        "phrase": "will be determined",
+        "section": "§49.7",
+        "context": "…are the preferred mechanism to exchange data between LIMS and > CLS. Specific exchange mechanisms will be determined based on requirements and capabilities. Oracle database access via ODBC and APIs: CLS supports secu…"
+      }
+    ],
+    "pricing": {
+      "sections": [],
+      "mentions": [
+        {
+          "value": "$6",
+          "section": "§2"
+        },
+        {
+          "value": "$55,654.59",
+          "section": "§10"
+        },
+        {
+          "value": "$26.76",
+          "section": "§10"
+        },
+        {
+          "value": "$96,418.52",
+          "section": "§10"
+        },
+        {
+          "value": "$46.36",
+          "section": "§10"
+        }
+      ]
+    },
+    "timeline": {
+      "sections": [
+        "§18.5",
+        "§44.2"
+      ],
+      "mentions": [
+        {
+          "value": "20 years",
+          "section": "§2"
+        },
+        {
+          "value": "40 years",
+          "section": "§2"
+        },
+        {
+          "value": "12 months",
+          "section": "§12"
+        },
+        {
+          "value": "2.1.10",
+          "section": "§17.1"
+        },
+        {
+          "value": "7.2.16",
+          "section": "§17.1"
+        },
+        {
+          "value": "2.1.14",
+          "section": "§17.1"
+        },
+        {
+          "value": "2.1.15",
+          "section": "§17.1"
+        },
+        {
+          "value": "2.1.17",
+          "section": "§17.1"
+        },
+        {
+          "value": "7.2.19",
+          "section": "§17.1"
+        },
+        {
+          "value": "2.1.18",
+          "section": "§17.1"
+        },
+        {
+          "value": "2.1.19",
+          "section": "§17.1"
+        },
+        {
+          "value": "2.2.11",
+          "section": "§17.1"
+        },
+        {
+          "value": "8.2.13",
+          "section": "§18.2"
+        },
+        {
+          "value": "8.2.14",
+          "section": "§18.2"
+        },
+        {
+          "value": "8.2.21",
+          "section": "§18.2"
+        },
+        {
+          "value": "8.7.11",
+          "section": "§18.7"
+        },
+        {
+          "value": "9.2.13",
+          "section": "§19.2"
+        },
+        {
+          "value": "9.2.16",
+          "section": "§19.2"
+        },
+        {
+          "value": "9.2.23",
+          "section": "§19.2"
+        },
+        {
+          "value": "9.2.19",
+          "section": "§19.2"
+        },
+        {
+          "value": "9.2.23",
+          "section": "§19.2"
+        },
+        {
+          "value": "9.2.24",
+          "section": "§19.2"
+        },
+        {
+          "value": "9.2.34",
+          "section": "§19.2"
+        },
+        {
+          "value": "9.4.10",
+          "section": "§19.4"
+        },
+        {
+          "value": "9.4.11",
+          "section": "§19.4"
+        },
+        {
+          "value": "9.4.21",
+          "section": "§19.4"
+        },
+        {
+          "value": "9.6.12",
+          "section": "§19.6"
+        },
+        {
+          "value": "9.7.11",
+          "section": "§19.7"
+        },
+        {
+          "value": "9.7.10",
+          "section": "§19.7"
+        },
+        {
+          "value": "9.7.11",
+          "section": "§19.7"
+        },
+        {
+          "value": "11.3.11",
+          "section": "§21.3"
+        },
+        {
+          "value": "13.1.11",
+          "section": "§23"
+        },
+        {
+          "value": "13.2.10",
+          "section": "§23"
+        },
+        {
+          "value": "13.4.10",
+          "section": "§23"
+        },
+        {
+          "value": "13.4.10",
+          "section": "§23"
+        },
+        {
+          "value": "30-days",
+          "section": "§27.2"
+        },
+        {
+          "value": "20.2.13",
+          "section": "§28.1"
+        },
+        {
+          "value": "24/7/365",
+          "section": "§28.1"
+        },
+        {
+          "value": "40 years",
+          "section": "§28.3"
+        },
+        {
+          "value": "60 days",
+          "section": "§32"
+        },
+        {
+          "value": "10 years",
+          "section": "§49.1"
+        },
+        {
+          "value": "20 years",
+          "section": "§49.1"
+        },
+        {
+          "value": "40 years",
+          "section": "§49.1"
+        },
+        {
+          "value": "10 month",
+          "section": "§49.1"
+        },
+        {
+          "value": "Jun 26 2023",
+          "section": "§49.1"
+        },
+        {
+          "value": "June 26 2023",
+          "section": "§49.1"
+        },
+        {
+          "value": "10-month",
+          "section": "§49.1"
+        }
+      ]
+    }
+  },
+  "sections": {
+    "rfp": {
+      "count": 107,
+      "sections": [
+        {
+          "id": "§0",
+          "header": "RFP 250000000859 — Laboratory Information Management System, Maintenance and Support (State of Michigan, MDHHS)"
+        },
+        {
+          "id": "§1",
+          "header": "1. DEFINITIONS"
+        },
+        {
+          "id": "§2",
+          "header": "2. BACKGROUND"
+        },
+        {
+          "id": "§3",
+          "header": "3. SCOPE"
+        },
+        {
+          "id": "§4",
+          "header": "4. IT ENVIRONMENT RESPONSIBILITIES"
+        },
+        {
+          "id": "§4.1",
+          "header": "4.1 For a Contractor Hosted Software Solution:"
+        },
+        {
+          "id": "§4.1.1",
+          "header": "● Governance and Risk"
+        },
+        {
+          "id": "§4.1.2",
+          "header": "Compute Resources"
+        },
+        {
+          "id": "§4.1.3",
+          "header": "Networking"
+        },
+        {
+          "id": "§4.1.4",
+          "header": "Identity and Access Management"
+        },
+        {
+          "id": "§4.1.5",
+          "header": "Secrets Management"
+        },
+        {
+          "id": "§4.1.6",
+          "header": "Security & Compliance"
+        },
+        {
+          "id": "§4.1.7",
+          "header": "Source Control & DevOps"
+        },
+        {
+          "id": "§4.1.8",
+          "header": "Storage & Backup"
+        },
+        {
+          "id": "§4.1.9",
+          "header": "Development & Testing Environments"
+        },
+        {
+          "id": "§4.1.10",
+          "header": "Platform"
+        },
+        {
+          "id": "§4.2",
+          "header": "4.2 For a State Hosted Software Solution :"
+        },
+        {
+          "id": "§5",
+          "header": "5. ADA COMPLIANCE"
+        },
+        {
+          "id": "§6",
+          "header": "6. USER TYPE AND CAPACITY"
+        },
+        {
+          "id": "§7",
+          "header": "7. ACCESS CONTROL AND AUTHENTICATION"
+        },
+        {
+          "id": "§7.1",
+          "header": "7.2 Users, Roles, Access"
+        },
+        {
+          "id": "§7.2",
+          "header": "7.2.1 Security control for system access by authorized users . **The proposed solution must:**"
+        },
+        {
+          "id": "§7.3",
+          "header": "7.2.1.16 Provide an audit of end user workstation logins."
+        },
+        {
+          "id": "§7.4",
+          "header": "7.2.2 User Rights and Privileges. The proposed system must:"
+        },
+        {
+          "id": "§7.5",
+          "header": "7.2.3 Screen Access and Navigation. The proposed system must:"
+        },
+        {
+          "id": "§8",
+          "header": "8. LIMS ADMINISTRATION"
+        },
+        {
+          "id": "§8.1",
+          "header": "8.1 Comment Configuration"
+        },
+        {
+          "id": "§8.2",
+          "header": "8.2 Test Workflow Configuration The proposed system must:"
+        },
+        {
+          "id": "§8.3",
+          "header": "8.3 Reporting Rules Configuration for Test Results The proposed system must:"
+        },
+        {
+          "id": "§8.4",
+          "header": "8.4 LIMS Administration Tables The proposed system must:"
+        },
+        {
+          "id": "§8.5",
+          "header": "8.4.1 Initial Assignment of Codes to Existing Uncoded Results"
+        },
+        {
+          "id": "§8.6",
+          "header": "8.5 Report Delivery Configuration The proposed system must:"
+        },
+        {
+          "id": "§8.7",
+          "header": "8.6 Task Manager Configuration"
+        },
+        {
+          "id": "§8.8",
+          "header": "8.7 Submitter Database Table The proposed system must:"
+        },
+        {
+          "id": "§8.9",
+          "header": "8.8 Email Distribution Functionality The proposed system must:"
+        },
+        {
+          "id": "§9",
+          "header": "9. SAMPLE LIFECYCLE"
+        },
+        {
+          "id": "§9.1",
+          "header": "9.1 Data Auditing"
+        },
+        {
+          "id": "§9.2",
+          "header": "9.2 Sample Accessioning"
+        },
+        {
+          "id": "§9.3",
+          "header": "9.3 Sample Batching The proposed system must:"
+        },
+        {
+          "id": "§9.4",
+          "header": "9.4 Sample Resulting The proposed system must:"
+        },
+        {
+          "id": "§9.5",
+          "header": "9.5 Microbiology Module Specifics The proposed system must:"
+        },
+        {
+          "id": "§9.6",
+          "header": "9.6 LIMS Reporting The proposed system must:"
+        },
+        {
+          "id": "§9.7",
+          "header": "9.7 Approval Steps"
+        },
+        {
+          "id": "§10",
+          "header": "10. SAMPLE TRACKING"
+        },
+        {
+          "id": "§10.1",
+          "header": "10.1 Chain of Custody"
+        },
+        {
+          "id": "§10.2",
+          "header": "10.2 Temperature Information"
+        },
+        {
+          "id": "§10.3",
+          "header": "10.3 DASHBOARD MANAGEMENT TOOL"
+        },
+        {
+          "id": "§10.4",
+          "header": "10.4 Referral Laboratories Results"
+        },
+        {
+          "id": "§11",
+          "header": "11. QUALITY CONTROL (QC) MANAGEMENT"
+        },
+        {
+          "id": "§11.1",
+          "header": "11.2 Capture QC Results The proposed system must:"
+        },
+        {
+          "id": "§11.2",
+          "header": "11.3 Analyze QC Results"
+        },
+        {
+          "id": "§11.3",
+          "header": "11.4 QC Reports"
+        },
+        {
+          "id": "§12",
+          "header": "12. BIDIRECTIONAL INSTRUMENT INTERFACING"
+        },
+        {
+          "id": "§12.1",
+          "header": "12.1 Preanalytical Interfacing"
+        },
+        {
+          "id": "§12.2",
+          "header": "12.2 Interface Specifications for Instrument Results The proposed system must:"
+        },
+        {
+          "id": "§12.3",
+          "header": "12.3 Instrument Interfaces Required"
+        },
+        {
+          "id": "§12.4",
+          "header": "12.3.1 The State has instruments that require interfacing into the LIMS identified in the table below."
+        },
+        {
+          "id": "§12.5",
+          "header": "12.3.2 The Contractor’s Solution also interfaces with the list identified in the table below."
+        },
+        {
+          "id": "§13",
+          "header": "13. SYSTEM TO SYSTEM INTEROPERABILITY"
+        },
+        {
+          "id": "§13.1",
+          "header": "13.2 Electronic Test Order and Results (ETOR) HL7/FHIR The proposed system must:"
+        },
+        {
+          "id": "§13.1.1",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§13.2",
+          "header": "13.3 Interfacing with existing ETOR web portal **_(if LIMS does not include a web portal)_ The proposed system must:**"
+        },
+        {
+          "id": "§13.3",
+          "header": "13.4 Secure embedded ETOR web **_(if proposed LIMS has an embedded web component)_ The proposed system must:**"
+        },
+        {
+          "id": "§13.4",
+          "header": "13.5 Fax Reporting The proposed system must:"
+        },
+        {
+          "id": "§13.5",
+          "header": "13.6 Surveillance reporting by HL7/FHIR messaging The proposed system must:"
+        },
+        {
+          "id": "§13.6",
+          "header": "13.7 Miscellaneous Interoperability The proposed system must:"
+        },
+        {
+          "id": "§14",
+          "header": "14. COMMUNICATION LOG"
+        },
+        {
+          "id": "§14.1",
+          "header": "14.1 Communication Log Documentation The proposed system must:"
+        },
+        {
+          "id": "§14.2",
+          "header": "14.2 Communication Log Follow-up The proposed system must:"
+        },
+        {
+          "id": "§14.3",
+          "header": "14.3 Communication Log Reporting"
+        },
+        {
+          "id": "§15",
+          "header": "15. LIMS AD HOC REPORTING **15.1 Standard and Customized Reports The proposed system must:**"
+        },
+        {
+          "id": "§16",
+          "header": "16. BILLING FOR DESIGNATED BILLED TESTS OR PROJECTS **16.1 Obtaining Submitter and Other Third-party Required Billing Information The proposed system must:**"
+        },
+        {
+          "id": "§16.1",
+          "header": "16.2 General Billing The proposed system must:"
+        },
+        {
+          "id": "§16.2",
+          "header": "16.3 Application Specific Process for Billing Workflow The proposed system must:"
+        },
+        {
+          "id": "§17",
+          "header": "17. MISCELLANEOUS REQUIREMENTS"
+        },
+        {
+          "id": "§17.1",
+          "header": "17.1 Support Multiple Laboratories Statewide from a Single Database Server The proposed system must:"
+        },
+        {
+          "id": "§18",
+          "header": "18. REQUIRED FUNCTIONALITY RELATING TO DATA RETENTION, DISPOSAL, AND RETRIEVAL"
+        },
+        {
+          "id": "§19",
+          "header": "19. END USER AND IT OPERATING ENVIRONMENT"
+        },
+        {
+          "id": "§19.1",
+          "header": "20.1.3 Be able to monitor logging events."
+        },
+        {
+          "id": "§19.2",
+          "header": "20.2 Cloud Requirements If the proposed system is cloud hosted it must:"
+        },
+        {
+          "id": "§19.3",
+          "header": "20.3 Standards and Regulatory Compliance The proposed system must:"
+        },
+        {
+          "id": "§20",
+          "header": "21. SOFTWARE"
+        },
+        {
+          "id": "§20.1",
+          "header": "21.1 Product Information"
+        },
+        {
+          "id": "§20.2",
+          "header": "21.3 SOM IT Environment Access"
+        },
+        {
+          "id": "§20.3",
+          "header": "21.4 Minimum Performance (application response) Requirements"
+        },
+        {
+          "id": "§20.4",
+          "header": "21.5 Contractor Proposed Software"
+        },
+        {
+          "id": "§21",
+          "header": "22. SYSTEM TO SYSTEM INTERFACE REQUIREMENTS"
+        },
+        {
+          "id": "§22",
+          "header": "23. MIGRATION"
+        },
+        {
+          "id": "§23",
+          "header": "24. HARDWARE"
+        },
+        {
+          "id": "§24",
+          "header": "25. TRAINING SERVICES"
+        },
+        {
+          "id": "§25",
+          "header": "26. TRANSITION RESPONSIBILITIES"
+        },
+        {
+          "id": "§26",
+          "header": "27. DOCUMENTATION"
+        },
+        {
+          "id": "§27",
+          "header": "28. ADDITIONAL PRODUCTS AND SERVICES"
+        },
+        {
+          "id": "§28",
+          "header": "29. CONTRACTOR PERSONNEL"
+        },
+        {
+          "id": "§29",
+          "header": "30. CONTRACTOR KEY PERSONNEL"
+        },
+        {
+          "id": "§30",
+          "header": "31. CONTRACTOR PERSONNEL REQUIREMENTS"
+        },
+        {
+          "id": "§31",
+          "header": "32. STATE RESOURCES"
+        },
+        {
+          "id": "§32",
+          "header": "33. MEETINGS"
+        },
+        {
+          "id": "§33",
+          "header": "35. PROJECT MANAGEMENT"
+        },
+        {
+          "id": "§33.1",
+          "header": "35.1 Suite Documentation"
+        },
+        {
+          "id": "§33.2",
+          "header": "35.2 Milestones/Deliverables for Implementation"
+        },
+        {
+          "id": "§34",
+          "header": "36. BIDDER BACKGROUND AND EXPERIENCE **36.1 Organization**"
+        },
+        {
+          "id": "§34.1",
+          "header": "36.2 Current Customers"
+        },
+        {
+          "id": "§34.2",
+          "header": "36.4 LIMS Technical Support"
+        },
+        {
+          "id": "§34.3",
+          "header": "36.5 User Groups and Other Services (Optional)"
+        },
+        {
+          "id": "§34.4",
+          "header": "36.6 General Information"
+        },
+        {
+          "id": "§34.5",
+          "header": "36.7 Database"
+        }
+      ]
+    },
+    "proposal": {
+      "count": 104,
+      "sections": [
+        {
+          "id": "§0",
+          "header": "Clinisys — Proposal for the same solicitation (bidder responses, from OCR)"
+        },
+        {
+          "id": "§1",
+          "header": "1. Contact Information"
+        },
+        {
+          "id": "§2",
+          "header": "2. Company Background Information"
+        },
+        {
+          "id": "§3",
+          "header": "3. Qualified Disabled Veteran/Service-Disabled"
+        },
+        {
+          "id": "§4",
+          "header": "4. Participation in Solicitation Development or"
+        },
+        {
+          "id": "§5",
+          "header": "5. State of Michigan Experience and Prior"
+        },
+        {
+          "id": "§6",
+          "header": "6. Standard Contract Terms"
+        },
+        {
+          "id": "§7",
+          "header": "7. Insurance Requirements"
+        },
+        {
+          "id": "§8",
+          "header": "8. Michigan Economic Impact"
+        },
+        {
+          "id": "§9",
+          "header": "9. Labor, Antidiscrimination and Environmental"
+        },
+        {
+          "id": "§10",
+          "header": "10. Supplier Diversity"
+        },
+        {
+          "id": "§11",
+          "header": "12. Response to State Requests"
+        },
+        {
+          "id": "§12",
+          "header": "1. Definitions"
+        },
+        {
+          "id": "§13",
+          "header": "2. Background"
+        },
+        {
+          "id": "§14",
+          "header": "4. IT Environment Responsibilities"
+        },
+        {
+          "id": "§15",
+          "header": "5. ADA Compliance"
+        },
+        {
+          "id": "§16",
+          "header": "6. User Type and Capacity"
+        },
+        {
+          "id": "§17",
+          "header": "7. Access Control and Authentication"
+        },
+        {
+          "id": "§17.1",
+          "header": "7.2 Users, Roles, Access"
+        },
+        {
+          "id": "§18",
+          "header": "8. LIMS Administration"
+        },
+        {
+          "id": "§18.1",
+          "header": "8.1 Comment Configuration"
+        },
+        {
+          "id": "§18.2",
+          "header": "8.2 Test Workflow Configuration"
+        },
+        {
+          "id": "§18.3",
+          "header": "8.3 Reporting Rules Configuration for Test Results"
+        },
+        {
+          "id": "§18.4",
+          "header": "8.4 LIMS Administration Tables"
+        },
+        {
+          "id": "§18.5",
+          "header": "8.5 Report Delivery Configuration"
+        },
+        {
+          "id": "§18.6",
+          "header": "8.6 Task Manager Configuration"
+        },
+        {
+          "id": "§18.7",
+          "header": "8.7 Submitter Database Table"
+        },
+        {
+          "id": "§18.8",
+          "header": "8.8 Email Distribution Functionality"
+        },
+        {
+          "id": "§19",
+          "header": "9. Sample Lifecycle"
+        },
+        {
+          "id": "§19.1",
+          "header": "9.1 Data Auditing"
+        },
+        {
+          "id": "§19.2",
+          "header": "9.2 Sample Accessioning"
+        },
+        {
+          "id": "§19.3",
+          "header": "9.3 Sample Batching"
+        },
+        {
+          "id": "§19.4",
+          "header": "9.4 Sample Resulting"
+        },
+        {
+          "id": "§19.5",
+          "header": "9.5 Microbiology Module Specifics"
+        },
+        {
+          "id": "§19.6",
+          "header": "9.6 LIMS Reporting"
+        },
+        {
+          "id": "§19.7",
+          "header": "9.7 Approval Steps"
+        },
+        {
+          "id": "§20",
+          "header": "10. Sample Tracking"
+        },
+        {
+          "id": "§20.1",
+          "header": "10.1 Chain of Custody"
+        },
+        {
+          "id": "§20.2",
+          "header": "10.2 Temperature Information"
+        },
+        {
+          "id": "§20.3",
+          "header": "10.3 DASHBOARD MANAGEMENT TOOL"
+        },
+        {
+          "id": "§20.4",
+          "header": "10.4 Referral Laboratories Results"
+        },
+        {
+          "id": "§21",
+          "header": "11. Quality Control (QC) Management"
+        },
+        {
+          "id": "§21.1",
+          "header": "11.1 QC Types and Parameters"
+        },
+        {
+          "id": "§21.2",
+          "header": "11.2 Capture QC Results"
+        },
+        {
+          "id": "§21.3",
+          "header": "11.3 Analyze QC Results"
+        },
+        {
+          "id": "§21.4",
+          "header": "11.4 QC Reports"
+        },
+        {
+          "id": "§22",
+          "header": "12. Bidirectional Instrument Interfacing"
+        },
+        {
+          "id": "§22.1",
+          "header": "12.1 Preanalytical Interfacing"
+        },
+        {
+          "id": "§22.2",
+          "header": "12.2 Interface Specifications for Instrument Results"
+        },
+        {
+          "id": "§22.3",
+          "header": "12.3 Instrument Interfaces Required"
+        },
+        {
+          "id": "§23",
+          "header": "13. System to System Interoperability"
+        },
+        {
+          "id": "§23.1",
+          "header": "13.5 Fax Reporting"
+        },
+        {
+          "id": "§23.2",
+          "header": "13.7 Miscellaneous Interoperability"
+        },
+        {
+          "id": "§24",
+          "header": "14. Communication Log"
+        },
+        {
+          "id": "§24.1",
+          "header": "14.1 Communication Log Documentation"
+        },
+        {
+          "id": "§24.2",
+          "header": "14.2 Communication Log Follow-up"
+        },
+        {
+          "id": "§24.3",
+          "header": "14.3 Communication Log Reporting"
+        },
+        {
+          "id": "§25",
+          "header": "15. LIMS Ad Hoc Reporting"
+        },
+        {
+          "id": "§25.1",
+          "header": "15.1 Standard and Customized Reports"
+        },
+        {
+          "id": "§26",
+          "header": "16. Billing for Designated Billed Tests or Projects"
+        },
+        {
+          "id": "§26.1",
+          "header": "16.1 Obtaining Submitter and Other Third-party Required Billing Information"
+        },
+        {
+          "id": "§26.2",
+          "header": "16.2 General Billing"
+        },
+        {
+          "id": "§26.3",
+          "header": "16.3 Application Specific Process for Billing Workflow"
+        },
+        {
+          "id": "§27",
+          "header": "17. Miscellaneous Requirements"
+        },
+        {
+          "id": "§27.1",
+          "header": "17.1 Support Multiple Laboratories Statewide from a Single Database Server"
+        },
+        {
+          "id": "§27.2",
+          "header": "17.2 General Barcode Usage"
+        },
+        {
+          "id": "§28",
+          "header": "19. End User and IT Operating Environment"
+        },
+        {
+          "id": "§28.1",
+          "header": "20.2 Cloud Requirements"
+        },
+        {
+          "id": "§28.2",
+          "header": "20.3 Standards and Regulatory Compliance"
+        },
+        {
+          "id": "§28.3",
+          "header": "21.1 Product Information"
+        },
+        {
+          "id": "§28.4",
+          "header": "21.2 Look and Feel Standards"
+        },
+        {
+          "id": "§28.5",
+          "header": "21.3 SOM IT Environment Access"
+        },
+        {
+          "id": "§29",
+          "header": "2. Definitions"
+        },
+        {
+          "id": "§29.1",
+          "header": "21.4 Minimum Performance (application response) Requirements"
+        },
+        {
+          "id": "§29.2",
+          "header": "21.5 Contractor Proposed Software"
+        },
+        {
+          "id": "§30",
+          "header": "22. System to System Interface Requirements"
+        },
+        {
+          "id": "§31",
+          "header": "23. Migration"
+        },
+        {
+          "id": "§32",
+          "header": "25. Training Services"
+        },
+        {
+          "id": "§33",
+          "header": "26. Transition Responsibilities"
+        },
+        {
+          "id": "§34",
+          "header": "27. Documentation"
+        },
+        {
+          "id": "§35",
+          "header": "28. Additional Products and Services"
+        },
+        {
+          "id": "§36",
+          "header": "29. Contractor Personnel"
+        },
+        {
+          "id": "§37",
+          "header": "6. Experience working with LIMS applications"
+        },
+        {
+          "id": "§38",
+          "header": "7. Experience leading technical teams (vendor"
+        },
+        {
+          "id": "§39",
+          "header": "8. Understanding the latest LIMS-related"
+        },
+        {
+          "id": "§40",
+          "header": "9. Effective communication skills"
+        },
+        {
+          "id": "§41",
+          "header": "30. Contractor Key Personnel"
+        },
+        {
+          "id": "§42",
+          "header": "31. Contractor Personnel Requirements"
+        },
+        {
+          "id": "§43",
+          "header": "32. State Resources"
+        },
+        {
+          "id": "§44",
+          "header": "35. Project Management"
+        },
+        {
+          "id": "§44.1",
+          "header": "35.1 Suite Documentation"
+        },
+        {
+          "id": "§44.2",
+          "header": "35.2 Milestones/Deliverables for Implementation"
+        },
+        {
+          "id": "§45",
+          "header": "1. Project Planning (Project Kickoff)"
+        },
+        {
+          "id": "§46",
+          "header": "3. Implementation Strategy"
+        },
+        {
+          "id": "§47",
+          "header": "5. Testing and Acceptance"
+        },
+        {
+          "id": "§48",
+          "header": "6. Maintenance and Support"
+        },
+        {
+          "id": "§49",
+          "header": "36. Bidder Background and Experience"
+        },
+        {
+          "id": "§49.1",
+          "header": "36.1 Organization"
+        },
+        {
+          "id": "§49.2",
+          "header": "36.2 Current Customers"
+        },
+        {
+          "id": "§49.3",
+          "header": "36.3 Implementation Support (Installation, Training, Database Conversion)"
+        },
+        {
+          "id": "§49.4",
+          "header": "36.4 LIMS Technical Support"
+        },
+        {
+          "id": "§49.5",
+          "header": "36.5 User Groups and Other Services (Optional)"
+        },
+        {
+          "id": "§49.6",
+          "header": "36.6 General Information"
+        },
+        {
+          "id": "§49.7",
+          "header": "36.7 Database"
+        }
+      ]
+    }
+  },
+  "partial": false,
+  "error": null,
+  "warnings": [],
+  "meta": {
+    "model": "gemini-3.8-flash",
+    "temperature": 0.0,
+    "promptVersion": "4",
+    "mode": "split",
+    "durationMs": 41215,
+    "llmCalls": 5,
+    "truncated": 0,
+    "repaired": 0,
+    "ungroundedDropped": 1,
+    "fuzzyMatched": 1,
+    "extractCached": false,
+    "scoreCached": false
+  }
+}

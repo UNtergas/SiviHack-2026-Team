@@ -16,8 +16,9 @@ import strong from "./samples/response_3_strong.md?raw"
 import overpromise from "./samples/response_4_overpromise.md?raw"
 import limsRfp from "./realworld/lims-rfp.md?raw"
 import limsOnq from "./realworld/lims-onq.md?raw"
+import limsClinisys from "./realworld/lims-clinisys.md?raw"
 
-export type SampleId = "weak" | "medium" | "strong" | "overpromise" | "lims-onq"
+export type SampleId = "weak" | "medium" | "strong" | "overpromise" | "lims-clinisys" | "lims-onq"
 
 /**
  * `canonical` drops the `**Variant: WEAK — …**` fixture banner (it would announce the
@@ -65,6 +66,12 @@ export const SAMPLES: Record<SampleId, Sample> = {
    * requirements and the bidder's answers (see docs/realworld). The State scored it 48.5 of
    * 130 and named offshore access and offshore personnel among the reasons.
    */
+  "lims-clinisys": {
+    label: "Clinisys · won, 107.25 / 130",
+    note: "Michigan RFP 250000000859, the awarded bid, read from a scanned PDF: redlines, extra costs, a UK security officer",
+    rfp: canonical(limsRfp),
+    text: canonical(limsClinisys),
+  },
   "lims-onq": {
     label: "OnQ Software · lost, 48.5 / 130",
     note: "Michigan RFP 250000000859, a 300-page bid: offshore staff, deferred pricing, no public-health references",
@@ -76,5 +83,5 @@ export const SAMPLES: Record<SampleId, Sample> = {
 /** How the setup screen groups the buttons. A `live` group needs a backend: nothing is recorded for the mock build. */
 export const SAMPLE_GROUPS: { label: string; ids: SampleId[]; live?: boolean }[] = [
   { label: "Load a sample", ids: ["weak", "medium", "strong", "overpromise"] },
-  { label: "Real RFP · Michigan LIMS", ids: ["lims-onq"], live: true },
+  { label: "Real RFP · Michigan LIMS", ids: ["lims-clinisys", "lims-onq"], live: true },
 ]

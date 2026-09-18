@@ -1,0 +1,13 @@
+{
+ "kind": "group:risk",
+ "model": "gemini-3.8-flash",
+ "prompt_head": "You score a draft PROPOSAL on 1 review criterion. Group id: risk. Other reviewer",
+ "truncated": false,
+ "usage": {
+  "prompt": 39310,
+  "output": 221,
+  "thinking": 0,
+  "cached": 0
+ },
+ "text": "{\n  \"findings\": [],\n  \"scores\": [\n    {\n      \"id\": \"risk_transparency\",\n      \"label\": \"Risk/Assumptions Transparency\",\n      \"score\": 1,\n      \"strengths\": null,\n      \"weaknesses\": \"The proposal fails to acknowledge or provide mitigations for assigning key personnel located in the United Kingdom despite the RFP's strict offshore prohibitions (§41).\",\n      \"citations\": [\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§41\",\n          \"quote\": \"Address: Clinisys - United Kingdom\"\n        },\n        {\n          \"source\": \"rfp\",\n          \"section\": \"§41\",\n          \"quote\": \"Use of Offshore Resources is prohibited per the Schedule E – Data Security Requirements.\"\n        }\n      ],\n      \"note\": \"Per scoring rules, an unacknowledged hard constraint violation requires risk_transparency <= 2.\"\n    }\n  ]\n}"
+}

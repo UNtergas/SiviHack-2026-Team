@@ -64,6 +64,7 @@ def test_requirements_txt_is_current():
 REALWORLD = {  # frontend copy → the pair file it must equal (docs/realworld)
     "lims-rfp.md": ROOT / "docs" / "realworld" / "pair2-lims" / "rfp.md",
     "lims-onq.md": ROOT / "docs" / "realworld" / "pair2-lims" / "onq.md",
+    "lims-clinisys.md": ROOT / "docs" / "realworld" / "pair2-lims" / "clinisys.md",
 }
 
 

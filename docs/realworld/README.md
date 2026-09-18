@@ -12,7 +12,7 @@ Markdown) is ignored by git.
 
 | Pair | Solicitation | Files here | Answer key |
 |---|---|---|---|
-| 2 | 250000000859, Laboratory Information Management System (MDHHS) | `pair2-lims/rfp.md`, `pair2-lims/onq.md` (the losing bid, 48.5 / 130) | `pair2-lims/expected.md` |
+| 2 | 250000000859, Laboratory Information Management System (MDHHS) | `pair2-lims/rfp.md`; `pair2-lims/clinisys.md` (the awarded bid, 107.25 / 130, from a scanned PDF via OCR); `pair2-lims/onq.md` (the losing bid, 48.5 / 130) | `pair2-lims/expected.md` |
 
 Sources for pair 2 (copy the whole line, the query string is part of the URL):
 
@@ -31,10 +31,12 @@ Enhancement / Not Available). The RFP text therefore lives inside every bid.
 # 1. fetch the archive in a browser (the site returns 403 to curl), unzip into raw/<pair>/
 # 2. PDF → Markdown (scanned pages: ocr_vision.py first, macOS only, free)
 cd app && uv run --with pymupdf4llm python ../docs/realworld/tools/pdf_to_md.py "<bid>.pdf" ../docs/realworld/raw/<pair>/<vendor>.md
-# 3. split the State's template from the bidder's words
+# 3. split the State's template from the bidder's words (a text-layer PDF: the Markdown markers;
+#    a scanned one: the bidder's lines are whatever does not match the template split from another bid)
 python3 ../docs/realworld/tools/split_michigan.py ../docs/realworld/raw/<pair>/<vendor>.md ../docs/realworld/raw/<pair>/split "<Vendor Name>" "<name>,<product>,<partner>"
 #    → split/rfp.md (the template: headings, numbered requirements, questions) and split/<vendor>.md
 #      (answers labelled by section, checkbox choices as "- 8.3.1: Requires Customization")
+uv run python ../docs/realworld/tools/split_by_template.py ../docs/realworld/raw/<pair>/<vendor>-ocr.md ../docs/realworld/<pair>/rfp.md ../docs/realworld/<pair>/<vendor>.md "<Vendor Name>"
 # 4. run the reviewer on the pair, recording the model's answers into the replay fixtures so the
 #    same pair replays for free afterwards (in the UI too: `make warm` / `./run.sh warm` fill the cache from them)
 LLM_RECORD_DIR=tests/fixtures/replay uv run --env-file .env python ../docs/realworld/tools/run_pair.py ../docs/realworld/<pair>/rfp.md ../docs/realworld/<pair>/<vendor>.md ../docs/realworld/<pair>/results/<vendor>.json

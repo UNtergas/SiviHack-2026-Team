@@ -26,13 +26,17 @@ above it). Click "Medium" to restore. "More test data" opens the Real procuremen
 solicitations, each with a description and its bids; "EarnStride" loads the pair, closes the
 dialog and shows "Loaded EarnStride · Youth Employment Permit Portal" beside the button.
 
-## E2. Upload for both witnesses
+## E2. Upload for both witnesses, including a PDF
 
 "Upload the Request for Proposal as .md" with `sample_data/rfp_nordframe.md` and "Upload the
 Draft Proposal as .md" with `sample_data/response_2_medium.md` → the draft pane shows the
 same "33 lines · 195 words" as the sample button does (the `**Variant**` banner is dropped on
 upload). "Run review" → a full review with no "no recording" rail. This proves paste, upload
 and the sample buttons send identical canonical text.
+PDF: "Upload the Draft Proposal as .md or .pdf" with a text PDF (for instance
+docs/realworld/raw/pair3/concourse/…/…RFP.pdf) → the button reads "Reading the PDF…" for a
+moment, then the textbox fills with Markdown that keeps the headings. A scanned PDF → an inline
+line "this PDF has no text layer (… pages): it is a scan…" and the textbox is unchanged.
 
 ## E3. Run Medium and watch the trace
 

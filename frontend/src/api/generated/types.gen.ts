@@ -5,6 +5,16 @@ export type ClientOptions = {
 };
 
 /**
+ * Body_documents_convert
+ */
+export type BodyDocumentsConvert = {
+    /**
+     * File
+     */
+    file: Blob | File;
+};
+
+/**
  * Citation
  *
  * A section of one of the two documents plus the words in it that justify a score.
@@ -77,6 +87,30 @@ export type ConstraintViolation = {
      */
     fix: string;
     grounding: GroundingStatus | null;
+};
+
+/**
+ * ConvertedDocument
+ *
+ * POST /documents/convert: an uploaded PDF as Markdown, ready for the textarea.
+ */
+export type ConvertedDocument = {
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Text
+     */
+    text: string;
+    /**
+     * Pages
+     */
+    pages: number;
+    /**
+     * Textpages
+     */
+    textPages: number;
 };
 
 /**
@@ -837,3 +871,36 @@ export type RfpExtractResponses = {
 };
 
 export type RfpExtractResponse = RfpExtractResponses[keyof RfpExtractResponses];
+
+export type DocumentsConvertData = {
+    body: BodyDocumentsConvert;
+    path?: never;
+    query?: never;
+    url: '/documents/convert';
+};
+
+export type DocumentsConvertErrors = {
+    /**
+     * The upload is over 40 MB.
+     */
+    413: ErrorDetail;
+    /**
+     * The upload is not a PDF.
+     */
+    415: ErrorDetail;
+    /**
+     * The PDF is a scan: no text layer to read.
+     */
+    422: ErrorDetail;
+};
+
+export type DocumentsConvertError = DocumentsConvertErrors[keyof DocumentsConvertErrors];
+
+export type DocumentsConvertResponses = {
+    /**
+     * Successful Response
+     */
+    200: ConvertedDocument;
+};
+
+export type DocumentsConvertResponse = DocumentsConvertResponses[keyof DocumentsConvertResponses];

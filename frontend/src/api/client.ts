@@ -1,11 +1,12 @@
 import type {
+  ConvertedDocument,
   CriterionScore,
   RequirementsEvent,
   ScoreRequest,
   ScoringResult,
   StreamEvent,
 } from "@/api/generated/types.gen"
-import { zRequirementsEvent, zScoringResult } from "@/api/generated/zod.gen"
+import { zConvertedDocument, zRequirementsEvent, zScoringResult } from "@/api/generated/zod.gen"
 import type { ReviewInput, WeightAdvice } from "@/api/schema"
 import { adaptSuggestions } from "@/api/adapt"
 import { isAbort, ReviewError } from "@/api/errors"
@@ -91,6 +92,39 @@ async function extractLive(rfp: string, signal?: AbortSignal): Promise<Requireme
     )
   }
   return parsed.data as RequirementsEvent
+}
+
+/**
+ * A PDF as Markdown (POST /documents/convert): the backend keeps headings and tables, so an
+ * uploaded bid splits into the sections the review cites. A scan comes back as a 422 with the
+ * reason; the mock build has no backend to send it to.
+ */
+export async function convertDocument(file: File, signal?: AbortSignal): Promise<ConvertedDocument> {
+  if (MOCK) {
+    throw new ReviewError(
+      "Reading a PDF needs the backend; this build replays recorded results. Paste the text or upload the .md file.",
+      "upstream",
+    )
+  }
+  const body = new FormData()
+  body.append("file", file, file.name)
+  let res: Response
+  try {
+    res = await fetch(`${API}/documents/convert`, { method: "POST", body, signal })
+  } catch (e) {
+    if (isAbort(e)) throw e
+    throw new ReviewError(UNREACHABLE, "transport")
+  }
+  if (isGateway(res.status)) throw new ReviewError(UNREACHABLE, "transport")
+  if (!res.ok) throw new ReviewError(await detail(res), "upstream")
+  const parsed = zConvertedDocument.safeParse(await res.json())
+  if (!parsed.success) {
+    throw new ReviewError(
+      "The review service answered in a shape this build does not understand. Regenerate the client from app/openapi.json.",
+      "contract",
+    )
+  }
+  return parsed.data as ConvertedDocument
 }
 
 /* ---- mock mode: the recorded results, replayed as the backend would stream them ---------- */

@@ -221,10 +221,86 @@
           }
         }
       }
+    },
+    "/documents/convert": {
+      "post": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Convert",
+        "description": "A PDF as Markdown: headings become sections the review can cite, tables keep their rows.",
+        "operationId": "documents_convert",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_documents_convert"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConvertedDocument"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "The upload is over 40 MB.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "The upload is not a PDF.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "The PDF is a scan: no text layer to read.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDetail"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "Body_documents_convert": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_documents_convert"
+      },
       "Citation": {
         "properties": {
           "source": {
@@ -382,6 +458,35 @@
           "grounding"
         ],
         "title": "ConstraintViolation"
+      },
+      "ConvertedDocument": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "pages": {
+            "type": "integer",
+            "title": "Pages"
+          },
+          "textPages": {
+            "type": "integer",
+            "title": "Textpages"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "text",
+          "pages",
+          "textPages"
+        ],
+        "title": "ConvertedDocument",
+        "description": "POST /documents/convert: an uploaded PDF as Markdown, ready for the textarea."
       },
       "CoverageEvent": {
         "properties": {

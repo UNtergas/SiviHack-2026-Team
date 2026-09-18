@@ -8,6 +8,7 @@ FastAPI backend for the FPT "Proposal Scorer" track, on a **uv** project layout
 
 ```
 POST /score/stream {rfp?, proposal, weights?, customCriteria?}   (POST /score = same, blocking; POST /rfp/extract = call 1 only)
+POST /documents/convert  multipart `file` (PDF) → {name, text, pages, textPages}; 415 not a PDF, 422 a scan, 413 over 40 MB
 
 1. parse        code   → sections with hierarchical ids (§2, §3.1; ¶n fallback)   → event: sections
 2. LLM call 1   →  requirements[] + constraints[] + suggestedWeights[]              → event: requirements

@@ -1,15 +1,18 @@
-import { useId, useRef } from "react"
+import { useId, useRef, useState } from "react"
+import { Loader2 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import type { Siglum as SiglumLetter } from "@/api/schema"
+import { convertDocument } from "@/api/client"
 import { canonical } from "@/lib/quote"
 import { Siglum } from "@/components/apparatus/siglum"
 
 /**
- * A witness is declared before it can be collated. Paste it, or upload the
- * Markdown file — the format the sample data ships in. The RFP is optional and
- * says so on the pane itself, with what is lost without it.
+ * A witness is declared before it can be collated. Paste it, or upload the Markdown file
+ * the sample data ships in, or a PDF, which the backend turns into Markdown with its headings
+ * and tables. The RFP is optional and says so on the pane itself, with what is lost without it.
  */
+const isPdf = (f: File) => f.type === "application/pdf" || /\.pdf$/i.test(f.name)
 export function WitnessInput({
   of,
   title,
@@ -34,6 +37,29 @@ export function WitnessInput({
   const fileId = useId()
   const areaId = useId()
   const file = useRef<HTMLInputElement | null>(null)
+  /** A PDF on its way through the backend, or what went wrong with the last one. */
+  const [reading, setReading] = useState<string | null>(null)
+  const [problem, setProblem] = useState<string | null>(null)
+
+  const load = async (picked: File) => {
+    setProblem(null)
+    if (!isPdf(picked)) {
+      onChange(canonical(await picked.text()))
+      return
+    }
+    setReading(picked.name)
+    try {
+      const doc = await convertDocument(picked)
+      onChange(canonical(doc.text))
+      if (doc.textPages < doc.pages) {
+        setProblem(`${doc.pages - doc.textPages} of ${doc.pages} pages had no text and were skipped.`)
+      }
+    } catch (e) {
+      setProblem(e instanceof Error ? e.message : String(e))
+    } finally {
+      setReading(null)
+    }
+  }
 
   const lines = value.trim() === "" ? 0 : value.split("\n").length
   const words = value.trim() === "" ? 0 : value.trim().split(/\s+/).length
@@ -68,24 +94,36 @@ export function WitnessInput({
             disabled && "pointer-events-none opacity-50",
           )}
         >
-          Upload .md
+          {reading ? (
+            <span className="inline-flex items-center gap-1.5">
+              <Loader2 className="size-3.5 animate-spin" />
+              Reading the PDF…
+            </span>
+          ) : (
+            "Upload .md or .pdf"
+          )}
           <input
             id={fileId}
             ref={file}
             type="file"
-            accept=".md,.markdown,.txt,text/markdown,text/plain"
-            aria-label={`Upload the ${title} as .md`}
+            accept=".md,.markdown,.txt,.pdf,text/markdown,text/plain,application/pdf"
+            aria-label={`Upload the ${title} as .md or .pdf`}
             className="sr-only"
-            disabled={disabled}
-            onChange={async (e) => {
+            disabled={disabled || reading !== null}
+            onChange={(e) => {
               const picked = e.target.files?.[0]
-              if (!picked) return
-              onChange(canonical(await picked.text()))
               if (file.current) file.current.value = ""
+              if (picked) void load(picked)
             }}
           />
         </label>
       </header>
+
+      {problem && (
+        <p role="alert" className="border-rule-hair text-ink border-b px-4 py-2 text-[0.8rem] leading-snug">
+          {problem}
+        </p>
+      )}
 
       {optional && value.trim() === "" && (
         <p className="border-rule-hair text-ink-2 border-b px-4 py-2 text-[0.8rem] leading-snug">

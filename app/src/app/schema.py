@@ -275,6 +275,15 @@ class ExtractRequest(Model):
     rfp: str
 
 
+class ConvertedDocument(Model):
+    """POST /documents/convert: an uploaded PDF as Markdown, ready for the textarea."""
+
+    name: str
+    text: str
+    pages: int
+    textPages: int  # pages that carried a text layer
+
+
 class ErrorDetail(Model):
     """The body of every 4xx / 5xx this API raises (FastAPI's HTTPException shape)."""
 

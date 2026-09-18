@@ -7,8 +7,8 @@ SiviHack 2026, Track 1 (FPT Software Europe).
 ## 1. What the product is
 
 A reviewer for sales proposals, not a writer of them. Paste or upload the client's RFP and the
-draft proposal (Markdown or plain text), press **Run review**, and watch the review arrive
-stage by stage:
+draft proposal (Markdown, plain text, or a PDF with a text layer), press **Run review**, and
+watch the review arrive stage by stage:
 
 - **Seven criteria scored 1–5** (Appendix A of the brief: problem understanding, scope and
   deliverables, pricing, timeline, completeness vs RFP, tone, risk transparency), each with a
@@ -95,7 +95,8 @@ code in `app/src/app/aggregate.py` and `frontend/src/lib/score.ts`; streaming in
 
 ## 5. Current limitations
 
-- Markdown and plain text only; no PDF or PowerPoint import.
+- PDF upload reads the text layer only: a scanned PDF is refused with a message. PowerPoint
+  exports work when exported to PDF with text; there is no OCR in the container.
 - English prompts and rubric.
 - Five model calls per review, six with custom criteria (about 5–20 seconds and about
   USD 0.06 on Gemini 3.8 Flash); a free-tier key can hit its per-minute limit when two

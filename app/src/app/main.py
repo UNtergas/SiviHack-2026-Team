@@ -8,20 +8,24 @@ POST /score/stream   Server-Sent Events, one frame per stage (schema.StreamEvent
                      (terminal). FastAPI's native SSE adds `: ping` every 15 s while a call is
                      in flight.
 POST /rfp/extract    call 1 only; same cache as a full run, so a run right after costs nothing.
+POST /documents/convert   a PDF (multipart `file`) → Markdown for the textarea; 415 when it is not a
+                     PDF, 422 when it has no text layer (a scan), 413 above 40 MB.
 """
 
 import logging
 from collections.abc import AsyncIterator
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.routing import APIRoute
 from fastapi.sse import EventSourceResponse, ServerSentEvent
 
+from app.convert import MAX_BYTES, NotAPdf, NoTextLayer, pdf_to_markdown
 from app.logs import configure
 from app.pipeline import extract_requirements, run, score_proposal
 from app.schema import (
+    ConvertedDocument,
     ErrorDetail,
     ErrorEvent,
     ExtractRequest,
@@ -121,3 +125,45 @@ async def extract(req: ExtractRequest) -> RequirementsEvent:
     except Exception as e:
         log.exception("extraction failed")
         raise HTTPException(502, f"extraction failed: {type(e).__name__}: {e}") from e
+
+
+NOT_A_PDF = {"model": ErrorDetail, "description": "The upload is not a PDF."}
+NO_TEXT_LAYER = {"model": ErrorDetail, "description": "The PDF is a scan: no text layer to read."}
+TOO_LARGE = {"model": ErrorDetail, "description": "The upload is over 40 MB."}
+
+
+@app.post(
+    "/documents/convert",
+    tags=["documents"],
+    responses={413: TOO_LARGE, 415: NOT_A_PDF, 422: NO_TEXT_LAYER},
+)
+async def convert(file: UploadFile) -> ConvertedDocument:
+    """A PDF as Markdown: headings become sections the review can cite, tables keep their rows."""
+    data = await file.read()
+    if len(data) > MAX_BYTES:
+        raise HTTPException(413, "the file is over 40 MB")
+    try:
+        out = pdf_to_markdown(data)
+    except NotAPdf:
+        raise HTTPException(
+            415, "only PDF files can be converted; paste or upload the text instead"
+        ) from None
+    except NoTextLayer as e:
+        raise HTTPException(
+            422,
+            f"this PDF has no text layer ({e}): it is a scan. Export it from the source "
+            "application, or paste the text.",
+        ) from None
+    log.info(
+        "convert: %s → %d chars from %d pages (%d with text)",
+        file.filename,
+        len(out.text),
+        out.pages,
+        out.text_pages,
+    )
+    return ConvertedDocument(
+        name=file.filename or "document.pdf",
+        text=out.text,
+        pages=out.pages,
+        textPages=out.text_pages,
+    )

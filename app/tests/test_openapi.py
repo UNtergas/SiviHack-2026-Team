@@ -17,7 +17,7 @@ def test_committed_openapi_matches_the_app():
 def test_contract_carries_everything_a_generator_needs():
     spec = app.openapi()
     ops = {op["operationId"] for path in spec["paths"].values() for op in path.values()}
-    assert ops == {"meta_health", "score_score", "score_stream", "rfp_extract"}
+    assert ops == {"meta_health", "score_score", "score_stream", "rfp_extract", "documents_convert"}
     c = spec["components"]["schemas"]
 
     disc = c["StreamEvent"]["discriminator"]

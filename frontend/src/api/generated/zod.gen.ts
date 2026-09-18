@@ -2,6 +2,13 @@
 
 import * as z from 'zod';
 
+/**
+ * Body_documents_convert
+ */
+export const zBodyDocumentsConvert = z.object({
+    file: z.string()
+});
+
 export const zConstraintKind = z.enum([
     'BUDGET',
     'DEADLINE',
@@ -10,6 +17,18 @@ export const zConstraintKind = z.enum([
     'LEGAL',
     'OTHER'
 ]);
+
+/**
+ * ConvertedDocument
+ *
+ * POST /documents/convert: an uploaded PDF as Markdown, ready for the textarea.
+ */
+export const zConvertedDocument = z.object({
+    name: z.string(),
+    text: z.string(),
+    pages: z.int(),
+    textPages: z.int()
+});
 
 export const zCoverageStatus = z.enum([
     'ADDRESSED',
@@ -463,3 +482,10 @@ export const zRfpExtractBody = zExtractRequest;
  * Successful Response
  */
 export const zRfpExtractResponse = zRequirementsEvent;
+
+export const zDocumentsConvertBody = zBodyDocumentsConvert;
+
+/**
+ * Successful Response
+ */
+export const zDocumentsConvertResponse = zConvertedDocument;

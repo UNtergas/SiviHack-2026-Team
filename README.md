@@ -126,6 +126,14 @@ in `app/src/app/replay.py`; the results on the real bids against the State's ver
 - The rubric's cap for a constraint violation (problem understanding at most 3) is enforced in
   code; the pricing and timeline caps stay instructions to the model, because the amount and
   date detector misses spellings such as "78,500 euros".
+- The guard against hallucination covers citations only: every quote is checked against the
+  source text and dropped or marked when it is not there, so a finding cannot point at words
+  that do not exist. The judgement itself is the model's. The prompts force every score and
+  finding to rest on a cited passage, which limits drift but does not remove it: a wrong
+  reading of a real passage passes the check.
+- The reasoning asked of each scoring group is simple: name the defects first, then score
+  against the rubric anchors. There is no deeper chain of thought, self-check or second pass,
+  so two runs on the same pair can differ by a few tenths.
 - A custom criterion is judged on its one-line instruction with generic 1 / 3 / 5 anchors,
   not a tuned rubric, and it yields a score with citations but no findings of its own.
 - Quotes are at most 20 words and are dropped when the model paraphrases (the count is in

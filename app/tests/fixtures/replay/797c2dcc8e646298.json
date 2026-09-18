@@ -1,0 +1,13 @@
+{
+ "kind": "group:risk",
+ "model": "gemini-3.8-flash",
+ "prompt_head": "You score a draft PROPOSAL on 1 review criterion. Group id: risk. Other reviewer",
+ "truncated": false,
+ "usage": {
+  "prompt": 16782,
+  "output": 196,
+  "thinking": 0,
+  "cached": 0
+ },
+ "text": "{\n  \"findings\": [],\n  \"scores\": [\n    {\n      \"id\": \"risk_transparency\",\n      \"label\": \"Risk/Assumptions Transparency\",\n      \"score\": 1,\n      \"strengths\": null,\n      \"weaknesses\": \"The proposal ignores the requirement in §24 to explain impacted risks caused by configuration or customization, copying the RFP requirements verbatim instead.\",\n      \"citations\": [\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§24\",\n          \"quote\": \"Explain the details of any configuration/customization and the impacted risk that may be caused\"\n        },\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§24\",\n          \"quote\": \"Contractor performs detailed Salesforce Release Readiness prior to the scheduled release.\"\n        }\n      ]\n    }\n  ]\n}"
+}

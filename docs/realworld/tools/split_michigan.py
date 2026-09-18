@@ -6,16 +6,27 @@ import re, sys
 from pathlib import Path
 
 src, out_dir, vendor = Path(sys.argv[1]), Path(sys.argv[2]), sys.argv[3]
-vendor_tokens = sys.argv[4].split(",") if len(sys.argv) > 4 else []
+vendor_tokens = [v for v in (sys.argv[4].split(",") if len(sys.argv) > 4 else []) if v]
+title = sys.argv[5] if len(sys.argv) > 5 else "RFP"
 md = src.read_text()
 
 # ---- the part of the file that is the questionnaire the State scores -------------------------
-start = md.find("# **VENDOR QUESTIONS WORKSHEET**")
-sa = md.find("# **SCHEDULE A – STATEMENT OF WORK**")
-end = md.find("# **SCHEDULE B – PRICING")
+def find(pattern: str, start: int = 0) -> int:
+    m = re.compile(pattern, re.I | re.M).search(md, start)
+    return m.start() if m else -1
+
+start = find(r"^#+ \**VENDOR QUESTIONS WORKSHEET")
+sa = find(r"^#+ \**SCHEDULE A\s*[–-]\s*STATEMENT OF WORK", start)
+end = find(r"^#+ \**SCHEDULE B\s*[–-]\s*PRICING", sa)
+if end < 0:  # pricing is often a separate file: stop at the next schedule, else at the end
+    end = find(r"^#+ \**SCHEDULE [C-Z]\s*[–-]", sa)
+if end < 0:
+    end = len(md)
 assert 0 <= start < sa < end, (start, sa, end)
 # skip the contract boilerplate between the worksheet and Schedule A
-worksheet_end = md.find("# **ATTACHMENT 1, RESUME TEMPLATES**", start)
+worksheet_end = find(r"^#+ \**(ATTACHMENT 1|SOFTWARE CONTRACT TERMS|CONTRACT TERMS AND CONDITIONS|STANDARD CONTRACT TERMS)", start)
+if not (start < worksheet_end < sa):
+    worksheet_end = sa
 text = md[start:worksheet_end] + "\n\n" + md[sa:end]
 
 # ---- normalise --------------------------------------------------------------------------------
@@ -315,8 +326,8 @@ def tidy(parts: list[str]) -> str:
     return re.sub(r"\n{3,}", "\n\n", s).strip() + "\n"
 
 out_dir.mkdir(parents=True, exist_ok=True)
-rfp_text = "# RFP 250000000859 — Laboratory Information Management System, Maintenance and Support (State of Michigan, MDHHS)\n\n" + tidy(rfp)
-prop_text = f"# {vendor} — Proposal for RFP 250000000859 (bidder responses)\n\n" + tidy(prop)
+rfp_text = f"# {title}\n\n" + tidy(rfp)
+prop_text = f"# {vendor} — Proposal for {title.split(' — ')[0]} (bidder responses)\n\n" + tidy(prop)
 (out_dir / "rfp.md").write_text(rfp_text)
 (out_dir / f"{vendor.lower().split()[0]}.md").write_text(prop_text)
 for name, t in (("rfp", rfp_text), ("proposal", prop_text)):

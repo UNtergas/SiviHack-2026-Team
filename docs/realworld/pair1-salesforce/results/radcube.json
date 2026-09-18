@@ -1,0 +1,1627 @@
+{
+  "overall": 2.43,
+  "weights": {
+    "problem_understanding": 1.0,
+    "scope_clarity": 1.0,
+    "pricing_clarity": 1.0,
+    "timeline_clarity": 1.0,
+    "completeness": 1.0,
+    "tone_persuasiveness": 1.0,
+    "risk_transparency": 1.0
+  },
+  "scores": [
+    {
+      "id": "problem_understanding",
+      "label": "Problem Understanding",
+      "score": 3,
+      "strengths": "The bidder correctly captures the three MPSC Salesforce orgs and the 600-hour annual maintenance structure.",
+      "weaknesses": "Section §26 qualifies mandatory items like CI/CD setup with potential additional costs, violating RFP constraint c5.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§4",
+          "quote": "CAD/Telecom Salesforce Database (200 hours/year), E-Dockets Case Management System (200 hours/year), and Pipeline Safety System (200 hours/year).",
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§26",
+          "quote": "the setup will require additional effort and may involve further costs, which will be discussed",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "scope_clarity",
+      "label": "Scope & Deliverables Clarity",
+      "score": 3,
+      "strengths": "The proposal clearly enumerates the support activities and system areas across the CAD/Telecom, E-Dockets, and Pipeline Safety environments.",
+      "weaknesses": "In §26, the boundaries for CI/CD setup, regression testing tools, and backup tool configurations remain fuzzy by conditioning deliverables on client tooling and deferring scope details to future discussions.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§26",
+          "quote": "Any additional specific configuration within the backup tool or custom development will be excluded from this scope",
+          "grounding": "fuzzy"
+        },
+        {
+          "source": "proposal",
+          "section": "§4",
+          "quote": "The proposed solution leverages Salesforce’s cloud-based infrastructure to provide comprehensive maintenance and support services",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "pricing_clarity",
+      "label": "Pricing Clarity",
+      "score": 1,
+      "strengths": null,
+      "weaknesses": "The proposal contains no pricing section, provides no itemized cost breakdown, marks subcontractor fees as TBD in §20, and repeatedly defers potential costs in §26.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§20",
+          "quote": "TBD as it is T&M",
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§26",
+          "quote": "may involve further costs, which will be discussed based on the client’s infrastructure and requirements.",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "timeline_clarity",
+      "label": "Timeline Clarity",
+      "score": 2,
+      "strengths": "The proposal references a 5-phase implementation structure in §4.8 and regular reporting frequencies in §23.",
+      "weaknesses": "The proposal does not provide specific calendar dates, milestone durations, or a schedule mapped to the State's project deadlines.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§23.1",
+          "quote": "A clear comparison of planned, forecasted, and actual milestone completion dates.",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "completeness",
+      "label": "Completeness vs. RFP Requirements",
+      "score": 4,
+      "strengths": "35 of 42 requirements addressed: r1 Vendor Questions Worksheet Completion, r2 Sole Contact Information, r3 Authorized Signer Details, r4 Company Background Information, r5 Organizational Structure Changes, r6 Debarment and Litigation Disclosures, r8 Contract Work Physical Address, r9 Disabled Veteran Qualifications, r10 Prior Relevant Experience, r12 Schedule C Insurance Agreement, r13 Michigan Economic Impact Disclosures, r14 Compliance Disclosures, r16 Business Specifications Worksheet Response, r17 Salesforce Support Hours Delivery, r18 Hosting Application Disclosure, r19 Digital Accessibility Compliance, r20 Identity Federation Integration, r21 Data Retention and Retrieval Description, r25 Training Plan and Services, r26 Transition-In and Transition-Out Plan, r27 Solution and User Documentation, r28 Contractor Key Personnel Roles, r30 Meetings Facilitation, r31 Weekly Project Monitoring Reporting, r32 Clarity PPM Timesheet Entry, r33 SUITE Methodology Implementation, r34 Salesforce Release Readiness Execution, r35 Bug and Defect Resolution, r36 Azure DevOps ALM Usage, r38 Platform Release Test Cases, r40 Manual Deployment Move Docs, r41 RFC Release Coordination, r42 Security Vulnerability Remediation, r43 Disaster Recovery Testing Coordination, r44 Backup and Recovery Implementation.",
+      "weaknesses": "7 of 42 requirements not fully addressed: r7 Gross Annual Sales and Scale-Up Plan (PARTIAL); r11 Standard Contract Terms Agreement (CONTRADICTED); r15 EEO-1 Demographic Reporting (MISSING); r22 Browser Compatibility Support (PARTIAL); r23 Application Look and Feel Compliance (MISSING); r29 ICHAT and Drug Screening Certifications (MISSING); r39 CI/CD Pipeline Setup (PARTIAL).",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§0",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§26",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§4",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§5",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§7",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§8",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§9",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§14",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§15",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§16",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§19",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§22",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§23",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§24",
+          "quote": null,
+          "grounding": "verified"
+        }
+      ],
+      "note": "computed from coverage: 36.5/42 credit (ADDRESSED = 1, PARTIAL = 0.5, MISSING / CONTRADICTED = 0)"
+    },
+    {
+      "id": "tone_persuasiveness",
+      "label": "Tone & Persuasiveness",
+      "score": 2,
+      "strengths": "The narrative maintains a polite and professional tone throughout its structured responses.",
+      "weaknesses": "Section §0 rejects standard contract terms upfront and section §26 relies on defensive caveats regarding tooling and costs.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§0",
+          "quote": "Bidder must affirm agreement with the attached Contract Terms. If not in agreement, — Bidder Response: No",
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§26",
+          "quote": "Any additional specific configuration within the backup tool or custom development will be excluded from this scope",
+          "grounding": "fuzzy"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "risk_transparency",
+      "label": "Risk/Assumptions Transparency",
+      "score": 2,
+      "strengths": "The proposal identifies potential operational and security risks alongside general mitigation approaches in §4 and §17.",
+      "weaknesses": "The bidder repeatedly conditions core deliverables on external client tools and introduces unacknowledged cost and scope risks in §26 without transparently addressing the mandatory RFP environment constraints.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§26",
+          "quote": "If ADO CI/CD pipelines are not already established, the setup will require additional effort and may involve further costs",
+          "grounding": "fuzzy"
+        },
+        {
+          "source": "rfp",
+          "section": "§9",
+          "quote": "Contractor must support the current and future State standard environment at no additional cost to the State.",
+          "grounding": "fuzzy"
+        }
+      ],
+      "note": null
+    }
+  ],
+  "coverage": [
+    {
+      "requirementId": "r11",
+      "status": "CONTRADICTED",
+      "proposalSection": "§0",
+      "proposalQuote": "No",
+      "explanation": "The bidder explicitly responded No to affirming agreement with the attached Contract Terms.",
+      "fix": "Affirm agreement with the attached Contract Terms in §0.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r15",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "The proposal does not include the required EEO-1 demographic report.",
+      "fix": "Provide a copy of the current EEO-1 demographic report in §0.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r23",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "The proposal does not address compliance with State of Michigan Application/Site standards.",
+      "fix": "Add an affirmation of compliance with State of Michigan Application/Site standards in §9.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r29",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "The proposal does not provide the required ICHAT and drug screening certifications.",
+      "fix": "Include satisfactory ICHAT and drug screening certifications for all assigned staff in §20.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r7",
+      "status": "PARTIAL",
+      "proposalSection": "§0",
+      "proposalQuote": "While our policy restricts sharing gross annual sales figures in this document, we would be happy to provide",
+      "explanation": "The proposal refuses to disclose gross annual sales figures directly in the document.",
+      "fix": "Provide gross annual sales figures for each of the last five years in §0.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r22",
+      "status": "PARTIAL",
+      "proposalSection": "§9",
+      "proposalQuote": "Salesforce ensures broad compatibility with modern browsers, which is critical for user adoption at MPSC.",
+      "explanation": "The proposal lists browser brands without committing to the two most recent major versions.",
+      "fix": "Confirm support for at minimum the two most recent major browser versions in §9.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r39",
+      "status": "PARTIAL",
+      "proposalSection": "§26",
+      "proposalQuote": "pipelines for deployments to UAT and Production environments, provided Azure DevOps is already in place.",
+      "explanation": "The response omits SIT pipelines and makes CI/CD setup conditional on existing Azure DevOps.",
+      "fix": "Commit to deploying metadata CI/CD pipelines across SIT, UAT, and Production environments in §26.",
+      "grounding": "fuzzy"
+    },
+    {
+      "requirementId": "r1",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r2",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r3",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r4",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r5",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r6",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r8",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r9",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r10",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r12",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r13",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r14",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r16",
+      "status": "ADDRESSED",
+      "proposalSection": "§26",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r17",
+      "status": "ADDRESSED",
+      "proposalSection": "§4",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r18",
+      "status": "ADDRESSED",
+      "proposalSection": "§4",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r19",
+      "status": "ADDRESSED",
+      "proposalSection": "§5",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r20",
+      "status": "ADDRESSED",
+      "proposalSection": "§7",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r21",
+      "status": "ADDRESSED",
+      "proposalSection": "§8",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r25",
+      "status": "ADDRESSED",
+      "proposalSection": "§14",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r26",
+      "status": "ADDRESSED",
+      "proposalSection": "§15",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r27",
+      "status": "ADDRESSED",
+      "proposalSection": "§16",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r28",
+      "status": "ADDRESSED",
+      "proposalSection": "§19",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r30",
+      "status": "ADDRESSED",
+      "proposalSection": "§22",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r31",
+      "status": "ADDRESSED",
+      "proposalSection": "§23",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r32",
+      "status": "ADDRESSED",
+      "proposalSection": "§23",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r33",
+      "status": "ADDRESSED",
+      "proposalSection": "§24",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r34",
+      "status": "ADDRESSED",
+      "proposalSection": "§26",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r35",
+      "status": "ADDRESSED",
+      "proposalSection": "§26",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r36",
+      "status": "ADDRESSED",
+      "proposalSection": "§26",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r38",
+      "status": "ADDRESSED",
+      "proposalSection": "§26",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r40",
+      "status": "ADDRESSED",
+      "proposalSection": "§26",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r41",
+      "status": "ADDRESSED",
+      "proposalSection": "§26",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r42",
+      "status": "ADDRESSED",
+      "proposalSection": "§26",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r43",
+      "status": "ADDRESSED",
+      "proposalSection": "§26",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r44",
+      "status": "ADDRESSED",
+      "proposalSection": "§26",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    }
+  ],
+  "constraintViolations": [
+    {
+      "constraintId": "c5",
+      "proposalSection": "§26",
+      "proposalQuote": "the setup will require additional effort and may involve further costs",
+      "violation": "The vendor conditions CI/CD setup on existing tooling and states it may involve additional costs.",
+      "severity": "HIGH",
+      "fix": "Commit to supporting the State's standard IT environment including CI/CD pipeline setup at no additional cost.",
+      "grounding": "verified"
+    }
+  ],
+  "findings": [
+    {
+      "type": "INCONSISTENCY",
+      "severity": "HIGH",
+      "location": "§22",
+      "proposalQuote": "attend any other required meetings (onsite or remote, as determined by the State) throughout the life of the contract",
+      "explanation": "Contradicting meeting commitments across sections creates contractual ambiguity regarding travel costs and attendance expectations.",
+      "fix": "Confirm unequivocally across all sections that required onsite meetings will be attended at no additional cost to the State.",
+      "grounding": "verified"
+    },
+    {
+      "type": "VAGUENESS",
+      "severity": "HIGH",
+      "location": "§20",
+      "proposalQuote": "TBD as it is T&M",
+      "explanation": "Leaving the subcontractor pricing as TBD prevents the State from evaluating the total cost and financial commitment of the proposal.",
+      "fix": "Specify the exact dollar figure or rate structure for the subcontractor's work instead of marking it as TBD.",
+      "grounding": "verified"
+    },
+    {
+      "type": "VAGUENESS",
+      "severity": "MEDIUM",
+      "location": "§26",
+      "proposalQuote": "may involve further costs, which will be discussed based on the client’s infrastructure and requirements.",
+      "explanation": "Deferring pipeline setup costs to future discussions undermines price certainty required by the State standard environment rules.",
+      "fix": "Commit to setting up CI/CD pipelines within the baseline cost or state a fixed price rather than deferring costs to future discussions.",
+      "grounding": "verified"
+    },
+    {
+      "type": "VAGUENESS",
+      "severity": "MEDIUM",
+      "location": "§26",
+      "proposalQuote": "any potential costs will be discussed based on the scope of the testing needed.",
+      "explanation": "Stating that regression testing tool costs will be discussed later creates unexpected budgetary exposure for the client.",
+      "fix": "State explicitly whether regression testing tools are included in the baseline bid or specify the exact tool licensing fee.",
+      "grounding": "verified"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "r1",
+      "label": "Vendor Questions Worksheet Completion",
+      "rfpQuote": "Provide a detailed response to each question.",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "r2",
+      "label": "Sole Contact Information",
+      "rfpQuote": "Bidder’s sole contact person during the Solicitation process. Include name, title, address, email, and phone number.",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "r3",
+      "label": "Authorized Signer Details",
+      "rfpQuote": "Person authorized to receive and sign a resulting contract. Include name, title, address, email, phone number and vendor customer code",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "r4",
+      "label": "Company Background Information",
+      "rfpQuote": "Legal business name and address. Include business entity designation, e.g., sole proprietor, Inc., LLC, or LLP.",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "r5",
+      "label": "Organizational Structure Changes",
+      "rfpQuote": "Has there been a recent change in organizational structure (e.g., management team) or control",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "r6",
+      "label": "Debarment and Litigation Disclosures",
+      "rfpQuote": "Has bidder ever been debarred, suspended, or disqualified from bidding or contracting with any entity",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r7",
+      "label": "Gross Annual Sales and Scale-Up Plan",
+      "rfpQuote": "State your gross annual sales for each of the last 5 years.",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r8",
+      "label": "Contract Work Physical Address",
+      "rfpQuote": "State the physical address of the place of business that would have primary responsibility for this account",
+      "section": "§2",
+      "grounding": "verified"
+    },
+    {
+      "id": "r9",
+      "label": "Disabled Veteran Qualifications",
+      "rfpQuote": "To demonstrate qualification as a qualified disabled veteran, you must provide:",
+      "section": "§3",
+      "grounding": "verified"
+    },
+    {
+      "id": "r10",
+      "label": "Prior Relevant Experience",
+      "rfpQuote": "Describe at least [3]relevant experiences from the last[5]years supporting your ability to successfully manage a contract",
+      "section": "§4",
+      "grounding": "verified"
+    },
+    {
+      "id": "r11",
+      "label": "Standard Contract Terms Agreement",
+      "rfpQuote": "Bidder must affirm agreement with the attached Contract Terms.",
+      "section": "§11",
+      "grounding": "verified"
+    },
+    {
+      "id": "r12",
+      "label": "Schedule C Insurance Agreement",
+      "rfpQuote": "Bidder must affirm agreement with the attached Schedule C (Insurance Requirements).",
+      "section": "§12",
+      "grounding": "verified"
+    },
+    {
+      "id": "r13",
+      "label": "Michigan Economic Impact Disclosures",
+      "rfpQuote": "Number of employees currently employed at locations within the State of Michigan.",
+      "section": "§12",
+      "grounding": "verified"
+    },
+    {
+      "id": "r14",
+      "label": "Compliance Disclosures",
+      "rfpQuote": "Bidder must disclose any violations of state or federal labor, antidiscrimination and employment laws",
+      "section": "§12",
+      "grounding": "verified"
+    },
+    {
+      "id": "r15",
+      "label": "EEO-1 Demographic Reporting",
+      "rfpQuote": "Bidder shall provide a copy of their current EEO-1 demographic report",
+      "section": "§12",
+      "grounding": "verified"
+    },
+    {
+      "id": "r16",
+      "label": "Business Specifications Worksheet Response",
+      "rfpQuote": "Bidder must respond to each requirement or question marked “BIDDER RESPONSE” below",
+      "section": "§13",
+      "grounding": "verified"
+    },
+    {
+      "id": "r17",
+      "label": "Salesforce Support Hours Delivery",
+      "rfpQuote": "Vendor will provide up to 600 hours of Salesforce maintenance and Support Services each year",
+      "section": "§3",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "r18",
+      "label": "Hosting Application Disclosure",
+      "rfpQuote": "Bidder must disclose if it is proposing a Contractor Hosted or State Hosted application.",
+      "section": "§4",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "r19",
+      "label": "Digital Accessibility Compliance",
+      "rfpQuote": "All websites, applications, software, and associated content and documentation provided by the Contractor as part of the Solution must comply with the Digital Accessibility Standards.",
+      "section": "§5",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "r20",
+      "label": "Identity Federation Integration",
+      "rfpQuote": "The Contractor must implement identity federation with the State’s MiLogin IT Identity and Access Management (IAM) environment",
+      "section": "§7",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "r21",
+      "label": "Data Retention and Retrieval Description",
+      "rfpQuote": "Bidder must review and explain how the data retention, disposal, and retrieval requirements will be met",
+      "section": "§8",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "r22",
+      "label": "Browser Compatibility Support",
+      "rfpQuote": "Contractor must ensure applications and websites display and function accurately in, at minimum, the two most recent major versions",
+      "section": "§9",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "r23",
+      "label": "Application Look and Feel Compliance",
+      "rfpQuote": "All software items provided by the Contractor must adhere to the State of Michigan Application/Site standards",
+      "section": "§10.1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r25",
+      "label": "Training Plan and Services",
+      "rfpQuote": "The Contractor must provide administration and end-user training for implementation, go-live support, and operational handoff.",
+      "section": "§14",
+      "grounding": "verified"
+    },
+    {
+      "id": "r26",
+      "label": "Transition-In and Transition-Out Plan",
+      "rfpQuote": "Bidder must provide a detailed transition-in and transition-out plan in Schedule G – Transition In and Out Plan",
+      "section": "§15",
+      "grounding": "verified"
+    },
+    {
+      "id": "r27",
+      "label": "Solution and User Documentation",
+      "rfpQuote": "Contractor must provide all user manuals, operating manuals, technical manuals and any other instructions, specifications, documents or materials",
+      "section": "§16",
+      "grounding": "verified"
+    },
+    {
+      "id": "r28",
+      "label": "Contractor Key Personnel Roles",
+      "rfpQuote": "Contractor resource who is responsible to serve as the primary contact with regard to services",
+      "section": "§19",
+      "grounding": "verified"
+    },
+    {
+      "id": "r29",
+      "label": "ICHAT and Drug Screening Certifications",
+      "rfpQuote": "Contractor must present certifications evidencing satisfactory ICHAT and drug test results for all staff identified for assignment",
+      "section": "§20",
+      "grounding": "verified"
+    },
+    {
+      "id": "r30",
+      "label": "Meetings Facilitation",
+      "rfpQuote": "the Contractor Project Manager must facilitate a project kick off meeting with the support from the State’s Project Manager",
+      "section": "§22",
+      "grounding": "verified"
+    },
+    {
+      "id": "r31",
+      "label": "Weekly Project Monitoring Reporting",
+      "rfpQuote": "the Contractor Project Manager will monitor project implementation progress and report on a weekly basis to the State’s Project Manager",
+      "section": "§23",
+      "grounding": "verified"
+    },
+    {
+      "id": "r32",
+      "label": "Clarity PPM Timesheet Entry",
+      "rfpQuote": "All Contractors must submit and enter weekly timesheets into the State of Michigan’s Project Portfolio Management tool, Clarity PPM",
+      "section": "§23",
+      "grounding": "verified"
+    },
+    {
+      "id": "r33",
+      "label": "SUITE Methodology Implementation",
+      "rfpQuote": "the Contractor is required to utilize the applicable State Unified Information Technology Environment (SUITE) methodologies",
+      "section": "§24.1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r34",
+      "label": "Salesforce Release Readiness Execution",
+      "rfpQuote": "Contractor performs detailed Salesforce Release Readiness prior to the scheduled release.",
+      "section": "§27",
+      "grounding": "verified"
+    },
+    {
+      "id": "r35",
+      "label": "Bug and Defect Resolution",
+      "rfpQuote": "Contractor develops, tests, and delivers for implementation the identified solution of any identified bugs/defects.",
+      "section": "§29",
+      "grounding": "verified"
+    },
+    {
+      "id": "r36",
+      "label": "Azure DevOps ALM Usage",
+      "rfpQuote": "Use Azure ADO for Application lifecycle management to track backlogs, defects, test cases, releases etc",
+      "section": "§32",
+      "grounding": "verified"
+    },
+    {
+      "id": "r38",
+      "label": "Platform Release Test Cases",
+      "rfpQuote": "Build test cases for SF Platform Releases regression testing",
+      "section": "§36",
+      "grounding": "verified"
+    },
+    {
+      "id": "r39",
+      "label": "CI/CD Pipeline Setup",
+      "rfpQuote": "Contractor must set up CI/CD pipelines to SIT, UAT and Prod environments to deploy Metadata changes",
+      "section": "§38",
+      "grounding": "verified"
+    },
+    {
+      "id": "r40",
+      "label": "Manual Deployment Move Docs",
+      "rfpQuote": "Contractor will attach move docs that will contain step by step instructions for manually deploying non-metadata changes",
+      "section": "§39",
+      "grounding": "verified"
+    },
+    {
+      "id": "r41",
+      "label": "RFC Release Coordination",
+      "rfpQuote": "Contractor must coordinate with MPSC/DTMB on a regular cadence to plan future releases and complete theRequestforChange (RFC)",
+      "section": "§40",
+      "grounding": "verified"
+    },
+    {
+      "id": "r42",
+      "label": "Security Vulnerability Remediation",
+      "rfpQuote": "Contractor is responsible to address any security vulnerabilities from the DAST, SAST and SCA scans for yearly ATO",
+      "section": "§42",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "r43",
+      "label": "Disaster Recovery Testing Coordination",
+      "rfpQuote": "Contractor is responsible to coordinate with MPSC for the Disaster Recovery table-top testing.",
+      "section": "§43",
+      "grounding": "verified"
+    },
+    {
+      "id": "r44",
+      "label": "Backup and Recovery Implementation",
+      "rfpQuote": "Contractor must implement “own” backup or another backup and recovery process for all the MPSC orgs",
+      "section": "§43",
+      "grounding": "verified"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "c1",
+      "kind": "OTHER",
+      "label": "Annual Support Hours Cap",
+      "rfpQuote": "No work in excess of the number of hours stated in this agreement will be performed without an executed change order.",
+      "section": "§3",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "c2",
+      "kind": "SCOPE",
+      "label": "Support Hours Allocation",
+      "rfpQuote": "These 600 hours will be divided equally to support the CAD/Telecom (200 hours), E-Dockets (200 hours) and Pipeline Safety (200 hours)",
+      "section": "§3",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "c3",
+      "kind": "DEADLINE",
+      "label": "Contract Agreement Term",
+      "rfpQuote": "Term of the Agreement: 5 base years with 5 - 1 year options",
+      "section": "§3",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "c4",
+      "kind": "OTHER",
+      "label": "Data Destruction Restriction",
+      "rfpQuote": "Contractor will not dispose of, delete, or destroy State Data without the prior written approval of the State.",
+      "section": "§8",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "c5",
+      "kind": "BUDGET",
+      "label": "Standard IT Environment Cost",
+      "rfpQuote": "Contractor must support the current and future State standard environment at no additional cost to the State.",
+      "section": "§9",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "c6",
+      "kind": "LEGAL",
+      "label": "Geographic System Access Restriction",
+      "rfpQuote": "Contractor will not access State environments or State Systems from locations outside the United States",
+      "section": "§10.1",
+      "grounding": "verified"
+    },
+    {
+      "id": "c7",
+      "kind": "LEGAL",
+      "label": "Offshore Resources Prohibition",
+      "rfpQuote": "Use of Offshore Resources is prohibited per the Schedule E – Data Security Requirements.",
+      "section": "§20.1",
+      "grounding": "verified"
+    },
+    {
+      "id": "c8",
+      "kind": "OTHER",
+      "label": "Contractor Staffing Replacement Approval",
+      "rfpQuote": "Contractor must seek approval from the State prior to removing or replacing any Contractor Personnel with access to State Data.",
+      "section": "§20.1",
+      "grounding": "verified"
+    },
+    {
+      "id": "c9",
+      "kind": "BUDGET",
+      "label": "Contractor Personnel Equipment Costs",
+      "rfpQuote": "Contractor will pay for all equipment needed Contractor Personnel to meet requirements.",
+      "section": "§20.1",
+      "grounding": "verified"
+    },
+    {
+      "id": "c10",
+      "kind": "BUDGET",
+      "label": "Mandatory Meeting Attendance Cost",
+      "rfpQuote": "The Contractor must attend the following meetings, at a location and time as identified by the State, at no additional cost",
+      "section": "§22",
+      "grounding": "verified"
+    },
+    {
+      "id": "c11",
+      "kind": "SCOPE",
+      "label": "Business Specifications Modification Restriction",
+      "rfpQuote": "Contractor must not alter the document.",
+      "section": "§26",
+      "grounding": "verified"
+    },
+    {
+      "id": "c12",
+      "kind": "OTHER",
+      "label": "Specification Response Word Limit",
+      "rfpQuote": "Description must be no more than 250 words for each business Specification.",
+      "section": "§27",
+      "grounding": "verified"
+    }
+  ],
+  "suggestedWeights": [
+    {
+      "criterionId": "problem_understanding",
+      "weight": 1.2,
+      "reason": "Demonstrating understanding of the three distinct Salesforce Orgs (CAD/Telecom, E-Dockets, Pipeline Safety) and integration with MiLogin is crucial."
+    },
+    {
+      "criterionId": "scope_clarity",
+      "weight": 1.5,
+      "reason": "The client tightly scopes work to 600 hours annually across specific environments and mandates responding to all business specifications."
+    },
+    {
+      "criterionId": "pricing_clarity",
+      "weight": 1.0,
+      "reason": "Standard hourly support and change notice processes are outlined without complex bespoke pricing models described in this section."
+    },
+    {
+      "criterionId": "timeline_clarity",
+      "weight": 1.1,
+      "reason": "Adherence to release cycles, scheduled meetings, and a defined 5-year base term requires clear operational schedules."
+    },
+    {
+      "criterionId": "tone_persuasiveness",
+      "weight": 0.8,
+      "reason": "The procurement document heavily emphasizes strict procedural and compliance responses over marketing language."
+    },
+    {
+      "criterionId": "risk_transparency",
+      "weight": 1.4,
+      "reason": "Business specification entries explicitly mandate identifying risks related to configurations, customizations, and hour allocations."
+    },
+    {
+      "criterionId": "completeness",
+      "weight": 1.5,
+      "reason": "The State requires comprehensive disclosures across the Vendor Worksheet, standard terms affirmation, and each row of the Business Specifications."
+    }
+  ],
+  "signals": {
+    "vaguePhrases": [
+      {
+        "phrase": "upon request",
+        "section": "§0",
+        "context": "…ual sales figures in this document, we would be happy to provide our financial statements via email upon request. Should this contract significantly increase our revenue, we are prepared to scale our operations t…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§0",
+        "context": "…and collaboratively. Our approach includes strategic team expansion, aligning additional resources as needed, and working closely with our established partners to ensure seamless, high-quality service deliver…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§9",
+        "context": "…n authentication system, we will ensure continued support by reviewing and adapting the integration as needed to accommodate changes, ensuring that no disruptions occur for end-users or administrators. **Our…"
+      },
+      {
+        "phrase": "will be provided",
+        "section": "§16",
+        "context": "…dependency on formal support requests. **Documentation Format and Delivery:** - All documentation will be provided electronically (PDF and editable formats such as Microsoft Word) to facilitate easy access, sharing…"
+      },
+      {
+        "phrase": "upon request",
+        "section": "§16",
+        "context": "…ensure accuracy, completeness, and user-friendliness. **Examples of Documentation to be Provided (upon request):** Team RADcube is prepared to provide illustrative examples or sample documentation for the Stat…"
+      },
+      {
+        "phrase": "tbd",
+        "section": "§20",
+        "context": "…bove requirement(s).**| |**Of the total bid, the price of the Permitted** **Subcontractor’s work.**|TBD as it is T&M| **Disclosure of GDBE** - **Geographically Disadvantaged Business Enterprise Sub-Con…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§22",
+        "context": "…re are no exceptions to this requirement, and we are fully prepared to engage with all stakeholders as needed to support the success of this project. If Bidder has an alternative planned approach for project…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§22",
+        "context": "…e Control** **Meetings**|Review proposed scope/schedule changes, assess impact, and seek approvals.|As needed|Contractor PM, State PM, Business Stakeholders| |**Post Go-Live** **Review Meetings**|Monitor syste…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§22",
+        "context": "…ies. - **Business Stakeholders** : Participate in reviews, UAT feedback, and change prioritization as needed ."
+      },
+      {
+        "phrase": "will be discussed",
+        "section": "§26",
+        "context": "…already established, the setup will require additional effort and may involve further costs, which will be discussed based on the client’s infrastructure and requirements. **26. ADDITIONAL INFORMATION** 8.0 — Bidder…"
+      },
+      {
+        "phrase": "will be discussed",
+        "section": "§26",
+        "context": "…ools are required for efficient regression testing, this will be evaluated, and any potential costs will be discussed based on the scope of the testing needed. **26. ADDITIONAL INFORMATION** 9.0 — Bidder Response: **T…"
+      }
+    ],
+    "pricing": {
+      "sections": [],
+      "mentions": [
+        {
+          "value": "$500,000",
+          "section": "§0"
+        }
+      ]
+    },
+    "timeline": {
+      "sections": [
+        "§0",
+        "§23.1"
+      ],
+      "mentions": [
+        {
+          "value": "5 years",
+          "section": "§0"
+        },
+        {
+          "value": "10 years",
+          "section": "§0"
+        },
+        {
+          "value": "2 years",
+          "section": "§0"
+        },
+        {
+          "value": "Phase 1",
+          "section": "§4.8"
+        },
+        {
+          "value": "Phase 2",
+          "section": "§4.8"
+        },
+        {
+          "value": "Phase 3",
+          "section": "§4.8"
+        },
+        {
+          "value": "Phase 4",
+          "section": "§4.8"
+        },
+        {
+          "value": "Phase 5",
+          "section": "§4.8"
+        }
+      ]
+    }
+  },
+  "sections": {
+    "rfp": {
+      "count": 61,
+      "sections": [
+        {
+          "id": "§0",
+          "header": "UAT Deployment Coordination"
+        },
+        {
+          "id": "§1",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§2",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§3",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§4",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§5",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§6",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§7",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§8",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§9",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§10",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§11",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§12",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§13",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§1",
+          "header": "1. DEFINITIONS"
+        },
+        {
+          "id": "§2",
+          "header": "2. BACKGROUND"
+        },
+        {
+          "id": "§3",
+          "header": "3. PURPOSE/CHALLENGE STATEMENT"
+        },
+        {
+          "id": "§4",
+          "header": "4. IT ENVIRONMENT RESPOSIBILITIES"
+        },
+        {
+          "id": "§5",
+          "header": "5. ADA COMPLIANCE"
+        },
+        {
+          "id": "§6",
+          "header": "6. RESERVE"
+        },
+        {
+          "id": "§7",
+          "header": "7. ACCESS CONTROL AND AUTHENTICATION"
+        },
+        {
+          "id": "§8",
+          "header": "8. REQUIRED FUNCTIONALITY RELATING TO DATA RETENTION, DISPOSAL, AND RETRIEVAL"
+        },
+        {
+          "id": "§9",
+          "header": "9. END USER AND IT OPERATING ENVIRONMENT"
+        },
+        {
+          "id": "§10",
+          "header": "10. SOFTWARE"
+        },
+        {
+          "id": "§10.1",
+          "header": "Software requirements are identified in **Schedule A – Table 1 Business Specification Worksheet.**"
+        },
+        {
+          "id": "§11",
+          "header": "11. INTEGRATION"
+        },
+        {
+          "id": "§12",
+          "header": "12. MIGRATION"
+        },
+        {
+          "id": "§13",
+          "header": "13. HARDWARE - RESERVED"
+        },
+        {
+          "id": "§14",
+          "header": "14. TRAINING SERVICES"
+        },
+        {
+          "id": "§15",
+          "header": "15. TRANSITION RESPONSIBILITIES"
+        },
+        {
+          "id": "§16",
+          "header": "16. DOCUMENTATION"
+        },
+        {
+          "id": "§17",
+          "header": "17. ADDITIONAL PRODUCTS AND SERVICES"
+        },
+        {
+          "id": "§18",
+          "header": "18. CONTRACTOR PERSONNEL"
+        },
+        {
+          "id": "§19",
+          "header": "19. CONTRACTOR KEY PERSONNEL"
+        },
+        {
+          "id": "§20",
+          "header": "20. CONTRACTOR PERSONNEL REQUIREMENTS"
+        },
+        {
+          "id": "§20.1",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§21",
+          "header": "21. STATE RESOURCES"
+        },
+        {
+          "id": "§22",
+          "header": "22. MEETINGS"
+        },
+        {
+          "id": "§23",
+          "header": "23. PROJECT CONTROL & REPORTS"
+        },
+        {
+          "id": "§24",
+          "header": "24. PROJECT MANAGEMENT"
+        },
+        {
+          "id": "§24.1",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§25",
+          "header": "25. HUMAN CENTERED DESIGN (HCD) - RESERVED"
+        },
+        {
+          "id": "§26",
+          "header": "26. ADDITIONAL INFORMATION"
+        },
+        {
+          "id": "§27",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§28",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§29",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§30",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§31",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§32",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§33",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§34",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§35",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§36",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§37",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§38",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§39",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§40",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§41",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§42",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§43",
+          "header": "Michigan.gov/MiProcurement"
+        },
+        {
+          "id": "§44",
+          "header": "Michigan.gov/MiProcurement"
+        }
+      ]
+    },
+    "proposal": {
+      "count": 38,
+      "sections": [
+        {
+          "id": "§0",
+          "header": "RADcube — Proposal for SCHEDULE A – ATTACHMENT 1 – BUSINESS SPECIFICATION WORKSHEET (bidder responses)"
+        },
+        {
+          "id": "§1",
+          "header": "1. DEFINITIONS"
+        },
+        {
+          "id": "§2",
+          "header": "2. BACKGROUND"
+        },
+        {
+          "id": "§3",
+          "header": "3. PURPOSE/CHALLENGE STATEMENT"
+        },
+        {
+          "id": "§4",
+          "header": "4. IT ENVIRONMENT RESPOSIBILITIES"
+        },
+        {
+          "id": "§4.1",
+          "header": "2.1 Second Line Support"
+        },
+        {
+          "id": "§4.2",
+          "header": "2.2 Service Request Submission and Classification"
+        },
+        {
+          "id": "§4.3",
+          "header": "2.3 State’s Obligations"
+        },
+        {
+          "id": "§4.4",
+          "header": "2.4 Service Level Metrics"
+        },
+        {
+          "id": "§4.5",
+          "header": "2.5 Escalation Process"
+        },
+        {
+          "id": "§4.6",
+          "header": "2.6 Time Extensions"
+        },
+        {
+          "id": "§4.7",
+          "header": "2.7 Monthly Reports"
+        },
+        {
+          "id": "§4.8",
+          "header": "2.8 Salesforce Infrastructure-Specific Support"
+        },
+        {
+          "id": "§5",
+          "header": "5. ADA COMPLIANCE"
+        },
+        {
+          "id": "§6",
+          "header": "6. RESERVE"
+        },
+        {
+          "id": "§7",
+          "header": "7. ACCESS CONTROL AND AUTHENTICATION"
+        },
+        {
+          "id": "§8",
+          "header": "8. REQUIRED FUNCTIONALITY RELATING TO DATA RETENTION, DISPOSAL, AND RETRIEVAL"
+        },
+        {
+          "id": "§9",
+          "header": "9. END USER AND IT OPERATING ENVIRONMENT"
+        },
+        {
+          "id": "§10",
+          "header": "10. SOFTWARE"
+        },
+        {
+          "id": "§11",
+          "header": "11. INTEGRATION"
+        },
+        {
+          "id": "§12",
+          "header": "12. MIGRATION"
+        },
+        {
+          "id": "§13",
+          "header": "13. HARDWARE - RESERVED"
+        },
+        {
+          "id": "§14",
+          "header": "14. TRAINING SERVICES"
+        },
+        {
+          "id": "§15",
+          "header": "15. TRANSITION RESPONSIBILITIES"
+        },
+        {
+          "id": "§16",
+          "header": "16. DOCUMENTATION"
+        },
+        {
+          "id": "§17",
+          "header": "17. ADDITIONAL PRODUCTS AND SERVICES"
+        },
+        {
+          "id": "§18",
+          "header": "18. CONTRACTOR PERSONNEL"
+        },
+        {
+          "id": "§19",
+          "header": "19. CONTRACTOR KEY PERSONNEL"
+        },
+        {
+          "id": "§20",
+          "header": "20. CONTRACTOR PERSONNEL REQUIREMENTS"
+        },
+        {
+          "id": "§21",
+          "header": "21. STATE RESOURCES"
+        },
+        {
+          "id": "§22",
+          "header": "22. MEETINGS"
+        },
+        {
+          "id": "§23",
+          "header": "23. PROJECT CONTROL & REPORTS"
+        },
+        {
+          "id": "§23.1",
+          "header": "1. **Milestone Completion Progress**"
+        },
+        {
+          "id": "§23.2",
+          "header": "1. **Monthly Status Reports**"
+        },
+        {
+          "id": "§23.3",
+          "header": "2. **Quarterly Governance Reviews**"
+        },
+        {
+          "id": "§24",
+          "header": "24. PROJECT MANAGEMENT"
+        },
+        {
+          "id": "§25",
+          "header": "25. HUMAN CENTERED DESIGN (HCD) - RESERVED"
+        },
+        {
+          "id": "§26",
+          "header": "26. ADDITIONAL INFORMATION"
+        }
+      ]
+    }
+  },
+  "partial": false,
+  "error": null,
+  "warnings": [],
+  "meta": {
+    "model": "gemini-3.8-flash",
+    "temperature": 0.0,
+    "promptVersion": "4",
+    "mode": "split",
+    "durationMs": 30469,
+    "llmCalls": 5,
+    "truncated": 0,
+    "repaired": 0,
+    "ungroundedDropped": 3,
+    "fuzzyMatched": 17,
+    "extractCached": false,
+    "scoreCached": false
+  }
+}

@@ -17,8 +17,33 @@ import overpromise from "./samples/response_4_overpromise.md?raw"
 import limsRfp from "./realworld/lims-rfp.md?raw"
 import limsOnq from "./realworld/lims-onq.md?raw"
 import limsClinisys from "./realworld/lims-clinisys.md?raw"
+import yeppRfp from "./realworld/yepp-rfp.md?raw"
+import yeppEarnstride from "./realworld/yepp-earnstride.md?raw"
+import yeppKla from "./realworld/yepp-kla.md?raw"
+import yeppConcourse from "./realworld/yepp-concourse.md?raw"
+import mpscRfp from "./realworld/mpsc-rfp.md?raw"
+import mpscAimpoint from "./realworld/mpsc-aimpoint.md?raw"
+import mpscIntellibee from "./realworld/mpsc-intellibee.md?raw"
+import mpscRadcube from "./realworld/mpsc-radcube.md?raw"
+import mpscHighcloud from "./realworld/mpsc-highcloud.md?raw"
+import minivanRfp from "./realworld/minivan-rfp.md?raw"
+import minivanBsi from "./realworld/minivan-bsi.md?raw"
 
-export type SampleId = "weak" | "medium" | "strong" | "overpromise" | "lims-clinisys" | "lims-onq"
+export type SampleId =
+  | "weak"
+  | "medium"
+  | "strong"
+  | "overpromise"
+  | "lims-clinisys"
+  | "lims-onq"
+  | "yepp-earnstride"
+  | "yepp-kla"
+  | "yepp-concourse"
+  | "mpsc-aimpoint"
+  | "mpsc-intellibee"
+  | "mpsc-radcube"
+  | "mpsc-highcloud"
+  | "minivan-bsi"
 
 /**
  * `canonical` drops the `**Variant: WEAK — …**` fixture banner (it would announce the
@@ -67,16 +92,67 @@ export const SAMPLES: Record<SampleId, Sample> = {
    * 130 and named offshore access and offshore personnel among the reasons.
    */
   "lims-clinisys": {
-    label: "Clinisys · won, 107.25 / 130",
-    note: "Michigan RFP 250000000859, the awarded bid, read from a scanned PDF: redlines, extra costs, a UK security officer",
+    label: "Clinisys",
+    note: "The State awarded this bid: 107.25 of 130 points. Read from a scanned PDF. Redlines, extra costs, a UK security officer.",
     rfp: canonical(limsRfp),
     text: canonical(limsClinisys),
   },
   "lims-onq": {
-    label: "OnQ Software · lost, 48.5 / 130",
-    note: "Michigan RFP 250000000859, a 300-page bid: offshore staff, deferred pricing, no public-health references",
+    label: "OnQ Software",
+    note: "The State scored this bid 48.5 of 130: offshore staff, deferred pricing, no public-health references.",
     rfp: canonical(limsRfp),
     text: canonical(limsOnq),
+  },
+  /* Michigan LEO's 2025 Youth Employment Permit Portal: three bids, one outside the template. */
+  "yepp-earnstride": {
+    label: "EarnStride",
+    note: "The State awarded this bid: 89.5 of 100. Only the experience references were marked down.",
+    rfp: canonical(yeppRfp),
+    text: canonical(yeppEarnstride),
+  },
+  "yepp-kla": {
+    label: "KL&A",
+    note: "The State scored this bid 88.9 of 100: no commitment to the go-live date, train-the-trainer only, missing mobile detail.",
+    rfp: canonical(yeppRfp),
+    text: canonical(yeppKla),
+  },
+  "yepp-concourse": {
+    label: "Concourse Tech",
+    note: "Disqualified: a free-form proposal instead of the State template, no worksheet, no confidentiality form.",
+    rfp: canonical(yeppRfp),
+    text: canonical(yeppConcourse),
+  },
+  /* Michigan LARA's 2025 Salesforce maintenance and support: fifteen bids, four of them here. */
+  "mpsc-aimpoint": {
+    label: "Aimpoint",
+    note: "The State awarded this bid: 96 of 100.",
+    rfp: canonical(mpscRfp),
+    text: canonical(mpscAimpoint),
+  },
+  "mpsc-intellibee": {
+    label: "Intellibee",
+    note: "The State scored this bid 77 of 100, under the 80 needed: answered with Salesforce's own material, −15 on the specification worksheet.",
+    rfp: canonical(mpscRfp),
+    text: canonical(mpscIntellibee),
+  },
+  "mpsc-radcube": {
+    label: "RADcube",
+    note: "Disqualified: did not accept the State's contract terms nor submit redlines.",
+    rfp: canonical(mpscRfp),
+    text: canonical(mpscRadcube),
+  },
+  "mpsc-highcloud": {
+    label: "HighCloud",
+    note: "Disqualified: no response to the Business Specification Worksheet.",
+    rfp: canonical(mpscRfp),
+    text: canonical(mpscHighcloud),
+  },
+  /* Michigan MDOT's 2026 accessible minivan: a hardware procurement, one bid in template form. */
+  "minivan-bsi": {
+    label: "Bus Service Inc.",
+    note: "The State scored this bid 96 of 100: training pricing placed in the technical response, no org chart.",
+    rfp: canonical(minivanRfp),
+    text: canonical(minivanBsi),
   },
 }
 
@@ -84,4 +160,7 @@ export const SAMPLES: Record<SampleId, Sample> = {
 export const SAMPLE_GROUPS: { label: string; ids: SampleId[]; live?: boolean }[] = [
   { label: "Load a sample", ids: ["weak", "medium", "strong", "overpromise"] },
   { label: "Real RFP · Michigan LIMS", ids: ["lims-clinisys", "lims-onq"], live: true },
+  { label: "Real RFP · Youth Employment Permit Portal", ids: ["yepp-earnstride", "yepp-kla", "yepp-concourse"], live: true },
+  { label: "Real RFP · MPSC Salesforce support", ids: ["mpsc-aimpoint", "mpsc-intellibee", "mpsc-radcube", "mpsc-highcloud"], live: true },
+  { label: "Real RFP · Accessible minivan", ids: ["minivan-bsi"], live: true },
 ]

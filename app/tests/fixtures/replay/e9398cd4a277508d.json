@@ -1,0 +1,13 @@
+{
+ "kind": "group:risk",
+ "model": "gemini-3.8-flash",
+ "prompt_head": "You score a draft PROPOSAL on 1 review criterion. Group id: risk. Other reviewer",
+ "truncated": false,
+ "usage": {
+  "prompt": 15688,
+  "output": 366,
+  "thinking": 0,
+  "cached": 0
+ },
+ "text": "{\n  \"findings\": [\n    {\n      \"type\": \"OVERCOMMIT\",\n      \"severity\": \"HIGH\",\n      \"location\": \"§2.15.4\",\n      \"proposalQuote\": \"Scalability: Architecture supports unlimited user growth without performance degradation\",\n      \"explanation\": \"Claiming unlimited scalability without performance degradation ignores physical and financial cloud infrastructure constraints, risking unmitigated performance failures under unexpected load spikes.\",\n      \"fix\": \"Specify realistic concurrent user capacity limits supported under the planned architecture, such as [capacity figure] concurrent users.\"\n    }\n  ],\n  \"scores\": [\n    {\n      \"id\": \"risk_transparency\",\n      \"label\": \"Risk/Assumptions Transparency\",\n      \"score\": 2,\n      \"strengths\": \"Section §2.33.1 identifies high-level project risks such as security accreditation, MiLogin integration, and scope creep along with corresponding mitigation strategies.\",\n      \"weaknesses\": \"The proposal introduces conflicting standard commercial disclaimers in §2.40 without acknowledging the contractual risk or reconciling them against the RFP terms agreed to in §2.38.1.\",\n      \"citations\": [\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§2.33.1\",\n          \"quote\": \"We have identified potential risks to successful delivery and developed mitigation strategies.\"\n        },\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§2.40\",\n          \"quote\": \"Concourse Tech Inc. does not make any warranties, express or implied\"\n        }\n      ],\n      \"note\": null\n    }\n  ]\n}"
+}

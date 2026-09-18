@@ -1,0 +1,13 @@
+{
+ "kind": "group:risk",
+ "model": "gemini-3.8-flash",
+ "prompt_head": "You score a draft PROPOSAL on 1 review criterion. Group id: risk. Other reviewer",
+ "truncated": false,
+ "usage": {
+  "prompt": 61218,
+  "output": 265,
+  "thinking": 0,
+  "cached": 0
+ },
+ "text": "{\n  \"findings\": [],\n  \"scores\": [\n    {\n      \"id\": \"risk_transparency\",\n      \"label\": \"Risk/Assumptions Transparency\",\n      \"score\": 4,\n      \"strengths\": \"The proposal transparently articulates clear technical and scope assumptions alongside operational dependencies, including explicit governance around change control, SUITE risk management, and scope adjustments.\",\n      \"weaknesses\": \"In §25, the vendor leaves the risk column unaddressed across the business specifications despite the table prompt explicitly directing bidders to 'Explain the details of any configuration/customization and the impacted risk that may be caused'.\",\n      \"citations\": [\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§10.14\",\n          \"quote\": \"KL&A is defining the following assumptions and constraints against the business requirements and our understanding of the software’s functions\"\n        },\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§25\",\n          \"quote\": \"Explain the details of any configuration/customization and the impacted risk that may be caused\"\n        }\n      ],\n      \"note\": null\n    }\n  ]\n}"
+}

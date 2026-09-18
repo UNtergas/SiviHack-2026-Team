@@ -1,0 +1,13 @@
+{
+ "kind": "group:understanding",
+ "model": "gemini-3.8-flash",
+ "prompt_head": "You score a draft PROPOSAL on 2 review criteria. Group id: understanding. Other ",
+ "truncated": false,
+ "usage": {
+  "prompt": 57844,
+  "output": 468,
+  "thinking": 0,
+  "cached": 0
+ },
+ "text": "{\n  \"findings\": [],\n  \"scores\": [\n    {\n      \"id\": \"problem_understanding\",\n      \"label\": \"Problem Understanding\",\n      \"score\": 4,\n      \"strengths\": \"The proposal displays strong domain understanding of Michigan's youth employment ecosystem, referencing Public Act 196 and incorporating specific persona workflows for minors, caregivers, employers, and schools.\",\n      \"weaknesses\": \"The proposal omits the required designated Key Personnel resource responsible for responding to State security inquiries under requirement r27.\",\n      \"citations\": [\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§0\",\n          \"quote\": \"Extensive firsthand knowledge of Michigan’s youth-employment ecosystem, including direct discovery with Michigan minors, caregivers, schools, and employers\"\n        },\n        {\n          \"source\": \"rfp\",\n          \"section\": \"§16\",\n          \"quote\": \"Contractor resource who is responsible to respond to State inquiries regarding the security of the Contractor’s Solution.\"\n        }\n      ],\n      \"note\": null\n    },\n    {\n      \"id\": \"tone_persuasiveness\",\n      \"label\": \"Tone & Persuasiveness\",\n      \"score\": 5,\n      \"strengths\": \"The proposal maintains a confident, evidence-backed, and client-centric tone by citing a tangible 41-permit Michigan pilot project and tailoring technical responses to State standards.\",\n      \"weaknesses\": \"The narrative occasionally falls back on repetitive boilerplate across the Business Specification Worksheet response fields.\",\n      \"citations\": [\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§0\",\n          \"quote\": \"The pilot processed 41 real digital work permits , including involvement from minors, caregivers, employers, and schools.\"\n        },\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§9\",\n          \"quote\": \"EarnStride offers Michigan a secure, modern, purpose-built permitting platform grounded in real-world operational experience\"\n        }\n      ],\n      \"note\": null\n    }\n  ]\n}"
+}

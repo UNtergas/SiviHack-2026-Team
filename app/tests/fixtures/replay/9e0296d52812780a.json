@@ -1,0 +1,13 @@
+{
+ "kind": "group:understanding",
+ "model": "gemini-3.8-flash",
+ "prompt_head": "You score a draft PROPOSAL on 2 review criteria. Group id: understanding. Other ",
+ "truncated": false,
+ "usage": {
+  "prompt": 34000,
+  "output": 562,
+  "thinking": 0,
+  "cached": 0
+ },
+ "text": "{\n  \"findings\": [\n    {\n      \"type\": \"INCONSISTENCY\",\n      \"severity\": \"MEDIUM\",\n      \"location\": \"§0\",\n      \"proposalQuote\": \"Address-400 Renaissance Center, Suite 2600, Detroit, MI 48243\",\n      \"explanation\": \"The proposal lists two conflicting headquarters and contact addresses for Prasad Beesabathuni, which creates confusion regarding official notice delivery.\",\n      \"fix\": \"Align the address in §18 with the Detroit address provided in §0.\"\n    }\n  ],\n  \"scores\": [\n    {\n      \"id\": \"problem_understanding\",\n      \"label\": \"Problem Understanding\",\n      \"score\": 3,\n      \"strengths\": \"The proposal accurately identifies the existing Salesforce orgs, MiLogin SSO integration, and MPSC-specific support requirements.\",\n      \"weaknesses\": \"In §4, the proposal states that no additional security measures need to be implemented beyond built-in Salesforce features, failing to account for MPSC-specific ATO and scanning requirements.\",\n      \"citations\": [\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§4.2\",\n          \"quote\": \"no additional security measures need to be implemented beyond those provided by Salesforce.\"\n        },\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§1\",\n          \"quote\": \"Customer Assistance Division and Telecommunications complaints are housed in this Salesforce database.\"\n        }\n      ],\n      \"note\": null\n    },\n    {\n      \"id\": \"tone_persuasiveness\",\n      \"label\": \"Tone & Persuasiveness\",\n      \"score\": 3,\n      \"strengths\": \"The responses are professional and systematically address the required operational frameworks such as SUITE and Azure DevOps.\",\n      \"weaknesses\": \"In §4.1 and §4.2, large portions of text rely on standard boilerplate descriptions of generic Salesforce platform features rather than demonstrating customized client solutions.\",\n      \"citations\": [\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§4.2\",\n          \"quote\": \"Salesforce provides end-to-end encryption for data both at rest and in transit\"\n        },\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§24\",\n          \"quote\": \"IntelliBee will follow the State Unified Information Technology Environment (SUITE) framework\"\n        }\n      ],\n      \"note\": null\n    }\n  ]\n}"
+}

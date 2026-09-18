@@ -1,0 +1,2062 @@
+{
+  "overall": 3.71,
+  "weights": {
+    "problem_understanding": 1.0,
+    "scope_clarity": 1.0,
+    "pricing_clarity": 1.0,
+    "timeline_clarity": 1.0,
+    "completeness": 1.0,
+    "tone_persuasiveness": 1.0,
+    "risk_transparency": 1.0
+  },
+  "scores": [
+    {
+      "id": "problem_understanding",
+      "label": "Problem Understanding",
+      "score": 3,
+      "strengths": "The proposal displays clear operational context by detailing how MDARD's existing Licensing Portal Solution can be customized to support LEO's youth employment permit workflows and DTMB standards.",
+      "weaknesses": "The proposal fails to adhere to the strict 250-word constraint for Business Specification 6.0 in §25 while leaving mandatory compliance disclosures omitted or redacted.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§25",
+          "quote": "KL&A's YEPP Solution will leverage the dashboard features currently in use by LPS.",
+          "grounding": "verified"
+        },
+        {
+          "source": "rfp",
+          "section": "§22",
+          "quote": "Description must be no more than 250 words for each business Specification.",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "scope_clarity",
+      "label": "Scope & Deliverables Clarity",
+      "score": 4,
+      "strengths": "The proposal clearly enumerates functional modules, user flows, and specific SUITE deliverables mapped across development phases.",
+      "weaknesses": "In §10.14, the vendor introduces ambiguities around scope boundaries by treating employer GIS search as potential future scope post-dating initial go-live.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§24",
+          "quote": "KL&A will produce the following SUITE PMM and SEM document deliverables: - Project Charter (PMM-0101) - Project Management Plan (PMM-0102)",
+          "grounding": "fuzzy"
+        },
+        {
+          "source": "proposal",
+          "section": "§10.14",
+          "quote": "The GIS-driven proximity search functions can be considered to be additional scope alongside the employer search functions",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "pricing_clarity",
+      "label": "Pricing Clarity",
+      "score": 1,
+      "strengths": null,
+      "weaknesses": "The proposal body contains no cost breakdown, itemized milestone costs, or total contract price, referring only to an external cost proposal.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§10.15",
+          "quote": "KL&A has provided the pricing model in our cost proposal for the State to consider.",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "timeline_clarity",
+      "label": "Timeline Clarity",
+      "score": 5,
+      "strengths": "The proposal provides a granular milestone schedule complete with start and end calendar dates directly aligned to the legislatively mandated deadline of September 30, 2026.",
+      "weaknesses": "A secondary follow-up release extends past the initial September go-live window into January 2027 for deferred functionality.",
+      "citations": [],
+      "note": null
+    },
+    {
+      "id": "completeness",
+      "label": "Completeness vs. RFP Requirements",
+      "score": 5,
+      "strengths": "34 of 37 requirements addressed: r1 Organizational Change Disclosure, r2 Company History Discussion, r3 Debarment and Suspension Disclosure, r4 Litigation History Disclosure, r5 Contract Default History, r7 Scale-Up Management Plan, r8 Primary Physical Address, r9 Contract Terms Affirmation, r10 Schedule C Insurance Affirmation, r12 Environmental Law Violation Disclosure, r13 Host Environment Disclosure, r14 Voluntary Product Accessibility Template, r15 PAT Conformance Plan, r16 Concurrent User Capacity Explanation, r17 Access Control Integration Plan, r18 Data Retention and Retrieval Explanation, r19 Optimal Operating Environment Description, r21 Detailed Solution Architecture Description, r22 AI Usage Disclosure, r23 MiLogin Integration Plan, r24 Administration and End-User Training, r25 Go-Live Training Plan, r26 Comprehensive Solution Documentation, r27 Designated Contractor Key Personnel, r28 Kick-Off and Implementation Meetings, r29 Weekly Project Progress Reporting, r30 Clarity PPM Timesheet Entry, r31 SUITE Methodology Review, r32 Business Specifications Worksheet Completion, r33 Role-Based Access Permissions Specification, r34 Public Employer Directory Specification, r35 Flexible Integration Endpoints Specification, r36 Security Model and Rights Management, r37 System Error Logging and Alerts.",
+      "weaknesses": "3 of 37 requirements not fully addressed: r6 Gross Annual Sales Reporting (PARTIAL); r11 Labor and Environmental Disclosures (MISSING); r20 Software Bill of Materials (PARTIAL).",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§0",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§4",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§5",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§6",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§7",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§8",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§9",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§10.15",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§10",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§11",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§14",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§16",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§4.3",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§22",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§23",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§24",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§25",
+          "quote": null,
+          "grounding": "verified"
+        }
+      ],
+      "note": "computed from coverage: 35/37 credit (ADDRESSED = 1, PARTIAL = 0.5, MISSING / CONTRADICTED = 0)"
+    },
+    {
+      "id": "tone_persuasiveness",
+      "label": "Tone & Persuasiveness",
+      "score": 4,
+      "strengths": "The narrative is highly confident and client-focused, repeatedly establishing credibility through concrete examples of past successful delivery across 16 Michigan State agencies.",
+      "weaknesses": "Persuasiveness is partially diminished in §0 by withholding required gross annual sales data and wage figures behind a confidential designation rather than disclosing the requested figures.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§0",
+          "quote": "KL&A currently serves 16 State of Michigan agencies, either through direct contract or as a subcontractor.",
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§0",
+          "quote": "State your gross annual sales for each of the last 5 years. — Bidder Response: CONFIDENTIAL- FINANCIAL INFORMA",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "risk_transparency",
+      "label": "Risk/Assumptions Transparency",
+      "score": 4,
+      "strengths": "The proposal transparently articulates clear technical and scope assumptions alongside operational dependencies, including explicit governance around change control, SUITE risk management, and scope adjustments.",
+      "weaknesses": "In §25, the vendor leaves the risk column unaddressed across the business specifications despite the table prompt explicitly directing bidders to 'Explain the details of any configuration/customization and the impacted risk that may be caused'.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§10.14",
+          "quote": "KL&A is defining the following assumptions and constraints against the business requirements and our understanding of the software’s functions",
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§25",
+          "quote": "Explain the details of any configuration/customization and the impacted risk that may be caused",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    }
+  ],
+  "coverage": [
+    {
+      "requirementId": "r11",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Labor and employment law violation disclosures are not provided.",
+      "fix": "Add a disclosure regarding state and federal labor and employment law violations to §0.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r6",
+      "status": "PARTIAL",
+      "proposalSection": "§0",
+      "proposalQuote": "CONFIDENTIAL- FINANCIAL INFORMA",
+      "explanation": "Gross annual sales figures are marked confidential and not disclosed.",
+      "fix": "Disclose gross annual sales for each of the last five years in §0.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r20",
+      "status": "PARTIAL",
+      "proposalSection": "§10.15",
+      "proposalQuote": "Table 2. Background Technology, Third-Party Materials, and Open-Source Components",
+      "explanation": "Software packages are listed without supply chain relationships.",
+      "fix": "Provide a complete Software Bill of Materials detailing supply chain relationships in §10.",
+      "grounding": "fuzzy"
+    },
+    {
+      "requirementId": "r1",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r2",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r3",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r4",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r5",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r7",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r8",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r9",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r10",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r12",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r13",
+      "status": "ADDRESSED",
+      "proposalSection": "§4",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r14",
+      "status": "ADDRESSED",
+      "proposalSection": "§5",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r15",
+      "status": "ADDRESSED",
+      "proposalSection": "§5",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r16",
+      "status": "ADDRESSED",
+      "proposalSection": "§6",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r17",
+      "status": "ADDRESSED",
+      "proposalSection": "§7",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r18",
+      "status": "ADDRESSED",
+      "proposalSection": "§8",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r19",
+      "status": "ADDRESSED",
+      "proposalSection": "§9",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r21",
+      "status": "ADDRESSED",
+      "proposalSection": "§10",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r22",
+      "status": "ADDRESSED",
+      "proposalSection": "§10",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r23",
+      "status": "ADDRESSED",
+      "proposalSection": "§11",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r24",
+      "status": "ADDRESSED",
+      "proposalSection": "§14",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r25",
+      "status": "ADDRESSED",
+      "proposalSection": "§14",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r26",
+      "status": "ADDRESSED",
+      "proposalSection": "§16",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r27",
+      "status": "ADDRESSED",
+      "proposalSection": "§4.3",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r28",
+      "status": "ADDRESSED",
+      "proposalSection": "§22",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r29",
+      "status": "ADDRESSED",
+      "proposalSection": "§23",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r30",
+      "status": "ADDRESSED",
+      "proposalSection": "§23",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r31",
+      "status": "ADDRESSED",
+      "proposalSection": "§24",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r32",
+      "status": "ADDRESSED",
+      "proposalSection": "§25",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r33",
+      "status": "ADDRESSED",
+      "proposalSection": "§25",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r34",
+      "status": "ADDRESSED",
+      "proposalSection": "§25",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r35",
+      "status": "ADDRESSED",
+      "proposalSection": "§25",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r36",
+      "status": "ADDRESSED",
+      "proposalSection": "§25",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r37",
+      "status": "ADDRESSED",
+      "proposalSection": "§25",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    }
+  ],
+  "constraintViolations": [
+    {
+      "constraintId": "c14",
+      "proposalSection": "§25",
+      "proposalQuote": "KL&A's YEPP Solution will leverage the dashboard features currently in use by LPS.",
+      "violation": "The response for Business Specification 6.0 exceeds the 250-word cap with approximately 266 words.",
+      "severity": "LOW",
+      "fix": "Edit the response for Business Specification 6.0 in §25 to contain fewer than 250 words.",
+      "grounding": "verified"
+    }
+  ],
+  "findings": [
+    {
+      "type": "INCONSISTENCY",
+      "severity": "MEDIUM",
+      "location": "§24.13",
+      "proposalQuote": "warranty period that begins after the final production release.",
+      "explanation": "Contradicting whether warranty coverage begins after the initial or final release leaves the State uncertain about the duration and cutoff date of defect remediation support.",
+      "fix": "Align §24.13 with Table 4 by explicitly stating whether the 180-calendar-day warranty period commences upon the first production release or the final production release.",
+      "grounding": "verified"
+    },
+    {
+      "type": "VAGUENESS",
+      "severity": "MEDIUM",
+      "location": "§4.13",
+      "proposalQuote": "Complete ports and protocols will be determined upon implementation alongside DTMB network administrators and architects.",
+      "explanation": "Deferring network ports and protocol specifications prevents DTMB technical teams from evaluating firewall and security integration requirements prior to contract award.",
+      "fix": "Specify the exact network ports, communication protocols, and directional flows required for the proposed solution architecture.",
+      "grounding": "verified"
+    },
+    {
+      "type": "SCOPE_CREEP",
+      "severity": "LOW",
+      "location": "§10.15",
+      "proposalQuote": "KL&A recommends integrating with an independent service offering, KL&A's Artisan messaging platform, to deliver these text message alerts",
+      "explanation": "Introducing an external proprietary messaging platform with its own pricing model introduces unplanned integration dependencies and potential cost overruns for the State.",
+      "fix": "Remove the upsell recommendation for the external Artisan messaging platform and deliver SMS notifications using State-standard communication channels or natively within the proposed application scope.",
+      "grounding": "verified"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "r1",
+      "label": "Organizational Change Disclosure",
+      "rfpQuote": "Has there been a recent change in organizational structure (e.g., management team) or control",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r2",
+      "label": "Company History Discussion",
+      "rfpQuote": "Discuss your company’s history. Has growth been organic, through mergers and acquisitions, or both?",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r3",
+      "label": "Debarment and Suspension Disclosure",
+      "rfpQuote": "Has bidder ever been debarred, suspended, or disqualified from bidding or contracting with any entity",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r4",
+      "label": "Litigation History Disclosure",
+      "rfpQuote": "Has your company been a party to litigation against the State of Michigan?",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r5",
+      "label": "Contract Default History",
+      "rfpQuote": "Within the last 5 years, has your company or any of its related business entities defaulted on a contract",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r6",
+      "label": "Gross Annual Sales Reporting",
+      "rfpQuote": "State your gross annual sales for each of the last 5 years.",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r7",
+      "label": "Scale-Up Management Plan",
+      "rfpQuote": "explain how the company will scale-up to manage this increase.",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r8",
+      "label": "Primary Physical Address",
+      "rfpQuote": "State the physical address of the place of business that would have primary responsibility for this account",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r9",
+      "label": "Contract Terms Affirmation",
+      "rfpQuote": "Bidder must affirm agreement with the attached Contract Terms.",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r10",
+      "label": "Schedule C Insurance Affirmation",
+      "rfpQuote": "Bidder must affirm agreement with the attached Schedule C (Insurance Requirements).",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r11",
+      "label": "Labor and Environmental Disclosures",
+      "rfpQuote": "Bidder must disclose any violations of state or federal labor, antidiscrimination and employment laws and regulations",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r12",
+      "label": "Environmental Law Violation Disclosure",
+      "rfpQuote": "Bidder must disclose any violations of state or federal environmental laws and regulations received within thepast fiveyears.",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r13",
+      "label": "Host Environment Disclosure",
+      "rfpQuote": "Bidder must disclose if it is proposing a Contractor Hosted or State Hosted application.",
+      "section": "§3",
+      "grounding": "verified"
+    },
+    {
+      "id": "r14",
+      "label": "Voluntary Product Accessibility Template",
+      "rfpQuote": "Contractor must provide a description of conformance with World Wide Web Consortium (W3C) Web Content Accessibility Guidelines",
+      "section": "§4",
+      "grounding": "verified"
+    },
+    {
+      "id": "r15",
+      "label": "PAT Conformance Plan",
+      "rfpQuote": "Contractor must provide detailed information regarding the plan to achieve conformance, including timelines.",
+      "section": "§4",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "r16",
+      "label": "Concurrent User Capacity Explanation",
+      "rfpQuote": "Bidder must explain how it will be able to support the expected number of concurrent Users.",
+      "section": "§5.1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r17",
+      "label": "Access Control Integration Plan",
+      "rfpQuote": "Bidder must explain how they will meet the requirements for Access Control and Authentication.",
+      "section": "§6",
+      "grounding": "verified"
+    },
+    {
+      "id": "r18",
+      "label": "Data Retention and Retrieval Explanation",
+      "rfpQuote": "Bidder must review and explain how the data retention, disposal, and retrieval requirements will be met",
+      "section": "§7",
+      "grounding": "verified"
+    },
+    {
+      "id": "r19",
+      "label": "Optimal Operating Environment Description",
+      "rfpQuote": "Bidder must describe the optimal IT environment, including any applicable hosting environments, supported browsers and user interfaces.",
+      "section": "§8",
+      "grounding": "verified"
+    },
+    {
+      "id": "r20",
+      "label": "Software Bill of Materials",
+      "rfpQuote": "Contractor must provide a Software Bill of Materials (SBOM) containing details and supply chain relationships",
+      "section": "§9",
+      "grounding": "verified"
+    },
+    {
+      "id": "r21",
+      "label": "Detailed Solution Architecture Description",
+      "rfpQuote": "Bidder must provide a detailed description of the Solution to be provided under the resulting Contract",
+      "section": "§9",
+      "grounding": "verified"
+    },
+    {
+      "id": "r22",
+      "label": "AI Usage Disclosure",
+      "rfpQuote": "Bidder must identify and describe the use of artificial intelligence (AI) within or used to develop the Solution.",
+      "section": "§9",
+      "grounding": "verified"
+    },
+    {
+      "id": "r23",
+      "label": "MiLogin Integration Plan",
+      "rfpQuote": "Bidder must review and explain how the Solution will integrate to this system.",
+      "section": "§9",
+      "grounding": "verified"
+    },
+    {
+      "id": "r24",
+      "label": "Administration and End-User Training",
+      "rfpQuote": "The Contractor must provide administration and end-user training for implementation, go-live support, and operational handoff.",
+      "section": "§12",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "r25",
+      "label": "Go-Live Training Plan",
+      "rfpQuote": "The Bidder must provide a training plan for go-live support and transition to self-support",
+      "section": "§12",
+      "grounding": "verified"
+    },
+    {
+      "id": "r26",
+      "label": "Comprehensive Solution Documentation",
+      "rfpQuote": "Contractor must provide all user manuals, operating manuals, technical manuals and any other instructions",
+      "section": "§13",
+      "grounding": "verified"
+    },
+    {
+      "id": "r27",
+      "label": "Designated Contractor Key Personnel",
+      "rfpQuote": "Contractor resource who is responsible to respond to State inquiries regarding the security of the Contractor’s Solution.",
+      "section": "§16",
+      "grounding": "verified"
+    },
+    {
+      "id": "r28",
+      "label": "Kick-Off and Implementation Meetings",
+      "rfpQuote": "Contractor Project Manager must facilitate a project kick off meeting with the support from the State’s Project Manager",
+      "section": "§19",
+      "grounding": "verified"
+    },
+    {
+      "id": "r29",
+      "label": "Weekly Project Progress Reporting",
+      "rfpQuote": "Contractor Project Manager will monitor project implementation progress and report on a weekly basis to the State’s Project Manager",
+      "section": "§20",
+      "grounding": "verified"
+    },
+    {
+      "id": "r30",
+      "label": "Clarity PPM Timesheet Entry",
+      "rfpQuote": "All Contractors must submit and enter weekly timesheets into the State of Michigan’s Project Portfolio Management tool, Clarity PPM",
+      "section": "§20",
+      "grounding": "verified"
+    },
+    {
+      "id": "r31",
+      "label": "SUITE Methodology Review",
+      "rfpQuote": "The Bidder is required to review https://www.michigan.gov/suite and demonstrate how each PMM/SEM requirement will be met.",
+      "section": "§21",
+      "grounding": "verified"
+    },
+    {
+      "id": "r32",
+      "label": "Business Specifications Worksheet Completion",
+      "rfpQuote": "Contractors must respond to each business Specification on how they will meet the requirements in the document provided.",
+      "section": "§22",
+      "grounding": "verified"
+    },
+    {
+      "id": "r33",
+      "label": "Role-Based Access Permissions Specification",
+      "rfpQuote": "The solution must allow for multiple roles with varying permissions.",
+      "section": "§22",
+      "grounding": "verified"
+    },
+    {
+      "id": "r34",
+      "label": "Public Employer Directory Specification",
+      "rfpQuote": "The solution must provide a public- facing searchable, filterable, directory of validated employers.",
+      "section": "§22",
+      "grounding": "verified"
+    },
+    {
+      "id": "r35",
+      "label": "Flexible Integration Endpoints Specification",
+      "rfpQuote": "The application be designed with flexible architecture to support future integration endpoints as needed.",
+      "section": "§22",
+      "grounding": "verified"
+    },
+    {
+      "id": "r36",
+      "label": "Security Model and Rights Management",
+      "rfpQuote": "The application must maintain a security model to define, manage, and control (e.g., add, assign, revoke) user rights",
+      "section": "§22",
+      "grounding": "verified"
+    },
+    {
+      "id": "r37",
+      "label": "System Error Logging and Alerts",
+      "rfpQuote": "The application must log all errors and send notifications that include severity, date/time,",
+      "section": "§22",
+      "grounding": "verified"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "c1",
+      "kind": "DEADLINE",
+      "label": "Contract Base Term",
+      "rfpQuote": "Term of the Agreement: 5 Base Years with 5, 1-Year Options.",
+      "section": "§3",
+      "grounding": "verified"
+    },
+    {
+      "id": "c2",
+      "kind": "TECHNOLOGY",
+      "label": "WCAG Accessibility Compliance",
+      "rfpQuote": "All websites, applications, software, and associated content and documentation provided by the Contractor as part of the Solution must comply",
+      "section": "§4",
+      "grounding": "verified"
+    },
+    {
+      "id": "c3",
+      "kind": "OTHER",
+      "label": "Concurrent User Capacity Minimums",
+      "rfpQuote": "Contractor Solution must meet the expected number of concurrent Users below:",
+      "section": "§5.1",
+      "grounding": "verified"
+    },
+    {
+      "id": "c4",
+      "kind": "TECHNOLOGY",
+      "label": "Mandatory MiLogin Integration",
+      "rfpQuote": "The Contractor’s solution must implement identity federation with the State’s MiLogin IT Identity and Access Management (IAM) environment",
+      "section": "§6",
+      "grounding": "verified"
+    },
+    {
+      "id": "c5",
+      "kind": "TECHNOLOGY",
+      "label": "Federated Identity Protocols",
+      "rfpQuote": "the Contractor’s solution must support SAML, OpenID Connect (ODIC) federated identity protocols.",
+      "section": "§6",
+      "grounding": "verified"
+    },
+    {
+      "id": "c6",
+      "kind": "LEGAL",
+      "label": "State Data Retention and Disposal",
+      "rfpQuote": "Except as otherwise stated in the Contract, Contractor will not dispose of, delete, or destroy State Data without the prior written approval",
+      "section": "§7",
+      "grounding": "verified"
+    },
+    {
+      "id": "c7",
+      "kind": "TECHNOLOGY",
+      "label": "Browser Compatibility Standards",
+      "rfpQuote": "Contractor must ensure applications and websites display and function accurately in, at minimum, the two most recent major versions",
+      "section": "§8",
+      "grounding": "verified"
+    },
+    {
+      "id": "c8",
+      "kind": "BUDGET",
+      "label": "Standard Environment Cost Constraint",
+      "rfpQuote": "Contractor must support the current and future State standard environment at no additional cost to the State.",
+      "section": "§8",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "c9",
+      "kind": "TECHNOLOGY",
+      "label": "SOM Look and Feel Compliance",
+      "rfpQuote": "All software items provided by the Contractor must adhere to the State of Michigan Application/Site standards",
+      "section": "§9",
+      "grounding": "verified"
+    },
+    {
+      "id": "c10",
+      "kind": "LEGAL",
+      "label": "Domestic Geographic Access Restriction",
+      "rfpQuote": "Contractor will not access State environments or State Systems from locations outside the United States or the jurisdiction territories",
+      "section": "§9",
+      "grounding": "verified"
+    },
+    {
+      "id": "c11",
+      "kind": "LEGAL",
+      "label": "Prohibition of Offshore Resources",
+      "rfpQuote": "Use of Offshore Resources is prohibited per the Schedule E – Data Security Requirements.",
+      "section": "§17",
+      "grounding": "verified"
+    },
+    {
+      "id": "c12",
+      "kind": "BUDGET",
+      "label": "Mandatory Meeting Cost Inclusion",
+      "rfpQuote": "The Contractor must attend the following meetings, at a location and time as identified by the State, at no additional cost",
+      "section": "§19",
+      "grounding": "verified"
+    },
+    {
+      "id": "c13",
+      "kind": "OTHER",
+      "label": "Business Worksheet Alteration Prohibition",
+      "rfpQuote": "Contractor must not alter the document.",
+      "section": "§22",
+      "grounding": "verified"
+    },
+    {
+      "id": "c14",
+      "kind": "OTHER",
+      "label": "Business Specification Word Count Cap",
+      "rfpQuote": "Description must be no more than 250 words for each business Specification.",
+      "section": "§22",
+      "grounding": "verified"
+    }
+  ],
+  "suggestedWeights": [
+    {
+      "criterionId": "problem_understanding",
+      "weight": 1.4,
+      "reason": "The RFP emphasizes compliance with the Youth Employment Standards Act and transitioning from a legacy paper process to a statewide portal."
+    },
+    {
+      "criterionId": "scope_clarity",
+      "weight": 1.5,
+      "reason": "Detailed functional expectations are captured across numerous business specifications and operational worksheets that must be clearly delimited."
+    },
+    {
+      "criterionId": "pricing_clarity",
+      "weight": 1.2,
+      "reason": "Explicit constraints prohibit additional costs for supporting future environments and mandatory meetings over a 5-year base term."
+    },
+    {
+      "criterionId": "timeline_clarity",
+      "weight": 1.3,
+      "reason": "Specific reporting on milestone variances with graded severity triggers necessitates clearly planned implementation and go-live schedules."
+    },
+    {
+      "criterionId": "tone_persuasiveness",
+      "weight": 0.8,
+      "reason": "The solicitation strictly prioritizes compliance, factual verifications, and exact technical capabilities over marketing tone."
+    },
+    {
+      "criterionId": "risk_transparency",
+      "weight": 1.4,
+      "reason": "Extensive disclosures are mandated regarding contract defaults, litigation, offshore resources, and impact risks of proposed configurations or customizations."
+    },
+    {
+      "criterionId": "completeness",
+      "weight": 1.5,
+      "reason": "Every business specification in the worksheet must be individually completed without altering the template, under strict word count limits."
+    }
+  ],
+  "signals": {
+    "vaguePhrases": [
+      {
+        "phrase": "will be determined",
+        "section": "§4.13",
+        "context": "…l, in Figure 6. All lines represent TCP and SSL encrypted connections. Complete ports and protocols will be determined upon implementation alongside DTMB network administrators and architects. _KL&A_ **150** _Respon…"
+      },
+      {
+        "phrase": "to be defined",
+        "section": "§6.2",
+        "context": "KL&A considers latency times and load times to be defined separately: - **Latency time** refers to the time spent traveling between the user’s client machin…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§10.15",
+        "context": "…an web interface would enable additional ad-hoc communications with individuals or groups of people as needed. Using Artisan will also allow the State to review and follow up on received messages. KL&A has suc…"
+      },
+      {
+        "phrase": "will be provided",
+        "section": "§14.4",
+        "context": "…ill submit to LEO for review and approval. Please note, post-go-live technical support information will be provided in our Maintenance and Support Plan. Bidder must provide details on, and examples of, clearly writ…"
+      },
+      {
+        "phrase": "on request",
+        "section": "§16",
+        "context": "…atabase-level comments on tables and can provide data dictionaries and entity-relationship diagrams on request to ensure they reflect the current state of the system. Additionally, to enhance our documentation…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§17",
+        "context": "…Artisan web interface would also enable ad-hoc communications to individuals or to groups of people as needed. We have successfully implemented and leveraged Artisan integrations in multiple State of Michigan…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§22",
+        "context": "…ng Types**|**Purpose**|**Frequency**|**Attendees**| |Ad hoc meetings|To discuss any issue requiring|As needed|KL&A project| ||collaboration between one or more||manager and| ||parties.||applicable parties| KL…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§24.2",
+        "context": "…lity meets business needs. We will also provide end-user documentation and other training materials as needed. Throughout the project, we develop a variety of project artifacts to communicate and document pro…"
+      },
+      {
+        "phrase": "shortly after",
+        "section": "§24.10",
+        "context": "…ng the release UAT. - **Greater efficiency for both KL&A and client resources** —when testers test shortly after approving a design, testing is faster and easier, just as defect repair is faster and easier when t…"
+      },
+      {
+        "phrase": "will be communicated",
+        "section": "§24.23",
+        "context": "…er experts to assess the change request feasibility and identify potential issues. This information will be communicated and discussed at the CCB meeting in which a decision will be made to approve or reject the change.…"
+      },
+      {
+        "phrase": "will be determined",
+        "section": "§25",
+        "context": "…fields are completed and all data is in the proper formats. Additional business rules and criteria will be determined through requirements validation and implemented for each applicable form type. **26. ADDITIONAL INF…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§25",
+        "context": "…pload and generate documents that are automatically stored and can be accessed and downloaded later as needed. The solution will utilize DTMB-managed Azure Blob Storage to store documents. Azure Blob Storage p…"
+      },
+      {
+        "phrase": "as needed",
+        "section": "§25",
+        "context": "…an web interface would enable additional ad-hoc communications with individuals or groups of people as needed. Using Artisan will also allow the State to review and follow up on received messages. KL&A has suc…"
+      }
+    ],
+    "pricing": {
+      "sections": [],
+      "mentions": [
+        {
+          "value": "$9,354,124",
+          "section": "§0"
+        },
+        {
+          "value": "$71,400",
+          "section": "§0"
+        },
+        {
+          "value": "$75,000",
+          "section": "§0"
+        },
+        {
+          "value": "$4,417,975",
+          "section": "§0"
+        },
+        {
+          "value": "$601,035",
+          "section": "§0"
+        },
+        {
+          "value": "$ 1,911,835",
+          "section": "§0"
+        },
+        {
+          "value": "$ 6,361,226",
+          "section": "§0"
+        },
+        {
+          "value": "$ 6,704,387",
+          "section": "§0"
+        },
+        {
+          "value": "$ 18,068,219",
+          "section": "§0"
+        },
+        {
+          "value": "$ 10,800,000",
+          "section": "§0"
+        },
+        {
+          "value": "$ 2,336,437",
+          "section": "§0"
+        },
+        {
+          "value": "$ 5,834,776",
+          "section": "§0"
+        },
+        {
+          "value": "$ 20,934,735",
+          "section": "§0"
+        },
+        {
+          "value": "$ 40,000",
+          "section": "§0"
+        },
+        {
+          "value": "$ 4,375,417",
+          "section": "§0"
+        },
+        {
+          "value": "$ 452,450",
+          "section": "§0"
+        },
+        {
+          "value": "$ 207,490",
+          "section": "§0"
+        },
+        {
+          "value": "$ 17,128,782",
+          "section": "§0"
+        },
+        {
+          "value": "$ 5,814,200",
+          "section": "§0"
+        },
+        {
+          "value": "$ 8,363,105",
+          "section": "§0"
+        },
+        {
+          "value": "$ 2,656,960",
+          "section": "§0"
+        },
+        {
+          "value": "$ 3,331,443",
+          "section": "§0"
+        },
+        {
+          "value": "$ 50,680",
+          "section": "§0"
+        },
+        {
+          "value": "$ 160,000",
+          "section": "§0"
+        },
+        {
+          "value": "$ 21,179,980",
+          "section": "§0"
+        },
+        {
+          "value": "$ 128,700",
+          "section": "§0"
+        },
+        {
+          "value": "$ 6,134,665",
+          "section": "§0"
+        },
+        {
+          "value": "$ 471,030",
+          "section": "§0"
+        },
+        {
+          "value": "$ 378,000",
+          "section": "§0"
+        },
+        {
+          "value": "$ 609,200",
+          "section": "§0"
+        },
+        {
+          "value": "$ 26,432",
+          "section": "§0"
+        },
+        {
+          "value": "$ 75,600",
+          "section": "§0"
+        },
+        {
+          "value": "$ 12,000",
+          "section": "§0"
+        }
+      ]
+    },
+    "timeline": {
+      "sections": [
+        "§4.2",
+        "§14.2",
+        "§24.1"
+      ],
+      "mentions": [
+        {
+          "value": "33 years",
+          "section": "§0"
+        },
+        {
+          "value": "33-year",
+          "section": "§0"
+        },
+        {
+          "value": "33 years",
+          "section": "§0"
+        },
+        {
+          "value": "5 years",
+          "section": "§0"
+        },
+        {
+          "value": "5 years",
+          "section": "§0"
+        },
+        {
+          "value": "10 years",
+          "section": "§0"
+        },
+        {
+          "value": "5 years",
+          "section": "§0"
+        },
+        {
+          "value": "33 years",
+          "section": "§0"
+        },
+        {
+          "value": "Phase 11",
+          "section": "§0"
+        },
+        {
+          "value": "Phase 3",
+          "section": "§0"
+        },
+        {
+          "value": "10 months",
+          "section": "§0"
+        },
+        {
+          "value": "10 years",
+          "section": "§0"
+        },
+        {
+          "value": "7/14/2029",
+          "section": "§0"
+        },
+        {
+          "value": "12/31/2028",
+          "section": "§0"
+        },
+        {
+          "value": "11/1/2028",
+          "section": "§0"
+        },
+        {
+          "value": "11/20/2027",
+          "section": "§0"
+        },
+        {
+          "value": "9/30/2027",
+          "section": "§0"
+        },
+        {
+          "value": "8/30/2027",
+          "section": "§0"
+        },
+        {
+          "value": "7/17/2027",
+          "section": "§0"
+        },
+        {
+          "value": "12/31/2026",
+          "section": "§0"
+        },
+        {
+          "value": "10/31/2026",
+          "section": "§0"
+        },
+        {
+          "value": "9/30/2026",
+          "section": "§0"
+        },
+        {
+          "value": "9/30/2026",
+          "section": "§0"
+        },
+        {
+          "value": "9/30/2026",
+          "section": "§0"
+        },
+        {
+          "value": "9/14/2026",
+          "section": "§0"
+        },
+        {
+          "value": "9/8/2026",
+          "section": "§0"
+        },
+        {
+          "value": "7/31/2026",
+          "section": "§0"
+        },
+        {
+          "value": "1/15/2026",
+          "section": "§0"
+        },
+        {
+          "value": "9/30/2025",
+          "section": "§0"
+        },
+        {
+          "value": "9/30/2024",
+          "section": "§0"
+        },
+        {
+          "value": "9/30/2024",
+          "section": "§0"
+        },
+        {
+          "value": "12/31/2023",
+          "section": "§0"
+        },
+        {
+          "value": "12/31/2022",
+          "section": "§0"
+        },
+        {
+          "value": "8/29/2019",
+          "section": "§0"
+        },
+        {
+          "value": "6/18/2018",
+          "section": "§0"
+        },
+        {
+          "value": "12/31/2017",
+          "section": "§0"
+        },
+        {
+          "value": "9/30/2016",
+          "section": "§0"
+        },
+        {
+          "value": "9/30/2016",
+          "section": "§0"
+        },
+        {
+          "value": "9/30/2016",
+          "section": "§0"
+        },
+        {
+          "value": "1/14/2016",
+          "section": "§0"
+        },
+        {
+          "value": "12/15/2015",
+          "section": "§0"
+        },
+        {
+          "value": "Phase 1",
+          "section": "§4.2"
+        },
+        {
+          "value": "Phase 2",
+          "section": "§4.2"
+        },
+        {
+          "value": "Phase 3",
+          "section": "§4.2"
+        },
+        {
+          "value": "Phase 1",
+          "section": "§4.2"
+        },
+        {
+          "value": "Phase 2",
+          "section": "§4.2"
+        },
+        {
+          "value": "Phase 3",
+          "section": "§4.2"
+        },
+        {
+          "value": "9/30/2026",
+          "section": "§24"
+        },
+        {
+          "value": "9/8/26",
+          "section": "§24"
+        },
+        {
+          "value": "3/2/26",
+          "section": "§24"
+        },
+        {
+          "value": "3/2/26",
+          "section": "§24"
+        },
+        {
+          "value": "3/6/26",
+          "section": "§24"
+        },
+        {
+          "value": "3/6/26",
+          "section": "§24"
+        },
+        {
+          "value": "3/2/26",
+          "section": "§24"
+        },
+        {
+          "value": "4/10/26",
+          "section": "§24"
+        },
+        {
+          "value": "3/9/26",
+          "section": "§24"
+        },
+        {
+          "value": "5/15/26",
+          "section": "§24"
+        },
+        {
+          "value": "4/13/26",
+          "section": "§24"
+        },
+        {
+          "value": "7/15/26",
+          "section": "§24"
+        },
+        {
+          "value": "7/15/26",
+          "section": "§24"
+        },
+        {
+          "value": "8/12/26",
+          "section": "§24"
+        },
+        {
+          "value": "7/23/26",
+          "section": "§24"
+        },
+        {
+          "value": "8/5/26",
+          "section": "§24"
+        },
+        {
+          "value": "9/8/26",
+          "section": "§24"
+        },
+        {
+          "value": "8/31/26",
+          "section": "§24"
+        },
+        {
+          "value": "11/12/26",
+          "section": "§24"
+        },
+        {
+          "value": "11/12/26",
+          "section": "§24"
+        },
+        {
+          "value": "12/23/26",
+          "section": "§24"
+        },
+        {
+          "value": "11/30/26",
+          "section": "§24"
+        },
+        {
+          "value": "12/2/26",
+          "section": "§24"
+        },
+        {
+          "value": "1/5/27",
+          "section": "§24"
+        },
+        {
+          "value": "1/5/26",
+          "section": "§24"
+        },
+        {
+          "value": "2/9/27",
+          "section": "§24"
+        },
+        {
+          "value": "9/8/26",
+          "section": "§24"
+        },
+        {
+          "value": "3/8/27",
+          "section": "§24"
+        },
+        {
+          "value": "September 8, 2026",
+          "section": "§24"
+        },
+        {
+          "value": "January 5, 2027",
+          "section": "§24"
+        },
+        {
+          "value": "September 30, 2026",
+          "section": "§24.1"
+        },
+        {
+          "value": "30-day",
+          "section": "§24.4"
+        },
+        {
+          "value": "15 days",
+          "section": "§24.17"
+        }
+      ]
+    }
+  },
+  "sections": {
+    "rfp": {
+      "count": 26,
+      "sections": [
+        {
+          "id": "§0",
+          "header": "SCHEDULE A – ATTACHMENT 1 – BUSINESS SPECIFICATION WORKSHEET"
+        },
+        {
+          "id": "§1",
+          "header": "<u>Provide a detailed response to each question. “You” and “company” refers to the bidder.</u>"
+        },
+        {
+          "id": "§1",
+          "header": "1. DEFINITIONS"
+        },
+        {
+          "id": "§2",
+          "header": "2. BACKGROUND"
+        },
+        {
+          "id": "§3",
+          "header": "3. PURPOSE/CHALLENGE STATEMENT"
+        },
+        {
+          "id": "§4",
+          "header": "5. ADA COMPLIANCE"
+        },
+        {
+          "id": "§5",
+          "header": "6. USER TYPE AND CAPACITY"
+        },
+        {
+          "id": "§5.1",
+          "header": "<u>Contractor Solution must meet the expected number of concurrent Users below:</u>"
+        },
+        {
+          "id": "§6",
+          "header": "7. ACCESS CONTROL AND AUTHENTICATION"
+        },
+        {
+          "id": "§7",
+          "header": "8. REQUIRED FUNCTIONALITY RELATING TO DATA RETENTION, DISPOSAL, AND RETRIEVAL"
+        },
+        {
+          "id": "§8",
+          "header": "9. END USER AND IT OPERATING ENVIRONMENT"
+        },
+        {
+          "id": "§9",
+          "header": "10. SOFTWARE"
+        },
+        {
+          "id": "§10",
+          "header": "12. MIGRATION - RESERVED"
+        },
+        {
+          "id": "§11",
+          "header": "13. HARDWARE - RESERVED"
+        },
+        {
+          "id": "§12",
+          "header": "14. TRAINING SERVICES"
+        },
+        {
+          "id": "§13",
+          "header": "16. DOCUMENTATION"
+        },
+        {
+          "id": "§14",
+          "header": "17. ADDITIONAL PRODUCTS AND SERVICES"
+        },
+        {
+          "id": "§15",
+          "header": "18. CONTRACTOR PERSONNEL"
+        },
+        {
+          "id": "§16",
+          "header": "19. CONTRACTOR KEY PERSONNEL"
+        },
+        {
+          "id": "§17",
+          "header": "20. CONTRACTOR PERSONNEL REQUIREMENTS"
+        },
+        {
+          "id": "§18",
+          "header": "21. STATE RESOURCES"
+        },
+        {
+          "id": "§19",
+          "header": "22. MEETINGS"
+        },
+        {
+          "id": "§20",
+          "header": "23. PROJECT CONTROL & REPORTS"
+        },
+        {
+          "id": "§21",
+          "header": "24. PROJECT MANAGEMENT"
+        },
+        {
+          "id": "§22",
+          "header": "26. ADDITIONAL INFORMATION"
+        },
+        {
+          "id": "§22.1",
+          "header": "EarnStride LLC"
+        }
+      ]
+    },
+    "proposal": {
+      "count": 92,
+      "sections": [
+        {
+          "id": "§0",
+          "header": "KL&A — Proposal for 26. ADDITIONAL INFORMATION (bidder responses)"
+        },
+        {
+          "id": "§1",
+          "header": "1. DEFINITIONS"
+        },
+        {
+          "id": "§2",
+          "header": "2. BACKGROUND"
+        },
+        {
+          "id": "§3",
+          "header": "3. PURPOSE/CHALLENGE STATEMENT"
+        },
+        {
+          "id": "§4",
+          "header": "4. IT ENVIRONMENT RESPONSIBILITIES"
+        },
+        {
+          "id": "§4.1",
+          "header": "Basic Elements of our Maintenance and Support Process"
+        },
+        {
+          "id": "§4.2",
+          "header": "Maintenance Process Phases"
+        },
+        {
+          "id": "§4.3",
+          "header": "Security Officer"
+        },
+        {
+          "id": "§4.4",
+          "header": "Contractor Responsibilities"
+        },
+        {
+          "id": "§4.5",
+          "header": "Acceptable Use Policy"
+        },
+        {
+          "id": "§4.6",
+          "header": "Protection of State’s Information"
+        },
+        {
+          "id": "§4.7",
+          "header": "Security Accreditation Process"
+        },
+        {
+          "id": "§4.8",
+          "header": "Unauthorized Access"
+        },
+        {
+          "id": "§4.9",
+          "header": "Security Audits"
+        },
+        {
+          "id": "§4.10",
+          "header": "Application Scanning"
+        },
+        {
+          "id": "§4.11",
+          "header": "Infrastructure Scanning"
+        },
+        {
+          "id": "§4.12",
+          "header": "Nonexclusive Remedy for Security Breach"
+        },
+        {
+          "id": "§4.13",
+          "header": "<u>Optimally:</u>"
+        },
+        {
+          "id": "§5",
+          "header": "5. ADA COMPLIANCE"
+        },
+        {
+          "id": "§6",
+          "header": "6. USER TYPE AND CAPACITY"
+        },
+        {
+          "id": "§6.1",
+          "header": "Application Scaling"
+        },
+        {
+          "id": "§6.2",
+          "header": "Latency Response Time"
+        },
+        {
+          "id": "§6.3",
+          "header": "Latency Reporting and Monitoring"
+        },
+        {
+          "id": "§6.4",
+          "header": "Required Network Connectivity and Equipment"
+        },
+        {
+          "id": "§6.5",
+          "header": "Roles and Responsibilities"
+        },
+        {
+          "id": "§7",
+          "header": "7. ACCESS CONTROL AND AUTHENTICATION"
+        },
+        {
+          "id": "§8",
+          "header": "8. REQUIRED FUNCTIONALITY RELATING TO DATA RETENTION, DISPOSAL, AND RETRIEVAL"
+        },
+        {
+          "id": "§8.1",
+          "header": "Data Retention and Disposal"
+        },
+        {
+          "id": "§8.2",
+          "header": "Data Retrieval and Transfer"
+        },
+        {
+          "id": "§8.3",
+          "header": "Roles and Responsibilities"
+        },
+        {
+          "id": "§9",
+          "header": "9. END USER AND IT OPERATING ENVIRONMENT"
+        },
+        {
+          "id": "§10",
+          "header": "10. SOFTWARE"
+        },
+        {
+          "id": "§10.1",
+          "header": "The YEPP Solution"
+        },
+        {
+          "id": "§10.2",
+          "header": "MiLogin Integration"
+        },
+        {
+          "id": "§10.3",
+          "header": "Public Portal"
+        },
+        {
+          "id": "§10.4",
+          "header": "<u>Employer Registration</u>"
+        },
+        {
+          "id": "§10.5",
+          "header": "<u>Work Permit Application</u>"
+        },
+        {
+          "id": "§10.6",
+          "header": "<u>Accessing Permits and Approval Documentation</u>"
+        },
+        {
+          "id": "§10.7",
+          "header": "<u>Notifications</u>"
+        },
+        {
+          "id": "§10.8",
+          "header": "<u>Employer Search</u>"
+        },
+        {
+          "id": "§10.9",
+          "header": "Administrative Users"
+        },
+        {
+          "id": "§10.10",
+          "header": "<u>Dashboards and Searches</u>"
+        },
+        {
+          "id": "§10.11",
+          "header": "<u>Reporting</u>"
+        },
+        {
+          "id": "§10.12",
+          "header": "<u>Configurable Workflows</u>"
+        },
+        {
+          "id": "§10.13",
+          "header": "<u>User Administration</u>"
+        },
+        {
+          "id": "§10.14",
+          "header": "Software Assumptions & Constraints"
+        },
+        {
+          "id": "§10.15",
+          "header": "Artisan – SMS Notifications"
+        },
+        {
+          "id": "§11",
+          "header": "11. INTEGRATION"
+        },
+        {
+          "id": "§12",
+          "header": "12. MIGRATION - RESERVED"
+        },
+        {
+          "id": "§13",
+          "header": "13. HARDWARE - RESERVED"
+        },
+        {
+          "id": "§14",
+          "header": "14. TRAINING SERVICES"
+        },
+        {
+          "id": "§14.1",
+          "header": "Classroom-Style, Train-the-Trainer Training"
+        },
+        {
+          "id": "§14.2",
+          "header": "Optimum Class Size & Duration"
+        },
+        {
+          "id": "§14.3",
+          "header": "Additional Training Options"
+        },
+        {
+          "id": "§14.4",
+          "header": "Training Plan"
+        },
+        {
+          "id": "§15",
+          "header": "15. TRANSITION RESPONSIBILITIES"
+        },
+        {
+          "id": "§16",
+          "header": "16. DOCUMENTATION"
+        },
+        {
+          "id": "§17",
+          "header": "17. ADDITIONAL PRODUCTS AND SERVICES"
+        },
+        {
+          "id": "§18",
+          "header": "18. CONTRACTOR PERSONNEL"
+        },
+        {
+          "id": "§19",
+          "header": "19. CONTRACTOR KEY PERSONNEL"
+        },
+        {
+          "id": "§20",
+          "header": "20. CONTRACTOR PERSONNEL REQUIREMENTS"
+        },
+        {
+          "id": "§21",
+          "header": "21. STATE RESOURCES"
+        },
+        {
+          "id": "§22",
+          "header": "22. MEETINGS"
+        },
+        {
+          "id": "§23",
+          "header": "23. PROJECT CONTROL & REPORTS"
+        },
+        {
+          "id": "§24",
+          "header": "24. PROJECT MANAGEMENT"
+        },
+        {
+          "id": "§24.1",
+          "header": "06_MI_LEO_YEPP_WBS-Schedule.pdf"
+        },
+        {
+          "id": "§24.2",
+          "header": "Benefits of Methodology"
+        },
+        {
+          "id": "§24.3",
+          "header": "Project Initiation"
+        },
+        {
+          "id": "§24.4",
+          "header": "Sprint Zero"
+        },
+        {
+          "id": "§24.5",
+          "header": "Discovery & Design"
+        },
+        {
+          "id": "§24.6",
+          "header": "<u>JAD Sessions</u>"
+        },
+        {
+          "id": "§24.7",
+          "header": "<u>Design Review</u>"
+        },
+        {
+          "id": "§24.8",
+          "header": "Development Sprints"
+        },
+        {
+          "id": "§24.9",
+          "header": "Data Migration"
+        },
+        {
+          "id": "§24.10",
+          "header": "Testing"
+        },
+        {
+          "id": "§24.11",
+          "header": "Implementation"
+        },
+        {
+          "id": "§24.12",
+          "header": "Closeout"
+        },
+        {
+          "id": "§24.13",
+          "header": "Warranty Period"
+        },
+        {
+          "id": "§24.14",
+          "header": "Maintenance & Support"
+        },
+        {
+          "id": "§24.15",
+          "header": "Tools"
+        },
+        {
+          "id": "§24.16",
+          "header": "Deliverable Review Process"
+        },
+        {
+          "id": "§24.17",
+          "header": "_LEO Youth Employment Permit Portal (YEPP) Proposal_"
+        },
+        {
+          "id": "§24.18",
+          "header": "Change Control"
+        },
+        {
+          "id": "§24.19",
+          "header": "<u>Change Control Roles and Responsibilities</u>"
+        },
+        {
+          "id": "§24.20",
+          "header": "<u>Change Control Governance</u>"
+        },
+        {
+          "id": "§24.21",
+          "header": "_Objectives of the Change Management Process_"
+        },
+        {
+          "id": "§24.22",
+          "header": "_Criteria for Review at CCB Meetings_"
+        },
+        {
+          "id": "§24.23",
+          "header": "_Process Description_"
+        },
+        {
+          "id": "§24.24",
+          "header": "_Steps and Actions_"
+        },
+        {
+          "id": "§24.25",
+          "header": "_Capturing and Monitoring Project Changes_"
+        },
+        {
+          "id": "§24.26",
+          "header": "_Communicating Project Changes_"
+        },
+        {
+          "id": "§25",
+          "header": "26. ADDITIONAL INFORMATION"
+        }
+      ]
+    }
+  },
+  "partial": false,
+  "error": null,
+  "warnings": [],
+  "meta": {
+    "model": "gemini-3.8-flash",
+    "temperature": 0.0,
+    "promptVersion": "4",
+    "mode": "split",
+    "durationMs": 42740,
+    "llmCalls": 5,
+    "truncated": 0,
+    "repaired": 0,
+    "ungroundedDropped": 2,
+    "fuzzyMatched": 5,
+    "extractCached": false,
+    "scoreCached": false
+  }
+}

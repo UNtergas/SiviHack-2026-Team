@@ -65,6 +65,17 @@ REALWORLD = {  # frontend copy → the pair file it must equal (docs/realworld)
     "lims-rfp.md": ROOT / "docs" / "realworld" / "pair2-lims" / "rfp.md",
     "lims-onq.md": ROOT / "docs" / "realworld" / "pair2-lims" / "onq.md",
     "lims-clinisys.md": ROOT / "docs" / "realworld" / "pair2-lims" / "clinisys.md",
+    "yepp-rfp.md": ROOT / "docs" / "realworld" / "pair3-youth-portal" / "rfp.md",
+    "yepp-earnstride.md": ROOT / "docs" / "realworld" / "pair3-youth-portal" / "earnstride.md",
+    "yepp-kla.md": ROOT / "docs" / "realworld" / "pair3-youth-portal" / "kla.md",
+    "yepp-concourse.md": ROOT / "docs" / "realworld" / "pair3-youth-portal" / "concourse.md",
+    "mpsc-rfp.md": ROOT / "docs" / "realworld" / "pair1-salesforce" / "rfp.md",
+    "mpsc-aimpoint.md": ROOT / "docs" / "realworld" / "pair1-salesforce" / "aimpoint.md",
+    "mpsc-intellibee.md": ROOT / "docs" / "realworld" / "pair1-salesforce" / "intellibee.md",
+    "mpsc-radcube.md": ROOT / "docs" / "realworld" / "pair1-salesforce" / "radcube.md",
+    "mpsc-highcloud.md": ROOT / "docs" / "realworld" / "pair1-salesforce" / "highcloud.md",
+    "minivan-rfp.md": ROOT / "docs" / "realworld" / "pair7-minivan" / "rfp.md",
+    "minivan-bsi.md": ROOT / "docs" / "realworld" / "pair7-minivan" / "bsi.md",
 }
 
 

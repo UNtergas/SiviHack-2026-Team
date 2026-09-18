@@ -1,0 +1,13 @@
+{
+ "kind": "group:understanding",
+ "model": "gemini-3.8-flash",
+ "prompt_head": "You score a draft PROPOSAL on 2 review criteria. Group id: understanding. Other ",
+ "truncated": false,
+ "usage": {
+  "prompt": 26204,
+  "output": 515,
+  "thinking": 0,
+  "cached": 0
+ },
+ "text": "{\n  \"findings\": [\n    {\n      \"type\": \"INCONSISTENCY\",\n      \"severity\": \"HIGH\",\n      \"location\": \"§2.40\",\n      \"proposalQuote\": \"Concourse Tech Inc. does not make any warranties, express or implied\",\n      \"explanation\": \"Contradicting the earlier acceptance of standard terms and 180-day warranty risks immediate legal disqualification by the State.\",\n      \"fix\": \"Remove the conflicting disclaimer clauses in §2.40 to maintain unconditional acceptance of the State's standard terms.\"\n    }\n  ],\n  \"scores\": [\n    {\n      \"id\": \"problem_understanding\",\n      \"label\": \"Problem Understanding\",\n      \"score\": 2,\n      \"strengths\": \"The proposal accurately identifies the core statutory shift under Public Act 90 of 1978 transitioning permit processing from local schools to WHD.\",\n      \"weaknesses\": \"The proposal fails to use the mandatory Business Specifications Worksheet format, violating constraint c13 and omitting required vendor qualification disclosures.\",\n      \"citations\": [\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§2.2.1\",\n          \"quote\": \"Currently, the permit processing duties handled by local school districts rely on a paper-based method that creates inefficiencies\"\n        },\n        {\n          \"source\": \"rfp\",\n          \"section\": \"§22\",\n          \"quote\": \"Contractor must not alter the document.\"\n        }\n      ],\n      \"note\": null\n    },\n    {\n      \"id\": \"tone_persuasiveness\",\n      \"label\": \"Tone & Persuasiveness\",\n      \"score\": 2,\n      \"strengths\": \"The narrative maintains a professional and confident tone tailored specifically to the State of Michigan's Youth Employment Permit Portal requirements.\",\n      \"weaknesses\": \"Persuasiveness is compromised by the inclusion of conflicting legal disclaimers in §2.40 that disclaim all warranties.\",\n      \"citations\": [\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§2.40\",\n          \"quote\": \"Concourse Tech Inc. does not make any warranties, express or implied\"\n        }\n      ],\n      \"note\": null\n    }\n  ]\n}"
+}

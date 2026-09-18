@@ -26,7 +26,7 @@ requirements:
 
 warm:             # fill app/data/cache from the recordings, $0: the 4 samples and the real-world pairs
 	cd app && LLM_PROVIDER=replay USE_CACHE=true uv run --env-file .env python tests/regression.py
-	cd app && for v in onq clinisys; do LLM_PROVIDER=replay USE_CACHE=true uv run --env-file .env python ../docs/realworld/tools/run_pair.py ../docs/realworld/pair2-lims/rfp.md ../docs/realworld/pair2-lims/$$v.md; done
+	cd app && for pv in pair2-lims/onq pair2-lims/clinisys pair3-youth-portal/earnstride pair3-youth-portal/kla pair3-youth-portal/concourse pair1-salesforce/aimpoint pair1-salesforce/intellibee pair1-salesforce/radcube pair1-salesforce/highcloud pair7-minivan/bsi; do LLM_PROVIDER=replay USE_CACHE=true uv run --env-file .env python ../docs/realworld/tools/run_pair.py ../docs/realworld/$${pv%/*}/rfp.md ../docs/realworld/$$pv.md; done
 
 spend:
 	cd app && uv run --env-file .env python -m app.usage

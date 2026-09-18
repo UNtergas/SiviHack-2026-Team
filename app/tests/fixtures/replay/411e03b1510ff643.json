@@ -1,0 +1,13 @@
+{
+ "kind": "group:risk",
+ "model": "gemini-3.8-flash",
+ "prompt_head": "You score a draft PROPOSAL on 1 review criterion. Group id: risk. Other reviewer",
+ "truncated": false,
+ "usage": {
+  "prompt": 21227,
+  "output": 229,
+  "thinking": 0,
+  "cached": 0
+ },
+ "text": "{\n  \"findings\": [],\n  \"scores\": [\n    {\n      \"id\": \"risk_transparency\",\n      \"label\": \"Risk/Assumptions Transparency\",\n      \"score\": 3,\n      \"strengths\": \"The proposal names specific risks regarding regression errors and platform releases along with concrete mitigation strategies in §26.\",\n      \"weaknesses\": \"The proposal lacks a comprehensive risk matrix or log of project dependencies and operational assumptions outside of technical release notes in §26.\",\n      \"citations\": [\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§26\",\n          \"quote\": \"The primary risk is the potential for regression errors; this will be mitigated through thorough testing\"\n        },\n        {\n          \"source\": \"proposal\",\n          \"section\": \"§26\",\n          \"quote\": \"potential risks include compatibility issues or additional testing requirements. We will mitigate this risk through early-stage testing\"\n        }\n      ],\n      \"note\": null\n    }\n  ]\n}"
+}

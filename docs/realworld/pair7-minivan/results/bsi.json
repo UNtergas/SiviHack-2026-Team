@@ -1,0 +1,1399 @@
+{
+  "overall": 1.71,
+  "weights": {
+    "problem_understanding": 1.0,
+    "scope_clarity": 1.0,
+    "pricing_clarity": 1.0,
+    "timeline_clarity": 1.0,
+    "completeness": 1.0,
+    "tone_persuasiveness": 1.0,
+    "risk_transparency": 1.0
+  },
+  "scores": [
+    {
+      "id": "problem_understanding",
+      "label": "Problem Understanding",
+      "score": 2,
+      "strengths": "The bidder demonstrates direct knowledge of public transit fleet procurement through comparable contracts held with ODOT and WVDOT.",
+      "weaknesses": "In §1, §2, and §26, the proposal omits required technical specifications, Altoona bus testing reports, and pilot vehicle inspection processes.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§0",
+          "quote": "Similar in product and scope.",
+          "grounding": "verified"
+        },
+        {
+          "source": "rfp",
+          "section": "§1",
+          "quote": "Full Altoona Test Buse Report.",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "scope_clarity",
+      "label": "Scope & Deliverables Clarity",
+      "score": 1,
+      "strengths": "The proposal identifies general training inclusions such as general vehicle use and informational phone support.",
+      "weaknesses": "In §2 and §3, product specifications and alternative equipment details are left entirely blank, leaving the delivered vehicle configuration undefined.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§2",
+          "quote": "[§2 1.2. Product Specifications]",
+          "grounding": "fuzzy"
+        },
+        {
+          "source": "rfp",
+          "section": "§2",
+          "quote": "all cells in “Product Detail or Pre-Approved Alternate” column must be completed by bidder for each item.",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "pricing_clarity",
+      "label": "Pricing Clarity",
+      "score": 1,
+      "strengths": null,
+      "weaknesses": "In §19 and §20, the proposal agrees to firm price terms but omits the actual base vehicle pricing tables and cost schedules.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§19",
+          "quote": "Pricing is frm for the entire length of the Contract. i",
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§20",
+          "quote": "5. Ordering",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "timeline_clarity",
+      "label": "Timeline Clarity",
+      "score": 2,
+      "strengths": "The proposal acknowledges the overall delivery timeframe SLA requirement of 210 calendar days from receipt of order.",
+      "weaknesses": "In §8, §9, §23, and §24, dedicated delivery and timeframe sections contain zero milestone schedules, durations, or completion dates.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§34",
+          "quote": "s must be delivered within 210 calendar days of receipt of order",
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§9",
+          "quote": "[§9 2.2. Delivery]",
+          "grounding": "fuzzy"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "completeness",
+      "label": "Completeness vs. RFP Requirements",
+      "score": 3,
+      "strengths": "14 of 37 requirements addressed: r1 Sole Contact Person, r2 Authorized Contract Signer, r3 Company Background Information, r4 Company History and Growth, r6 Partnerships and Strategic Relationships, r7 Primary Place of Business, r8 Relevant Prior Experiences, r18 Quality Assurance Program, r20 Contract Delivery Timeframe, r21 Training Services, r23 Contractor Program Manager, r24 Key Personnel Appointment, r33 Environmental Product Identification, r37 PFAS Disclosure and Confirmation.",
+      "weaknesses": "23 of 37 requirements not fully addressed: r5 Gross Annual Sales Scaling (PARTIAL); r9 FTA Clauses Agreement (MISSING); r10 Altoona Test Bus Report (MISSING); r11 Motor Vehicle Dealer License (MISSING); r12 Affidavit for Driver Delivery (MISSING); r13 Schedule D Specification Details (MISSING); r14 Permanent Decal or Metal Plate (MISSING); r15 Final Inspection and Corrections (MISSING); r16 Warranty Terms and Process (PARTIAL); r17 Recall Procedures (MISSING); r19 Special Incentives (MISSING); r22 Quarterly Reporting (PARTIAL); r25 Organizational Chart (MISSING); r26 Customer Service Toll-Free Number (PARTIAL); r27 Subcontractor Disclosures (MISSING); r28 Facility Security Measures (MISSING); r29 Abnormal Order Verification Controls (MISSING); r30 Pilot Model Production (MISSING); r31 Travel Expenses for Inspection (MISSING); r32 Invoice Content Requirements (MISSING); r34 Hazardous Chemical MSDS (MISSING); r35 Mercury Content Disclosure (MISSING); r36 Brominated Flame Retardants Disclosure (MISSING).",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§0",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§4",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§6",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§34",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§10",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§11",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§14",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§17",
+          "quote": null,
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§30",
+          "quote": null,
+          "grounding": "verified"
+        }
+      ],
+      "note": "computed from coverage: 16/37 credit (ADDRESSED = 1, PARTIAL = 0.5, MISSING / CONTRADICTED = 0)"
+    },
+    {
+      "id": "tone_persuasiveness",
+      "label": "Tone & Persuasiveness",
+      "score": 2,
+      "strengths": "The response maintains a direct and professional tone when describing past performance and manufacturer relationships.",
+      "weaknesses": "In §2, §5, and §7, numerous core RFP sections are left completely blank rather than offering persuasive, client-tailored commitments.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§0",
+          "quote": "We partner deeply with our manufacurer, FR Conversions, to bring the highest quality product to the State.",
+          "grounding": "verified"
+        },
+        {
+          "source": "proposal",
+          "section": "§5",
+          "quote": "",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    },
+    {
+      "id": "risk_transparency",
+      "label": "Risk/Assumptions Transparency",
+      "score": 1,
+      "strengths": null,
+      "weaknesses": "The proposal provides no risk management section, leaving crucial supply chain, production, and delivery risks unacknowledged despite leaving parts availability contingent on open variables in §4.",
+      "citations": [
+        {
+          "source": "proposal",
+          "section": "§4",
+          "quote": "Depending on part availability, most repairs can be completed within one week of the vehicle arriving on site.",
+          "grounding": "verified"
+        }
+      ],
+      "note": null
+    }
+  ],
+  "coverage": [
+    {
+      "requirementId": "r9",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "The signed Schedule E FTA Clauses agreement is not included.",
+      "fix": "Attach the signed Schedule E Federal Transit Administration Clauses agreement to Section 1.1.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r10",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "The full Altoona Test Bus Report is not provided.",
+      "fix": "Attach the complete Altoona Test Bus Report to Section 1.1.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r11",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "A valid motor vehicle dealer license is not provided.",
+      "fix": "Attach a copy of the current valid motor vehicle dealer license to Section 1.1.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r12",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Completed Schedule F Affidavit for Driver Delivery is not included.",
+      "fix": "Attach the completed Schedule F Affidavit for Driver Delivery to Section 1.1.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r13",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Schedule D specification details are omitted.",
+      "fix": "Complete and attach Schedule D with all required item specifications in Section 1.2.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r14",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Driver area permanent decal or metal plate specifications are omitted.",
+      "fix": "Add driver area permanent decal or stamped metal plate specifications to Section 1.2.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r15",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Final inspection handling and State corrections prior to acceptance are omitted.",
+      "fix": "Detail procedures for managing final inspection and required corrections in Section 7.4.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r17",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Vehicle recall procedures are not described.",
+      "fix": "Describe recall procedures and agency notification processes in Section 1.5.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r19",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Special incentives, trade-in programs, and quantity discounts are not described.",
+      "fix": "Describe available special incentives, trade-in programs, or quantity discounts in Section 1.7.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r25",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "An organizational chart detailing staff members and subcontractors is omitted.",
+      "fix": "Provide a detailed organizational chart including staff names, titles, and subcontractors in Section 3.4.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r27",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Subcontractor disclosures or affirmations of non-use are not provided.",
+      "fix": "Add subcontractor disclosure details or certify that no subcontractors are used in Section 3.6.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r28",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Facility security measures, uniforms, and ID badge protocols are not addressed.",
+      "fix": "Detail facility security procedures, ID badge, and uniform policies in Section 3.7.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r29",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Internal controls to verify abnormal orders are not described.",
+      "fix": "Describe internal controls approved by Central Procurement Services for verifying abnormal orders in Section 5.2.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r30",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Pilot model production processes and scheduling are not described.",
+      "fix": "Detail the pilot model production process and timelines in Section 7.2.1.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r31",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Responsibility for inspection travel and lodging expenses is not addressed.",
+      "fix": "Confirm bidder responsibility for inspection travel, lodging, and meals in Section 7.2.1.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r32",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Invoice content requirements are not addressed.",
+      "fix": "List all required invoice elements including date, purchase order, and quantity in Section 8.1.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r34",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Material Safety Data Sheets for hazardous chemicals are omitted.",
+      "fix": "Provide Material Safety Data Sheets for hazardous chemicals or confirm their absence in Section 12.2.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r35",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Mercury content disclosure is not provided.",
+      "fix": "Provide a disclosure detailing the presence or absence of mercury in Section 12.3.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r36",
+      "status": "MISSING",
+      "proposalSection": null,
+      "proposalQuote": null,
+      "explanation": "Brominated flame retardants disclosure is not provided.",
+      "fix": "Provide a disclosure on whether products contain brominated flame retardants in Section 12.4.",
+      "grounding": null
+    },
+    {
+      "requirementId": "r5",
+      "status": "PARTIAL",
+      "proposalSection": "§0",
+      "proposalQuote": "2024 - $35M 2025 - $40M",
+      "explanation": "Gross annual sales are provided for only two years instead of five years.",
+      "fix": "State gross annual sales for each of the last five years in Section 0.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r16",
+      "status": "PARTIAL",
+      "proposalSection": "§4",
+      "proposalQuote": "Additional information provided in attached warranty documentation.",
+      "explanation": "Warranty length and detailed terms are deferred to an unspecified attachment.",
+      "fix": "State the specific warranty terms and warranty length directly in Section 1.4.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r22",
+      "status": "PARTIAL",
+      "proposalSection": "§11",
+      "proposalQuote": "BSI can report on each of these pieces of information through the vehicle cost worksheet",
+      "explanation": "The proposal does not address submitting quarterly reports to the Program Manager.",
+      "fix": "Confirm quarterly reporting frequency and submission process to the Program Manager in Section 2.4.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r26",
+      "status": "PARTIAL",
+      "proposalSection": "§17",
+      "proposalQuote": "614-390-3483",
+      "explanation": "A local area code phone number was provided instead of a toll-free number.",
+      "fix": "Provide a dedicated toll-free telephone number for customer service in Section 3.5.",
+      "grounding": "verified"
+    },
+    {
+      "requirementId": "r1",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r2",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r3",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r4",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r6",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r7",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r8",
+      "status": "ADDRESSED",
+      "proposalSection": "§0",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r18",
+      "status": "ADDRESSED",
+      "proposalSection": "§6",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r20",
+      "status": "ADDRESSED",
+      "proposalSection": "§34",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r21",
+      "status": "ADDRESSED",
+      "proposalSection": "§10",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r23",
+      "status": "ADDRESSED",
+      "proposalSection": "§14",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r24",
+      "status": "ADDRESSED",
+      "proposalSection": "§14",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r33",
+      "status": "ADDRESSED",
+      "proposalSection": "§30",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    },
+    {
+      "requirementId": "r37",
+      "status": "ADDRESSED",
+      "proposalSection": "§34",
+      "proposalQuote": null,
+      "explanation": null,
+      "fix": null,
+      "grounding": null
+    }
+  ],
+  "constraintViolations": [],
+  "findings": [
+    {
+      "type": "INCONSISTENCY",
+      "severity": "MEDIUM",
+      "location": "§0",
+      "proposalQuote": "The organization came under new management via acquisition in August of 2024.",
+      "explanation": "Contradicting whether growth was organic or via acquisitions creates confusion regarding corporate history and operational stability.",
+      "fix": "Clarify that the recent ownership change occurred via acquisition while prior operational expansion was organic.",
+      "grounding": "verified"
+    },
+    {
+      "type": "VAGUENESS",
+      "severity": "MEDIUM",
+      "location": "§4",
+      "proposalQuote": "repairs/replacements are made as needed.",
+      "explanation": "Leaving the threshold for repairs and replacements undefined creates uncertainty regarding warranty coverage and service standards.",
+      "fix": "Replace 'as needed' with explicit, objective service criteria and definitive repair thresholds.",
+      "grounding": "verified"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "r1",
+      "label": "Sole Contact Person",
+      "rfpQuote": "Bidder’s sole contact person during the RFP process. Include name, title, address, email, and phone number.",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "r2",
+      "label": "Authorized Contract Signer",
+      "rfpQuote": "Person authorized to receive and sign a resulting contract. Include name, title, address, email, phone number",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "r3",
+      "label": "Company Background Information",
+      "rfpQuote": "Legal business name and address. Include business entity designation, e.g., sole proprietor, Inc., LLC, or LLP.",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "r4",
+      "label": "Company History and Growth",
+      "rfpQuote": "Discuss your company’s history. Has growth been organic, through mergers and acquisitions, or both?",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "r5",
+      "label": "Gross Annual Sales Scaling",
+      "rfpQuote": "State your gross annual sales for each of the last 5 years.",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "r6",
+      "label": "Partnerships and Strategic Relationships",
+      "rfpQuote": "Describe partnerships and strategic relationships you think will bring significant value to the State.",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "r7",
+      "label": "Primary Place of Business",
+      "rfpQuote": "State the physical address of the place of business that would have primary responsibility for this account",
+      "section": "§0",
+      "grounding": "verified"
+    },
+    {
+      "id": "r8",
+      "label": "Relevant Prior Experiences",
+      "rfpQuote": "Describe at least 3 relevant experiences from the last 5 years supporting your ability to successfully manage",
+      "section": "§0",
+      "grounding": "fuzzy"
+    },
+    {
+      "id": "r9",
+      "label": "FTA Clauses Agreement",
+      "rfpQuote": "Signed Agreement with the Federal Transit Administration (FDA) Clauses (Schedule E).",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r10",
+      "label": "Altoona Test Bus Report",
+      "rfpQuote": "Full Altoona Test Buse Report.",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r11",
+      "label": "Motor Vehicle Dealer License",
+      "rfpQuote": "Current Valid Motor Vehicle Dealer License",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r12",
+      "label": "Affidavit for Driver Delivery",
+      "rfpQuote": "Completed Affidavit for Driver Delivery (Schedule F).",
+      "section": "§1",
+      "grounding": "verified"
+    },
+    {
+      "id": "r13",
+      "label": "Schedule D Specification Details",
+      "rfpQuote": "all cells in “Product Detail or Pre-Approved Alternate” column must be completed by bidder for each item.",
+      "section": "§2",
+      "grounding": "verified"
+    },
+    {
+      "id": "r14",
+      "label": "Permanent Decal or Metal Plate",
+      "rfpQuote": "must be imprinted on a permanent decal(s) or stamped on a metal plate(s) and affixed in the driver's area",
+      "section": "§2",
+      "grounding": "verified"
+    },
+    {
+      "id": "r15",
+      "label": "Final Inspection and Corrections",
+      "rfpQuote": "The Contractor must be capable of handling final inspection and corrections required by the State prior to acceptance",
+      "section": "§2",
+      "grounding": "verified"
+    },
+    {
+      "id": "r16",
+      "label": "Warranty Terms and Process",
+      "rfpQuote": "Describe any warranties included in the bid and provide the length of the warranty.",
+      "section": "§4",
+      "grounding": "verified"
+    },
+    {
+      "id": "r17",
+      "label": "Recall Procedures",
+      "rfpQuote": "The Contractor must describe any recall procedures.",
+      "section": "§5",
+      "grounding": "verified"
+    },
+    {
+      "id": "r18",
+      "label": "Quality Assurance Program",
+      "rfpQuote": "Explain your Quality Assurance Program(s).",
+      "section": "§6",
+      "grounding": "verified"
+    },
+    {
+      "id": "r19",
+      "label": "Special Incentives",
+      "rfpQuote": "Explain any special incentives or services including, but not limited to, return policies, trade-in programs, quantity discounts, etc.",
+      "section": "§7",
+      "grounding": "verified"
+    },
+    {
+      "id": "r20",
+      "label": "Contract Delivery Timeframe",
+      "rfpQuote": "All Contract Activities must be delivered within 210 business days from receipt of order.",
+      "section": "§8",
+      "grounding": "verified"
+    },
+    {
+      "id": "r21",
+      "label": "Training Services",
+      "rfpQuote": "The Contractor must provide training when necessary, including but not limited to, aspects of ordering, shipping, billing, receiving,",
+      "section": "§10",
+      "grounding": "verified"
+    },
+    {
+      "id": "r22",
+      "label": "Quarterly Reporting",
+      "rfpQuote": "The Contractor must submit to the Program Manager quarterly reports which include agency name, vehicle(s) purchased, options, price,",
+      "section": "§11",
+      "grounding": "verified"
+    },
+    {
+      "id": "r23",
+      "label": "Contractor Program Manager",
+      "rfpQuote": "The Contractor must appoint a Service Manager or Product Representative specif i cally assigned to State of Michigan accounts",
+      "section": "§13",
+      "grounding": "verified"
+    },
+    {
+      "id": "r24",
+      "label": "Key Personnel Appointment",
+      "rfpQuote": "The Contractor must appoint one individual who will be directly responsible for the day-to-day operations of the Contract",
+      "section": "§14",
+      "grounding": "verified"
+    },
+    {
+      "id": "r25",
+      "label": "Organizational Chart",
+      "rfpQuote": "The Bidder must provide an overall organizational chart that details staff members, by name and title, and subcontractors",
+      "section": "§16",
+      "grounding": "verified"
+    },
+    {
+      "id": "r26",
+      "label": "Customer Service Toll-Free Number",
+      "rfpQuote": "The Contractor must specify its toll-free number for the State to contact the Contractor Program Manager",
+      "section": "§17",
+      "grounding": "verified"
+    },
+    {
+      "id": "r27",
+      "label": "Subcontractor Disclosures",
+      "rfpQuote": "If the Contractor intends to utilize subcontractors, the Contractor must disclose the following:",
+      "section": "§18",
+      "grounding": "verified"
+    },
+    {
+      "id": "r28",
+      "label": "Facility Security Measures",
+      "rfpQuote": "The Contractor must: (a) ensure the security of State facilities, (b) uses uniforms and ID badges, where required",
+      "section": "§19",
+      "grounding": "verified"
+    },
+    {
+      "id": "r29",
+      "label": "Abnormal Order Verification Controls",
+      "rfpQuote": "The Contractor must have internal controls approved by Central Procurement Services to verify abnormal orders",
+      "section": "§22",
+      "grounding": "verified"
+    },
+    {
+      "id": "r30",
+      "label": "Pilot Model Production",
+      "rfpQuote": "The Contractor should produce the pilot model as the first modified mini-vans ordered by the State for its transit",
+      "section": "§24",
+      "grounding": "verified"
+    },
+    {
+      "id": "r31",
+      "label": "Travel Expenses for Inspection",
+      "rfpQuote": "The Contractor should be responsible for transportation (air fare, rail fare, car rental, taxi, or mileage), lodging, parking expenses,",
+      "section": "§26",
+      "grounding": "verified"
+    },
+    {
+      "id": "r32",
+      "label": "Invoice Content Requirements",
+      "rfpQuote": "All invoices submitted to the State must include: (a) date; (b) purchase order; (c) quantity;",
+      "section": "§29",
+      "grounding": "verified"
+    },
+    {
+      "id": "r33",
+      "label": "Environmental Product Identification",
+      "rfpQuote": "The Contractor must identify any energy eficient, bio-based, or otherwise environmentally friendly f products used in the products.",
+      "section": "§30",
+      "grounding": "verified"
+    },
+    {
+      "id": "r34",
+      "label": "Hazardous Chemical MSDS",
+      "rfpQuote": "the Contractor must provide a Material Safety Data Sheet listing any hazardous chemicals as def i ned in 40 CFR",
+      "section": "§31",
+      "grounding": "verified"
+    },
+    {
+      "id": "r35",
+      "label": "Mercury Content Disclosure",
+      "rfpQuote": "The Contractor must explain if it intends to provide products containing mercury, the amount or concentration of mercury,",
+      "section": "§32",
+      "grounding": "verified"
+    },
+    {
+      "id": "r36",
+      "label": "Brominated Flame Retardants Disclosure",
+      "rfpQuote": "The Contractor must disclose whether the products contain BFRs. Contractor must describe how products that meet these requirements are",
+      "section": "§33",
+      "grounding": "verified"
+    },
+    {
+      "id": "r37",
+      "label": "PFAS Disclosure and Confirmation",
+      "rfpQuote": "The Contractor must conf i rm that the provided products do not intentionally contain PFAS.",
+      "section": "§34",
+      "grounding": "verified"
+    }
+  ],
+  "constraints": [
+    {
+      "id": "c1",
+      "kind": "OTHER",
+      "label": "Parts and Service Duration",
+      "rfpQuote": "The Contractor must provide parts and service for a period of seven years after the vehicles have been placed",
+      "section": "§2",
+      "grounding": "verified"
+    },
+    {
+      "id": "c2",
+      "kind": "DEADLINE",
+      "label": "Replacement Parts Delivery Timeframe",
+      "rfpQuote": "The Contractor must supply body replacement parts within five business days of a request by a transit agency",
+      "section": "§2",
+      "grounding": "verified"
+    },
+    {
+      "id": "c3",
+      "kind": "OTHER",
+      "label": "GVWR Ceiling Limit",
+      "rfpQuote": "all vehicles delivered will not exceed the GVWR of chassis as bid",
+      "section": "§2",
+      "grounding": "verified"
+    },
+    {
+      "id": "c4",
+      "kind": "DEADLINE",
+      "label": "Delivery Completion Deadline",
+      "rfpQuote": "All Contract Activities must be delivered within 210 business days from receipt of order.",
+      "section": "§8",
+      "grounding": "verified"
+    },
+    {
+      "id": "c5",
+      "kind": "OTHER",
+      "label": "Delivery Operating Hours",
+      "rfpQuote": "Delivery must be made between the hours of 8:00 a.m. and 4:00 p.m., Monday through Friday only,",
+      "section": "§9",
+      "grounding": "verified"
+    },
+    {
+      "id": "c6",
+      "kind": "SCOPE",
+      "label": "Delivery Method Restriction",
+      "rfpQuote": "The vehicle must be driven to the final destination",
+      "section": "§9",
+      "grounding": "verified"
+    },
+    {
+      "id": "c7",
+      "kind": "DEADLINE",
+      "label": "Program Manager Removal Notice",
+      "rfpQuote": "notify the Contract Administrator at least 14 calendar days before removing or assigning a new Contractor Program Manager.",
+      "section": "§13",
+      "grounding": "verified"
+    },
+    {
+      "id": "c8",
+      "kind": "DEADLINE",
+      "label": "Key Personnel Inquiry Response Time",
+      "rfpQuote": "respond to State inquiries within 24 hours.",
+      "section": "§14",
+      "grounding": "verified"
+    },
+    {
+      "id": "c9",
+      "kind": "OTHER",
+      "label": "Key Personnel Availability Hours",
+      "rfpQuote": "Contractor’s Key Personnel must be available during the following times: 8:00 am – 5:00 pm.",
+      "section": "§14",
+      "grounding": "verified"
+    },
+    {
+      "id": "c10",
+      "kind": "LEGAL",
+      "label": "Consent for Key Personnel Removal",
+      "rfpQuote": "The Contractor may not remove or assign Key Personnel without the prior consent of the State.",
+      "section": "§14",
+      "grounding": "verified"
+    },
+    {
+      "id": "c11",
+      "kind": "DEADLINE",
+      "label": "Non-Key Personnel Removal Notice",
+      "rfpQuote": "notify the Contract Administrator at least 10-calendar days before removing or assigning non-key personnel.",
+      "section": "§15",
+      "grounding": "verified"
+    },
+    {
+      "id": "c12",
+      "kind": "DEADLINE",
+      "label": "Toll-Free Phone Hours",
+      "rfpQuote": "available for calls during the hours of 8:00 am to 5:00 pm EST Monday through Friday,",
+      "section": "§17",
+      "grounding": "verified"
+    },
+    {
+      "id": "c13",
+      "kind": "BUDGET",
+      "label": "Fixed Price Period",
+      "rfpQuote": "Pricing is firm for a 365-day period (“Pricing Period”).",
+      "section": "§20",
+      "grounding": "verified"
+    },
+    {
+      "id": "c14",
+      "kind": "DEADLINE",
+      "label": "Price Change Notice Window",
+      "rfpQuote": "Requests for price changes must be received in writing at least 30 days prior to their effective date",
+      "section": "§20",
+      "grounding": "verified"
+    },
+    {
+      "id": "c15",
+      "kind": "DEADLINE",
+      "label": "Production Chassis Delivery Deadline",
+      "rfpQuote": "Delivery of Production Chassis to the Body Manufacturer should be within 120 days after the Pre-Pilot Model Meeting.",
+      "section": "§25",
+      "grounding": "verified"
+    },
+    {
+      "id": "c16",
+      "kind": "DEADLINE",
+      "label": "Pilot Model Review Meeting Deadline",
+      "rfpQuote": "Pilot Model Review Meeting at the manufacturer’s facility, or at a mutually agreed upon location, must be conducted within thirty",
+      "section": "§26",
+      "grounding": "verified"
+    },
+    {
+      "id": "c17",
+      "kind": "LEGAL",
+      "label": "State Data Disposal Restriction",
+      "rfpQuote": "Contractor will not dispose of, delete, or destroy State Data without the prior written approval of the State.",
+      "section": "§29",
+      "grounding": "verified"
+    }
+  ],
+  "suggestedWeights": [
+    {
+      "criterionId": "problem_understanding",
+      "weight": 1.0,
+      "reason": "Standard background information and operational context are requested without unusual domain framing."
+    },
+    {
+      "criterionId": "scope_clarity",
+      "weight": 1.4,
+      "reason": "The Statement of Work contains granular specifications, pilot model procedures, and inspection protocols that must be clearly addressed."
+    },
+    {
+      "criterionId": "pricing_clarity",
+      "weight": 1.3,
+      "reason": "Pricing must be firm for 365 days and strictly accounts for pass-through OEM price variations and FTA cost analyses."
+    },
+    {
+      "criterionId": "timeline_clarity",
+      "weight": 1.5,
+      "reason": "Strict turnaround windows such as 210 business days for delivery, 5-day parts replacement, and 30-day pilot meetings are enforced with liquidated damages."
+    },
+    {
+      "criterionId": "completeness",
+      "weight": 1.5,
+      "reason": "Extensive checkboxes, background disclosures, environmental standard responses, and worksheet answers must be completely submitted."
+    },
+    {
+      "criterionId": "tone_persuasiveness",
+      "weight": 0.7,
+      "reason": "This is a compliance-driven public sector vehicle procurement where factual adherence heavily outweighs persuasive pitch tone."
+    },
+    {
+      "criterionId": "risk_transparency",
+      "weight": 1.2,
+      "reason": "The State demands explicit disclosure of litigation, debarments, defaults, subcontractor roles, and safety/recall mechanisms."
+    }
+  ],
+  "signals": {
+    "vaguePhrases": [
+      {
+        "phrase": "as needed",
+        "section": "§4",
+        "context": "…ing timing, etc.: Vehicles are brought back to BSI for inspection and repairs/replacements are made as needed. Depending on part availability, most repairs can be completed within one week of the vehicle arriv…"
+      },
+      {
+        "phrase": "will be provided",
+        "section": "§34",
+        "context": "…ies delivered will match the Order Confirmation exactly. 4. Signed and dated shipping documentation will be provided to the ordering entity at the time of delivery. 5. The entire order must be delivered on the same d…"
+      }
+    ],
+    "pricing": {
+      "sections": [
+        "§20"
+      ],
+      "mentions": [
+        {
+          "value": "$35M",
+          "section": "§0"
+        },
+        {
+          "value": "$40M",
+          "section": "§0"
+        },
+        {
+          "value": "$10M",
+          "section": "§0"
+        },
+        {
+          "value": "$3M",
+          "section": "§0"
+        },
+        {
+          "value": "$2.5M",
+          "section": "§0"
+        },
+        {
+          "value": "$1.8M",
+          "section": "§0"
+        },
+        {
+          "value": "$1,500",
+          "section": "§10"
+        },
+        {
+          "value": "$100.00",
+          "section": "§34"
+        },
+        {
+          "value": "$500.00",
+          "section": "§34"
+        }
+      ]
+    },
+    "timeline": {
+      "sections": [
+        "§9",
+        "§23",
+        "§24"
+      ],
+      "mentions": [
+        {
+          "value": "46 years",
+          "section": "§0"
+        },
+        {
+          "value": "5 years",
+          "section": "§0"
+        },
+        {
+          "value": "5 year",
+          "section": "§0"
+        },
+        {
+          "value": "00 may",
+          "section": "§34"
+        },
+        {
+          "value": "00 may",
+          "section": "§34"
+        },
+        {
+          "value": "10 days",
+          "section": "§34"
+        }
+      ]
+    }
+  },
+  "sections": {
+    "rfp": {
+      "count": 36,
+      "sections": [
+        {
+          "id": "§0",
+          "header": "Accessible Passenger Vehicle - Modified Minivan"
+        },
+        {
+          "id": "§1",
+          "header": "1.1. Required documentation"
+        },
+        {
+          "id": "§2",
+          "header": "1.2. Product Specifications"
+        },
+        {
+          "id": "§3",
+          "header": "1.3. Alternative Products and Equipment"
+        },
+        {
+          "id": "§4",
+          "header": "1.4. Warranties"
+        },
+        {
+          "id": "§5",
+          "header": "1.5. Recall Requirements and Procedures"
+        },
+        {
+          "id": "§6",
+          "header": "1.6. Quality Assurance Program"
+        },
+        {
+          "id": "§7",
+          "header": "1.7. Incentives"
+        },
+        {
+          "id": "§8",
+          "header": "2.1. Timeframes"
+        },
+        {
+          "id": "§9",
+          "header": "2.2. Delivery"
+        },
+        {
+          "id": "§10",
+          "header": "2.3. Training"
+        },
+        {
+          "id": "§11",
+          "header": "2.4. Reporting"
+        },
+        {
+          "id": "§12",
+          "header": "2.5. Meetings"
+        },
+        {
+          "id": "§13",
+          "header": "3.1. Contractor Program Manager"
+        },
+        {
+          "id": "§14",
+          "header": "3.2. Key Personnel"
+        },
+        {
+          "id": "§15",
+          "header": "3.3. Non-Key Personnel"
+        },
+        {
+          "id": "§16",
+          "header": "3.4. Organizational Chart"
+        },
+        {
+          "id": "§17",
+          "header": "3.5. Customer Service Toll-Free Number"
+        },
+        {
+          "id": "§18",
+          "header": "3.6. Disclosure of Subcontractors"
+        },
+        {
+          "id": "§19",
+          "header": "3.7. Security"
+        },
+        {
+          "id": "§20",
+          "header": "4.2. Price Changes"
+        },
+        {
+          "id": "§21",
+          "header": "5.1. Authorizing Document"
+        },
+        {
+          "id": "§22",
+          "header": "5.2. Order Verification"
+        },
+        {
+          "id": "§23",
+          "header": "6.1. Delivery Programs"
+        },
+        {
+          "id": "§24",
+          "header": "6.2. General Delivery"
+        },
+        {
+          "id": "§25",
+          "header": "7.1. Acceptance, Inspection and Testing"
+        },
+        {
+          "id": "§26",
+          "header": "7.2.1. Pilot, Production Model and Plant Inspections:"
+        },
+        {
+          "id": "§27",
+          "header": "7.3. Testing"
+        },
+        {
+          "id": "§28",
+          "header": "7.4. Final Acceptance"
+        },
+        {
+          "id": "§29",
+          "header": "8.1. Invoice Requirements"
+        },
+        {
+          "id": "§30",
+          "header": "12.1. Environmental and Energy Efficiency Product Standards"
+        },
+        {
+          "id": "§31",
+          "header": "12.2. Hazardous Chemical Identification"
+        },
+        {
+          "id": "§32",
+          "header": "12.3. Mercury Content"
+        },
+        {
+          "id": "§33",
+          "header": "12.4. Brominated Flame Retardants"
+        },
+        {
+          "id": "§34",
+          "header": "12.5. Perfluoroalkyl and Polyfluoroalkyl Substances (PFAS)"
+        },
+        {
+          "id": "§34.1",
+          "header": "OR"
+        }
+      ]
+    },
+    "proposal": {
+      "count": 35,
+      "sections": [
+        {
+          "id": "§0",
+          "header": "Bus Service Incorporated — Proposal for Accessible Passenger Vehicle - Modified Minivan (bidder responses)"
+        },
+        {
+          "id": "§1",
+          "header": "1.1. Required documentation"
+        },
+        {
+          "id": "§2",
+          "header": "1.2. Product Specifications"
+        },
+        {
+          "id": "§3",
+          "header": "1.3. Alternative Products and Equipment"
+        },
+        {
+          "id": "§4",
+          "header": "1.4. Warranties"
+        },
+        {
+          "id": "§5",
+          "header": "1.5. Recall Requirements and Procedures"
+        },
+        {
+          "id": "§6",
+          "header": "1.6. Quality Assurance Program"
+        },
+        {
+          "id": "§7",
+          "header": "1.7. Incentives"
+        },
+        {
+          "id": "§8",
+          "header": "2.1. Timeframes"
+        },
+        {
+          "id": "§9",
+          "header": "2.2. Delivery"
+        },
+        {
+          "id": "§10",
+          "header": "2.3. Training"
+        },
+        {
+          "id": "§11",
+          "header": "2.4. Reporting"
+        },
+        {
+          "id": "§12",
+          "header": "2.5. Meetings"
+        },
+        {
+          "id": "§13",
+          "header": "3.1. Contractor Program Manager"
+        },
+        {
+          "id": "§14",
+          "header": "3.2. Key Personnel"
+        },
+        {
+          "id": "§15",
+          "header": "3.3. Non-Key Personnel"
+        },
+        {
+          "id": "§16",
+          "header": "3.4. Organizational Chart"
+        },
+        {
+          "id": "§17",
+          "header": "3.5. Customer Service Toll-Free Number"
+        },
+        {
+          "id": "§18",
+          "header": "3.6. Disclosure of Subcontractors"
+        },
+        {
+          "id": "§19",
+          "header": "3.7. Security"
+        },
+        {
+          "id": "§20",
+          "header": "4.2. Price Changes"
+        },
+        {
+          "id": "§21",
+          "header": "5.1. Authorizing Document"
+        },
+        {
+          "id": "§22",
+          "header": "5.2. Order Verification"
+        },
+        {
+          "id": "§23",
+          "header": "6.1. Delivery Programs"
+        },
+        {
+          "id": "§24",
+          "header": "6.2. General Delivery"
+        },
+        {
+          "id": "§25",
+          "header": "7.1. Acceptance, Inspection and Testing"
+        },
+        {
+          "id": "§26",
+          "header": "7.2.1. Pilot, Production Model and Plant Inspections:"
+        },
+        {
+          "id": "§27",
+          "header": "7.3. Testing"
+        },
+        {
+          "id": "§28",
+          "header": "7.4. Final Acceptance"
+        },
+        {
+          "id": "§29",
+          "header": "8.1. Invoice Requirements"
+        },
+        {
+          "id": "§30",
+          "header": "12.1. Environmental and Energy Efficiency Product Standards"
+        },
+        {
+          "id": "§31",
+          "header": "12.2. Hazardous Chemical Identification"
+        },
+        {
+          "id": "§32",
+          "header": "12.3. Mercury Content"
+        },
+        {
+          "id": "§33",
+          "header": "12.4. Brominated Flame Retardants"
+        },
+        {
+          "id": "§34",
+          "header": "12.5. Perfluoroalkyl and Polyfluoroalkyl Substances (PFAS)"
+        }
+      ]
+    }
+  },
+  "partial": false,
+  "error": null,
+  "warnings": [],
+  "meta": {
+    "model": "gemini-3.8-flash",
+    "temperature": 0.0,
+    "promptVersion": "4",
+    "mode": "split",
+    "durationMs": 57442,
+    "llmCalls": 5,
+    "truncated": 0,
+    "repaired": 0,
+    "ungroundedDropped": 0,
+    "fuzzyMatched": 3,
+    "extractCached": false,
+    "scoreCached": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+ "kind": "group:understanding",
+ "model": "gemini-3.8-flash",
+ "prompt_head": "You score a draft PROPOSAL on 2 review criteria. Group id: understanding. Other ",
+ "truncated": false,
+ "usage": {
+  "prompt": 44636,
+  "output": 524,
+  "thinking": 0,
+  "cached": 0
+ },
+ "text": "{\n  \"findings\": [\n    {\n      \"type\": \"INCONSISTENCY\",\n      \"severity\": \"HIGH\",\n      \"location\": \"§22\",\n      \"proposalQuote\": \"attend any other required meetings (onsite or remote, as determined by the State) throughout the life of the contract\",\n      \"explanation\": \"Contradicting meeting commitments across sections creates contractual ambiguity regarding travel costs and attendance expectations.\",\n      \"fix\": \"Confirm unequivocally across all sections that required onsite meetings will be attended at no additional cost to the State.\"\n    }\n  ],\n  \"scores\": [\n    {\n      \"id\": \"problem_understanding\",\n      \"label\": \"Problem Understanding\",\n      \"score\": 3,\n      \"strengths\": \"The bidder correctly captures the three MPSC Salesforce orgs and the 600-hour annual maintenance structure.\",\n      \"weaknesses\": \"Section §26 qualifies mandatory items like CI/CD setup with potential additional costs, violating RFP constraint c5.\",\n      \"citations\": [\n        {\"source\": \"proposal\", \"section\": \"§4\", \"quote\": \"CAD/Telecom Salesforce Database (200 hours/year), E-Dockets Case Management System (200 hours/year), and Pipeline Safety System (200 hours/year).\"},\n        {\"source\": \"proposal\", \"section\": \"§26\", \"quote\": \"the setup will require additional effort and may involve further costs, which will be discussed\"}\n      ],\n      \"note\": null\n    },\n    {\n      \"id\": \"tone_persuasiveness\",\n      \"label\": \"Tone & Persuasiveness\",\n      \"score\": 2,\n      \"strengths\": \"The narrative maintains a polite and professional tone throughout its structured responses.\",\n      \"weaknesses\": \"Section §0 rejects standard contract terms upfront and section §26 relies on defensive caveats regarding tooling and costs.\",\n      \"citations\": [\n        {\"source\": \"proposal\", \"section\": \"§0\", \"quote\": \"Bidder must affirm agreement with the attached Contract Terms. If not in agreement, — Bidder Response: No\"},\n        {\"source\": \"proposal\", \"section\": \"§26\", \"quote\": \"Any additional specific configuration within the backup tool or custom development will be excluded from this scope\"}\n      ],\n      \"note\": null\n    }\n  ]\n}"
+}

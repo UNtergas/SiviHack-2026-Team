@@ -2,6 +2,7 @@
 Weights never touch the LLM: this is the slider's whole cost."""
 
 from app.aggregate import (
+    apply_rubric_caps,
     completeness_from_coverage,
     dedupe_findings,
     normalize_weights,
@@ -157,3 +158,37 @@ def test_dedupe_keeps_the_stronger_of_two_overlapping_quotes_in_the_same_section
         ("OVERCOMMIT", "LOW"),
     ]
     assert dedupe_findings([]) == []
+
+
+def test_apply_rubric_caps_limits_problem_understanding_to_3_when_a_constraint_is_crossed():
+    vio = [
+        ConstraintViolation(
+            constraintId="c1",
+            proposalSection="§2",
+            proposalQuote="q",
+            violation="v",
+            severity="HIGH",
+            fix="f",
+        )
+    ]
+    scores = _scores({"problem_understanding": 5})
+    pu = scores[0]
+    pu.label, pu.note = "Problem Understanding", "the model's own note"
+    assert apply_rubric_caps(scores, vio) == [
+        "Problem Understanding capped at 3: the draft crosses a client constraint"
+    ]
+    assert pu.score == 3  # the model's note is replaced; the other criteria are untouched
+    assert (
+        pu.note == "capped at 3 by rule (the model gave 5): the draft crosses a client constraint"
+    )
+    assert [s.score for s in scores[1:]] == [3] * 6
+    # at or under the cap, unscored, or no violation: nothing changes and nothing is reported
+    cases: list[tuple[dict[str, int | None], list[ConstraintViolation]]] = [
+        ({"problem_understanding": 3}, vio),
+        ({"problem_understanding": None}, vio),
+        ({"problem_understanding": 5}, []),
+    ]
+    for values, v in cases:
+        s = _scores(values)
+        assert apply_rubric_caps(s, v) == []
+        assert s[0].score == values["problem_understanding"] and s[0].note is None

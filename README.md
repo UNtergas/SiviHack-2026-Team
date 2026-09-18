@@ -121,8 +121,9 @@ in `app/src/app/replay.py`; the results on the real bids against the State's ver
   several hundred numbered requirements, and pricing or plans kept in separate attachments are
   never seen (every Michigan bid scores 1 on pricing). The reviewer reproduces the State's
   ranking and reasons on two of the three multi-bid solicitations, not on the third.
-- The rubric's caps (a constraint violation limits problem understanding to 3, and so on)
-  are instructions to the model; code does not enforce them.
+- The rubric's cap for a constraint violation (problem understanding at most 3) is enforced in
+  code; the pricing and timeline caps stay instructions to the model, because the amount and
+  date detector misses spellings such as "78,500 euros".
 - A custom criterion is judged on its one-line instruction with generic 1 / 3 / 5 anchors,
   not a tuned rubric, and it yields a score with citations but no findings of its own.
 - Quotes are at most 20 words and are dropped when the model paraphrases (the count is in

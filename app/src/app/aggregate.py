@@ -1,4 +1,5 @@
-"""Weighted overall, code-computed completeness, prioritisation, finding de-duplication.
+"""Weighted overall, the rubric cap, code-computed completeness, prioritisation, finding
+de-duplication.
 
 Weights change only the overall number and display order — never re-score, never reach the
 LLM, never enter a cache key. Dragging a slider is a pure recomputation here (or client-side
@@ -46,6 +47,28 @@ def weighted_overall(scores: list[CriterionScore], weights: Weights) -> float | 
         num += w * s.score
         den += w
     return round(num / den, 2) if den else None
+
+
+def apply_rubric_caps(
+    scores: list[CriterionScore], violations: Sequence[ConstraintViolation]
+) -> list[str]:
+    """The one rubric rule code enforces: a constraint violation caps problem_understanding
+    at 3 (the prompt tells the model the same). The score is changed in place and its note
+    says what the model gave; one line per applied cap comes back for `warnings`. The pricing
+    and timeline caps stay with the model: the amount / date detector misses spellings such as
+    "78,500 euros", so a code cap there would misfire."""
+    if not violations:
+        return []
+    applied: list[str] = []
+    for s in scores:
+        if s.id == "problem_understanding" and s.score is not None and s.score > 3:
+            s.note = (
+                f"capped at 3 by rule (the model gave {s.score}): "
+                "the draft crosses a client constraint"
+            )
+            s.score = 3
+            applied.append(f"{s.label} capped at 3: the draft crosses a client constraint")
+    return applied
 
 
 def completeness_from_coverage(

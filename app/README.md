@@ -50,6 +50,7 @@ mode exists for a single local GPU (`LLM_SPLIT_CALLS=auto` picks by provider).
 | 2a (or the merged call) fails | `done` with `partial: true`, `error`, and the requirements from call 1 |
 | a 2b group fails | its criteria `null` with a note; the other groups score; `warnings`, `partial: true` |
 | the custom-criteria call fails | those criteria `null` with a note; the seven fixed still score; `warnings`, `partial: true` |
+| a group returns no score for a criterion it owns | that criterion `null` with a note; `warnings`, `partial: true` (a score for a criterion the group does not own is dropped with a warning; the owner's score stands) |
 | an output is cut | salvaged prefix used; `meta.truncated`, `warnings`, `partial: true`; the cache remembers it |
 
 ## Run with Docker (the demo path)

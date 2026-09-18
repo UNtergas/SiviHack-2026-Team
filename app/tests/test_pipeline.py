@@ -203,12 +203,19 @@ def _kind(prompt: str) -> str:
 
 
 class FakeProvider(LlmProvider):
-    """Answers each prompt kind with canned JSON; can fail or truncate chosen kinds."""
+    """Answers each prompt kind with canned JSON; can fail or truncate chosen kinds. A test
+    that needs other answers passes its own dict (ANSWERS with overrides)."""
 
     name, model = "fake", "fake-model"  # not "gemini" → merged unless LLM_SPLIT_CALLS=true
 
-    def __init__(self, fail: set[str] | None = None, truncate: set[str] | None = None):
+    def __init__(
+        self,
+        fail: set[str] | None = None,
+        truncate: set[str] | None = None,
+        answers: dict[str, dict[str, Any]] | None = None,
+    ):
         self.fail, self.truncate = set(fail or ()), set(truncate or ())
+        self.answers = ANSWERS if answers is None else answers
         self.calls: list[str] = []
 
     async def complete(
@@ -218,7 +225,7 @@ class FakeProvider(LlmProvider):
         self.calls.append(kind)
         if kind in self.fail:
             return Completion("not json at all", False)
-        text = json.dumps(ANSWERS[kind])
+        text = json.dumps(self.answers[kind])
         if kind in self.truncate:
             # cut inside the scores array, right after the first score object: json_repair can
             # close it, so the answer survives with one score fewer
@@ -458,6 +465,82 @@ def test_coverage_call_failure_yields_partial_result_with_requirements(cache: Pa
     assert len(list(cache.glob("*.json"))) == 1
 
 
+# ---- group ownership, missing scores, the violation cap ----------------------------------
+
+
+def test_a_score_for_a_criterion_the_group_does_not_own_is_dropped_with_a_warning(
+    cache: Path, split: None
+):
+    """The understanding group also scores risk_transparency (1); the risk group, its owner,
+    gives 4. The owner's score stands and the intrusion is reported, not silently merged."""
+    answers = {
+        **ANSWERS,
+        "group:understanding": {
+            **GROUP_ANSWERS["understanding"],
+            "scores": [*GROUP_ANSWERS["understanding"]["scores"], _score("risk_transparency", 1)],
+        },
+        "group:risk": {**GROUP_ANSWERS["risk"], "scores": [_score("risk_transparency", 4)]},
+    }
+    done = asyncio.run(pipeline.score_proposal(RFP, OVER, provider=FakeProvider(answers=answers)))
+    by_id = {s.id: s for s in done.scores}
+    assert by_id["risk_transparency"].score == 4 and by_id["problem_understanding"].score == 2
+    assert done.warnings == [
+        "scoring group 'understanding' returned a score for 'risk_transparency', "
+        "which it does not own; dropped"
+    ]
+    assert done.partial is False and done.error is None
+    assert done.overall == round((2 + 3 + 4 + 2 + 4 + 3 + 4) / 7, 2)
+
+
+def test_a_criterion_its_group_left_unscored_is_null_and_makes_the_review_partial(
+    cache: Path, split: None
+):
+    answers = {
+        **ANSWERS,
+        "group:understanding": {"findings": [], "scores": [_score("problem_understanding", 2)]},
+    }
+    done = asyncio.run(pipeline.score_proposal(RFP, OVER, provider=FakeProvider(answers=answers)))
+    tone = next(s for s in done.scores if s.id == "tone_persuasiveness")
+    assert tone.score is None and tone.label == "Tone & Persuasiveness"
+    assert tone.note == "not assessable: the model returned no score for this criterion"
+    assert done.partial is True and done.error is None
+    assert done.warnings == [
+        "scoring group 'understanding' returned no score for 'tone_persuasiveness'"
+    ]
+    assert done.overall == round((2 + 3 + 4 + 2 + 4 + 1) / 6, 2)  # the six that were scored
+
+
+# the understanding group gives problem_understanding a 5 on a draft that crosses c1
+UNDERSTANDING_5: dict[str, dict[str, Any]] = {
+    **ANSWERS,
+    "group:understanding": {
+        "findings": [],
+        "scores": [_score("problem_understanding", 5), _score("tone_persuasiveness", 3)],
+    },
+}
+CAP_NOTE = "capped at 3 by rule (the model gave 5): the draft crosses a client constraint"
+CAP_WARNING = "Problem Understanding capped at 3: the draft crosses a client constraint"
+
+
+def test_a_constraint_violation_caps_problem_understanding_at_3_in_code(cache: Path, split: None):
+    events = _events(RFP, OVER, provider=FakeProvider(answers=UNDERSTANDING_5))
+    scores, done = _payloads(events)[3], events[-1][1]
+    pu = next(s for s in done.scores if s.id == "problem_understanding")
+    assert done.constraintViolations and pu.score == 3 and pu.note == CAP_NOTE
+    assert done.warnings == [CAP_WARNING] and done.partial is False
+    expected = round((3 + 3 + 4 + 2 + 4 + 3 + 1) / 7, 2)
+    assert done.overall == expected and scores.overall == expected  # the cap precedes the mean
+
+
+def test_without_a_violation_problem_understanding_is_not_capped(cache: Path, split: None):
+    answers = {**UNDERSTANDING_5, "coverage": {**COVERAGE, "constraintViolations": []}}
+    done = asyncio.run(pipeline.score_proposal(RFP, OVER, provider=FakeProvider(answers=answers)))
+    pu = next(s for s in done.scores if s.id == "problem_understanding")
+    assert done.constraintViolations == [] and pu.score == 5 and pu.note is None
+    assert done.warnings == [] and done.partial is False
+    assert done.overall == round((5 + 3 + 4 + 2 + 4 + 3 + 1) / 7, 2)
+
+
 # ---- cache -------------------------------------------------------------------------------
 
 
@@ -659,7 +742,9 @@ def test_custom_criterion_the_model_skipped_is_null_with_a_note(cache: Path, spl
     assert [s.id for s in done.scores[-2:]] == ["custom-gdpr", "custom-accessibility"]
     skipped = done.scores[-1]
     assert skipped.score is None and skipped.label == "Accessibility"
-    assert "returned no score" in (skipped.note or "") and done.partial is False
+    assert "returned no score" in (skipped.note or "") and done.partial is True
+    assert done.warnings == ["scoring group 'custom' returned no score for 'custom-accessibility'"]
+    assert done.scores[-2].score == 2 and done.error is None  # the criterion it did score stands
 
 
 def test_trailing_whitespace_never_changes_the_cache_key(cache: Path, split: None):

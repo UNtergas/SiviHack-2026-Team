@@ -9,14 +9,18 @@
                         merged (local):  one call, coverage → violations → findings → scores
                         either:          2b+ the reviewer's own criteria, one extra call
                         cache: hash(prompt version, model, rfp, proposal[, group[, criteria]])
-5. grounding    code    normalise + fuzzy + section check; drop unverified, count them;
-                        completeness computed from coverage; findings de-duplicated
+5. grounding    code    a group's scores for criteria it does not own dropped and warned;
+                        normalise + fuzzy + section check; drop unverified, count them;
+                        completeness computed from coverage; findings de-duplicated;
+                        rubric cap: a constraint violation → problem_understanding ≤ 3, warned
 6. aggregate    code    overall = Σ(score × weight) / Σ(weight); sort by severity → "scores", "findings", "done"
 
 Weights never reach the LLM and are in no cache key: moving a slider is step 6 only.
 Nothing blanks the screen: if 2a fails the "done" event carries call 1's output; if a 2b
-group fails, its criteria are null with a note and the other groups still score; a cut
-output is salvaged and reported in `warnings`. All of these set `partial: true`.
+group fails, its criteria are null with a note and the other groups still score; a criterion
+its group returned no score for is null with a note and named in `warnings`; a cut output is
+salvaged and reported in `warnings`. All of these set `partial: true`. A score a group returns
+for a criterion it does not own is dropped and named in `warnings`; the owner's score stands.
 """
 
 import asyncio
@@ -33,6 +37,7 @@ from pydantic import BaseModel
 
 from app import config, usage
 from app.aggregate import (
+    apply_rubric_caps,
     normalize_weights,
     prioritize_coverage,
     prioritize_findings,
@@ -427,6 +432,7 @@ async def run(
     raw_scores: list[CriterionScore] = []
     raw_findings: list[Finding] = []
     failed: dict[str, str] = {}
+    incomplete: list[str] = []  # criteria a group answered for but did not score
     groups: list[Group] = [] if merged is not None else list(GROUPS)
     if custom:
         groups.append(custom_group(custom))
@@ -515,7 +521,26 @@ async def run(
             out = outputs.get(g.id)
             if out is None:
                 continue
-            raw_scores += out.scores
+            for sc in out.scores:  # the prompt says "your criteria only"; hold it to that
+                if sc.id in g.criteria:
+                    raw_scores.append(sc)
+                    continue
+                log.warning(
+                    "%s scoring group %s returned a score for %s, which it does not own; dropped",
+                    tag,
+                    g.id,
+                    sc.id,
+                )
+                warnings.append(
+                    f"scoring group '{g.id}' returned a score for '{sc.id}', "
+                    "which it does not own; dropped"
+                )
+            returned = {sc.id for sc in out.scores}
+            for cid in g.criteria:
+                if cid not in returned:
+                    log.warning("%s scoring group %s returned no score for %s", tag, g.id, cid)
+                    warnings.append(f"scoring group '{g.id}' returned no score for '{cid}'")
+                    incomplete.append(cid)
             if isinstance(out, GroupLlmOutput):
                 raw_findings += out.findings
         for gid, err in failed.items():
@@ -530,6 +555,9 @@ async def run(
             for s_ in scores:
                 if s_.id in g.criteria:
                     s_.score, s_.note = None, f"not assessable: scoring group '{g.id}' failed"
+    for cap in apply_rubric_caps(scores, violations):  # before the overall, so it counts
+        log.info("%s scores: %s", tag, cap)
+        warnings.append(cap)
     n_raw = len(raw_findings)
     findings = prioritize_findings(ground_findings(raw_findings, pdoc, gstats))
     if calls.truncated:
@@ -545,6 +573,7 @@ async def run(
     )
 
     overall = weighted_overall(scores, norm_weights)
+    partial = bool(failed) or bool(incomplete) or calls.truncated > 0
     log.info(
         "%s done in %dms: overall=%s, findings=%d, violations=%d, partial=%s, llm calls=%d, "
         "dropped=%d fuzzy=%d, cost so far today $%.3f",
@@ -553,7 +582,7 @@ async def run(
         overall,
         len(findings),
         len(violations),
-        bool(failed) or calls.truncated > 0,
+        partial,
         calls.attempts,
         gstats.dropped,
         gstats.fuzzy,
@@ -569,7 +598,7 @@ async def run(
             coverage=coverage,
             constraintViolations=violations,
             findings=findings,
-            partial=bool(failed) or calls.truncated > 0,
+            partial=partial,
         ),
     )
 

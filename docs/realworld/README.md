@@ -50,9 +50,10 @@ The split is heuristic. Where the PDF layout glued a comment column onto the req
 
 ## In the UI
 
-Every bid is a sample button on the setup screen, one row per solicitation, when a backend is
-configured (the mock build has no recording for them). The buttons carry the vendor's name only;
-the State's score and outcome are in the tooltip, so a demo does not announce the verdict. The copies the UI ships live in
+Every bid is a button in the "More test data" dialog on the setup screen, grouped by solicitation
+with a short description of each, when a backend is configured (the mock build has no recording
+for them). The buttons carry the vendor's name only; the State's score and outcome are in the
+tooltip, so a demo does not announce the verdict. The copies the UI ships live in
 `frontend/src/api/fixtures/realworld/` and a test keeps them byte-identical to the pair files.
 
 ## Results (18 September 2026, Gemini 3.8 Flash; `tools/summarize.py` prints this table)

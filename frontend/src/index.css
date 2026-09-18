@@ -162,22 +162,29 @@
     scrollbar-width: thin;
   }
 
+  /* Scrollbars in the system's own tones: a square rule-coloured bar in a transparent gutter,
+     ink-3 under the pointer. The gutter is painted with the container's own background
+     (background-clip), so it sits right on paper and on the inset tone alike. */
   ::-webkit-scrollbar {
-    width: 11px;
-    height: 11px;
+    width: 10px;
+    height: 10px;
   }
 
-  ::-webkit-scrollbar-track {
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
     background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
     background: var(--rule);
-    border: 3px solid var(--paper);
+    background-clip: content-box;
+    border: 3px solid transparent;
+    border-radius: 0;
   }
 
   ::-webkit-scrollbar-thumb:hover {
     background: var(--ink-3);
+    background-clip: content-box;
   }
 
   :focus-visible {

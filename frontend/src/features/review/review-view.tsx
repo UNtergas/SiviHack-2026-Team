@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react"
-import { ArrowRight, Download, Pencil, RotateCw } from "lucide-react"
+import { ArrowRight, ChevronDown, Download, Pencil, RotateCw } from "lucide-react"
 import { toast } from "sonner"
 import { useDefaultLayout, type Layout } from "react-resizable-panels"
 
@@ -80,7 +80,14 @@ function ConflictNotice({
     ...violations.map((issue): Conflict => ({ kind: "violation", issue })),
     ...contradictions.map((c): Conflict => ({ kind: "contradiction", ...c })),
   ]
+  // One or two conflicts are shown in full; a longer list folds to its summary line until asked.
+  const [open, setOpen] = useState(items.length <= 2)
   if (items.length === 0) return null
+  const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`
+  const summary = [
+    ...(violations.length ? [plural(violations.length, "violation")] : []),
+    ...(contradictions.length ? [plural(contradictions.length, "contradicted requirement")] : []),
+  ].join(" · ")
 
   return (
     <section
@@ -88,7 +95,25 @@ function ConflictNotice({
       aria-label="The draft conflicts with the RFP"
       className="border-cloth-stop bg-paper border-b"
     >
-      <ul className="mx-auto grid max-w-[112rem] gap-y-3 px-5 py-3.5 sm:px-8">
+      <div className="mx-auto max-w-[112rem] px-5 sm:px-8">
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          className="flex w-full cursor-pointer items-center justify-between gap-4 py-2.5 text-left"
+        >
+          <span className="hand-condensed text-cloth-stop flex flex-wrap items-center gap-x-2 text-[1.35rem] leading-none font-semibold tracking-tight uppercase">
+            <StatusSwatch status="contradicted" className="size-3" />
+            The draft conflicts with the RFP
+            <span className="editorial text-ink-2 tracking-normal normal-case">{summary}</span>
+          </span>
+          <span className="editorial text-cloth-stop inline-flex shrink-0 items-center gap-1.5">
+            {open ? "Collapse" : "Show"}
+            <ChevronDown className={cn("size-3.5 transition-transform duration-200", open && "rotate-180")} />
+          </span>
+        </button>
+        {open && (
+      <ul className="grid gap-y-3 pb-3.5">
         {items.map((item) => {
           const violation = item.kind === "violation"
           const asks = violation ? (item.issue.against?.quote ?? "") : item.req.text
@@ -141,6 +166,8 @@ function ConflictNotice({
           )
         })}
       </ul>
+        )}
+      </div>
     </section>
   )
 }

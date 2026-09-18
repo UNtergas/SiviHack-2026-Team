@@ -61,9 +61,8 @@ export function RunTrace({
 }) {
   const active = activeStep(progress)
   const elapsed = useElapsed()
-  const runningId = STAGES[active]?.id
-  /** The backend's latest word on what it is doing inside the running stage. */
-  const doing = runningId ? progress.notes.filter((n) => n.stage === runningId).at(-1) : undefined
+  /** Everything the backend has said while inside a stage, in order; the log grows, never overwrites. */
+  const notesOf = (id: (typeof STAGES)[number]["id"]) => progress.notes.filter((n) => n.stage === id)
 
   return (
     <div className="mx-auto flex min-h-svh w-full max-w-[42rem] flex-col justify-center px-5 py-16">
@@ -82,6 +81,7 @@ export function RunTrace({
           const running = i === active
           const skipped = done && !hasRfp && (step.id === "requirements" || step.id === "coverage")
           const found = done ? ticker(step.id, progress, hasRfp) : null
+          const notes = done || running ? notesOf(step.id) : []
 
           return (
             <li
@@ -122,10 +122,21 @@ export function RunTrace({
                 {skipped ? "skipped" : done ? "done" : running ? `running · ${elapsed} s` : "waiting"}
               </span>
 
-              {running && doing && (
-                <p role="status" className="text-ink col-start-2 col-end-4 mt-1 text-[0.85rem] leading-snug">
-                  {doing.message}
-                </p>
+              {notes.length > 0 && (
+                <ol className="col-start-2 col-end-4 mt-1 space-y-0.5" aria-label={`${step.label}: what happened`}>
+                  {notes.map((n, k) => {
+                    const latest = running && k === notes.length - 1
+                    return (
+                      <li
+                        key={`${n.elapsedMs}-${k}`}
+                        role={latest ? "status" : undefined}
+                        className={cn("text-[0.85rem] leading-snug", latest ? "text-ink" : "text-ink-3")}
+                      >
+                        {n.message}
+                      </li>
+                    )
+                  })}
+                </ol>
               )}
 
               {found && (

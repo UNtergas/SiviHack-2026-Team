@@ -4,9 +4,10 @@ import { ArrowRight, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { Criterion, WeightSuggestion } from "@/api/schema"
 import { MOCK } from "@/api/client"
-import { SAMPLE_GROUPS, SAMPLES, type SampleId } from "@/api/fixtures/documents"
+import { SAMPLES, SPONSOR_SAMPLES, solicitationOf, type SampleId } from "@/api/fixtures/documents"
 
 import { CriteriaSetup, type SuggestState } from "./criteria-setup"
+import { SampleLibrary } from "./sample-library"
 import { WitnessInput } from "./witness-input"
 
 export function SetupView({
@@ -102,29 +103,39 @@ export function SetupView({
       )}
 
       <main className="mx-auto flex w-full max-w-[112rem] flex-1 flex-col gap-6 px-5 py-6 sm:px-8">
-        <div className="flex flex-col gap-y-2 py-1">
-          {SAMPLE_GROUPS.filter((g) => !(g.live && MOCK)).map((g) => (
-            <div key={g.label} className="flex flex-wrap items-center gap-x-1.5 gap-y-2">
-              <span className="editorial text-ink-2 mr-1.5">{g.label}</span>
-              {g.ids.map((id) => (
-                <button
-                  key={id}
-                  type="button"
-                  onClick={() => onSample(id)}
-                  aria-pressed={activeSample === id}
-                  title={SAMPLES[id].note}
-                  className={cn(
-                    "editorial cursor-pointer border px-2.5 py-1.5 transition-colors",
-                    activeSample === id
-                      ? "border-ink bg-ink text-paper"
-                      : "border-rule text-ink-2 hover:border-ink hover:text-ink",
-                  )}
-                >
-                  {SAMPLES[id].label}
-                </button>
-              ))}
-            </div>
+        <div className="flex flex-wrap items-center gap-x-1.5 gap-y-2 py-1">
+          <span className="editorial text-ink-2 mr-1.5">Load a sample</span>
+          {SPONSOR_SAMPLES.map((id) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => onSample(id)}
+              aria-pressed={activeSample === id}
+              title={SAMPLES[id].note}
+              className={cn(
+                "editorial cursor-pointer border px-2.5 py-1.5 transition-colors",
+                activeSample === id
+                  ? "border-ink bg-ink text-paper"
+                  : "border-rule text-ink-2 hover:border-ink hover:text-ink",
+              )}
+            >
+              {SAMPLES[id].label}
+            </button>
           ))}
+          {/* The real procurements need a backend; the mock build has no recording for them. */}
+          {!MOCK && (
+            <>
+              <span aria-hidden className="bg-rule mx-1.5 hidden h-4 w-px sm:block" />
+              <SampleLibrary onSample={onSample} activeSample={activeSample} />
+              {activeSample && !SPONSOR_SAMPLES.includes(activeSample) && (
+                <span role="status" className="text-ink-2 ml-1 text-[0.8rem]">
+                  Loaded <span className="text-ink font-semibold">{SAMPLES[activeSample].label}</span>
+                  {" · "}
+                  {solicitationOf(activeSample)?.title}
+                </span>
+              )}
+            </>
+          )}
         </div>
 
         <div className="grid min-h-[26rem] flex-1 gap-5 lg:grid-cols-2">

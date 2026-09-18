@@ -68,7 +68,7 @@ export function reduceProgress(acc: ReviewProgress, frame: StreamEvent): ReviewP
     case "done":
       return { ...acc, stage: "done", result: frame.data, review: adapt(frame.data) }
     case "progress":
-      return { ...acc, notes: [...acc.notes.slice(-19), frame.data] }
+      return { ...acc, notes: [...acc.notes.slice(-39), frame.data] }
     case "error":
       // stream.ts throws before this is reached; kept so the switch is exhaustive.
       throw new ReviewError(

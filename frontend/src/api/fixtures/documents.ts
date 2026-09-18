@@ -156,11 +156,57 @@ export const SAMPLES: Record<SampleId, Sample> = {
   },
 }
 
-/** How the setup screen groups the buttons. A `live` group needs a backend: nothing is recorded for the mock build. */
-export const SAMPLE_GROUPS: { label: string; ids: SampleId[]; live?: boolean }[] = [
-  { label: "Load a sample", ids: ["weak", "medium", "strong", "overpromise"] },
-  { label: "Real RFP · Michigan LIMS", ids: ["lims-clinisys", "lims-onq"], live: true },
-  { label: "Real RFP · Youth Employment Permit Portal", ids: ["yepp-earnstride", "yepp-kla", "yepp-concourse"], live: true },
-  { label: "Real RFP · MPSC Salesforce support", ids: ["mpsc-aimpoint", "mpsc-intellibee", "mpsc-radcube", "mpsc-highcloud"], live: true },
-  { label: "Real RFP · Accessible minivan", ids: ["minivan-bsi"], live: true },
+/** The sponsor's four, on the setup screen itself. */
+export const SPONSOR_SAMPLES: SampleId[] = ["weak", "medium", "strong", "overpromise"]
+
+/**
+ * The real procurements behind the "More test data" dialog: one entry per solicitation, its
+ * bids in the State's order. They need a backend; the mock build has no recording for them.
+ */
+export interface Solicitation {
+  id: string
+  title: string
+  /** Buyer, solicitation number, year. */
+  agency: string
+  description: string
+  ids: SampleId[]
+}
+
+export const LIBRARY: Solicitation[] = [
+  {
+    id: "yepp",
+    title: "Youth Employment Permit Portal",
+    agency: "Michigan LEO · RFP 260000000387 · 2025",
+    description:
+      "A portal for minors' work permits. Three bidders: the winner, a close second, and one that ignored the State template and was disqualified. The State's evaluation covers all three.",
+    ids: ["yepp-earnstride", "yepp-kla", "yepp-concourse"],
+  },
+  {
+    id: "mpsc",
+    title: "MPSC Salesforce Maintenance and Support",
+    agency: "Michigan LARA · RFP 250000001460 · 2025",
+    description:
+      "Support for the Public Service Commission's Salesforce systems. Fifteen bidders, four disqualified. Here: the winner, a bid under the 80-point threshold, and two disqualified ones, for refusing the terms and for skipping the specification worksheet.",
+    ids: ["mpsc-aimpoint", "mpsc-intellibee", "mpsc-radcube", "mpsc-highcloud"],
+  },
+  {
+    id: "lims",
+    title: "Laboratory Information Management System",
+    agency: "Michigan MDHHS · RFP 250000000859 · 2025",
+    description:
+      "A statewide public-health LIMS with maintenance and support: 36 sections of numbered requirements, a USD 4.2M award. The winner's file is a scan read by OCR; the loser named offshore staff.",
+    ids: ["lims-clinisys", "lims-onq"],
+  },
+  {
+    id: "minivan",
+    title: "Accessible Passenger Vehicle, Modified Minivan",
+    agency: "Michigan MDOT · RFP 260000000513 · 2026",
+    description:
+      "Wheelchair-accessible minivans for transit agencies: a hardware buy with little narrative, most of the ask being attachments. One bid in template form. A limitation case rather than a showcase.",
+    ids: ["minivan-bsi"],
+  },
 ]
+
+/** The solicitation a real-procurement sample belongs to; null for the sponsor's four. */
+export const solicitationOf = (id: SampleId): Solicitation | null =>
+  LIBRARY.find((s) => s.ids.includes(id)) ?? null

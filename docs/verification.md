@@ -22,7 +22,9 @@ Click "Medium" → both textboxes fill, footers show "N lines · N words", "Run 
 enabled. "Clear the Draft Proposal" → footer "empty", Run disabled. Click "Medium" again,
 then "Clear the Request for Proposal" → Run stays enabled and the status line "No RFP
 loaded — the draft will be scored on its own." appears (the Run button moves up a little
-above it). Click "Medium" to restore.
+above it). Click "Medium" to restore. "More test data" opens the Real procurements dialog: four
+solicitations, each with a description and its bids; "EarnStride" loads the pair, closes the
+dialog and shows "Loaded EarnStride · Youth Employment Permit Portal" beside the button.
 
 ## E2. Upload for both witnesses
 

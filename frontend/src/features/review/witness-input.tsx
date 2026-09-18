@@ -68,13 +68,13 @@ export function WitnessInput({
     <section className={cn("border-rule flex min-h-0 min-w-0 flex-col border", className)}>
       <header
         className={cn(
-          "flex items-center gap-3 px-4 py-2.5",
+          "flex flex-wrap items-center gap-x-3 gap-y-2 px-4 py-2.5",
           of === "R" ? "bg-witness-r" : "bg-witness-p",
         )}
       >
         <Siglum of={of} size="md" className="bg-cloth-text/15" />
-        <div className="min-w-0 flex-1">
-          <h2 className="hand-condensed text-cloth-text flex items-center gap-2 text-[0.95rem] leading-tight font-semibold tracking-wide uppercase">
+        <div className="min-w-[12rem] flex-1">
+          <h2 className="hand-condensed text-cloth-text flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.95rem] leading-tight font-semibold tracking-wide uppercase">
             {title}
             {optional && (
               <span className="editorial text-cloth-text/70 border-cloth-text/35 border px-1.5 py-0.5 tracking-normal">
@@ -88,7 +88,7 @@ export function WitnessInput({
         <label
           htmlFor={fileId}
           className={cn(
-            "editorial text-cloth-text/85 border-cloth-text/35 shrink-0 border px-2.5 py-1.5",
+            "editorial text-cloth-text/85 border-cloth-text/35 ml-auto shrink-0 border px-2.5 py-1.5 whitespace-nowrap",
             "hover:bg-cloth-text/12 hover:text-cloth-text cursor-pointer transition-colors",
             "focus-within:outline-cloth-text focus-within:outline-2 focus-within:outline-offset-2",
             disabled && "pointer-events-none opacity-50",

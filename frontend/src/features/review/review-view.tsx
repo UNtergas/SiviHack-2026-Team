@@ -558,7 +558,7 @@ function ReviewBody({
 
   const apparatus = (
     <div className="flex min-h-0 min-w-0 flex-1 flex-col">
-      <nav className="border-rule flex shrink-0 gap-0 border-b" aria-label="Review sections">
+      <nav className="border-rule flex shrink-0 gap-0 overflow-x-auto border-b" aria-label="Review sections">
         {PANELS.map((p) => (
           <button
             key={p.id}
@@ -566,7 +566,7 @@ function ReviewBody({
             onClick={() => setPanel(p.id)}
             aria-current={panel === p.id}
             className={cn(
-              "editorial relative cursor-pointer px-4 py-3 transition-colors",
+              "editorial relative shrink-0 cursor-pointer px-3 py-3 whitespace-nowrap transition-colors sm:px-4",
               panel === p.id ? "text-ink" : "text-ink-3 hover:text-ink-2",
             )}
           >
@@ -642,7 +642,7 @@ function ReviewBody({
           <DropdownMenuTrigger
             aria-label="Export the review"
             className={cn(
-              "editorial border-cloth-text/40 text-cloth-text/90 inline-flex cursor-pointer items-center gap-2 border px-4 py-3",
+              "editorial border-cloth-text/40 text-cloth-text/90 inline-flex shrink-0 cursor-pointer items-center gap-2 border px-4 py-3 whitespace-nowrap",
               "hover:bg-cloth-text/12 hover:text-cloth-text transition-colors",
             )}
           >
@@ -662,7 +662,7 @@ function ReviewBody({
           type="button"
           onClick={onEdit}
           className={cn(
-            "editorial border-cloth-text/40 text-cloth-text/90 inline-flex cursor-pointer items-center gap-2 border px-4 py-3",
+            "editorial border-cloth-text/40 text-cloth-text/90 inline-flex shrink-0 cursor-pointer items-center gap-2 border px-4 py-3 whitespace-nowrap",
             "hover:bg-cloth-text/12 hover:text-cloth-text transition-colors",
           )}
         >
@@ -674,7 +674,7 @@ function ReviewBody({
           onClick={onRerun}
           disabled={rerunning}
           className={cn(
-            "editorial bg-cloth-text text-ink inline-flex cursor-pointer items-center gap-2 px-4 py-3",
+            "editorial bg-cloth-text text-ink inline-flex shrink-0 cursor-pointer items-center gap-2 px-4 py-3 whitespace-nowrap",
             "transition-opacity hover:opacity-85 disabled:cursor-not-allowed disabled:opacity-50",
           )}
         >

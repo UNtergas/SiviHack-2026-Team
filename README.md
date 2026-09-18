@@ -23,8 +23,7 @@ stage by stage:
   client limit (budget, deadline, excluded technology, a system the client said to keep) is
   called out under the verdict, not buried in a list.
 - **Every finding points at an exact location**: section id, a verbatim quote verified by
-  code against the source text, and a suggested fix that can be previewed and applied to the
-  draft, then re-run.
+  code against the source text, and a suggested fix ready to copy into the draft.
 - **Works without an RFP**: the draft is scored on six criteria and the coverage stage is
   skipped, with the omission stated on screen.
 - **AI-suggested weights from the RFP**, which the user accepts or adjusts.

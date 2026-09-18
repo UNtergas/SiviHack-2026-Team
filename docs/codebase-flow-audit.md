@@ -1114,7 +1114,7 @@ Keep replay tests for software regressions. A changed prompt is expected to miss
 
 ## Published guidance versus the application's scoring criteria
 
-The current application contains a custom seven-criterion rubric. Six model-scored criteria have 1/3/5 anchors in [`prompts.py`](../app/src/app/prompts.py), and code computes completeness. There is no source-to-rule mapping showing that these anchors, weights, or readiness threshold were adopted from a professional standard. The proposed “handbook” means a review checklist assembled for this application from identified sources; it is not an existing handbook already integrated into the runtime.
+The current application's seven base criteria come from the challenge brief, [`TRACK.md`, Appendix A](../TRACK.md#appendix-a---additional-scoring-criteria). Six model-scored criteria have application-defined 1/3/5 anchors in [`prompts.py`](../app/src/app/prompts.py), and code computes completeness. There is no source-to-rule mapping showing that these anchors, weights, or readiness threshold were adopted from an external professional standard. The proposed “handbook” means a review checklist assembled for this application from identified sources; it is not an existing handbook already integrated into the runtime.
 
 ### What the published sources actually offer
 
@@ -1150,7 +1150,7 @@ Mandatory failures should remain visible independently of the quality average. A
 
 ## Integration design for the guideline checklist
 
-**Status: proposed implementation.** This section specifies how the recommended criteria would enter the current application. It builds on the existing extraction, coverage, parallel scoring, grounding, and aggregation stages.
+**Status: proposed full implementation.** This section specifies how the recommended criteria could enter the current application. It builds on the existing extraction, coverage, parallel scoring, grounding, and aggregation stages. The compatibility review below recommends a smaller first rollout that preserves the existing seven fixed criteria and response shape; new built-in criteria and required checklist fields are later changes.
 
 ### 1. Keep a versioned rule registry in the backend
 
@@ -1251,3 +1251,27 @@ Record the guideline version in result metadata and bump `PROMPT_VERSION` for th
 **Review-quality comparison:** keep the existing recordings as the baseline for their prompt version. Compare fresh responses from the old and new prompts on different RFPs with independently prepared human judgments, using the same model/settings. Evaluate missed mandatory asks, unsupported findings, requirement coverage, criterion agreement, false-ready outcomes, tokens, and latency. Record new replay fixtures after reviewing that comparison; replaying the new outputs alone does not establish an improvement.
 
 For a smaller initial experiment, the existing custom-criteria UI/API already accepts methodology and capability as two reviewer-defined criteria, scored together in one extra call. That tests the usefulness of those dimensions, but does not provide the source mapping, new evidence rules, or readiness validation specified above. The full integration makes them built-in criteria and preserves all five custom slots for the reviewer.
+
+## Compatibility risks and recommended rollout
+
+**The full integration has compatibility and behavior changes; it is not a prompt-only drop-in update.** The observations here are based on the current source. The proposed guideline integration has not been implemented or tested, so there is no claim of zero regressions.
+
+One correction to the earlier description: the seven criterion names and their basic review questions are supplied by [`TRACK.md`, Appendix A](../TRACK.md#appendix-a---additional-scoring-criteria). The application defines the detailed anchors, formulas, and defaults. The brief allows configurable criteria, so additions are permitted; preserving the seven for the first rollout reduces unnecessary changes to the established baseline.
+
+| Proposed change | Concrete compatibility risk | Migration approach |
+|---|---|---|
+| Change a prompt | `replay.key` hashes exact prompt text. A changed prompt no longer finds its old recording; the recorded regression path uses cache-disabled replay. New answers can also produce different scores and token usage. | Retain the old mode and its fixtures. Give the new rules their own version/fixture set and evaluate fresh outputs independently. Do not relabel old answers as outputs of the new prompts. |
+| Reuse a cache after changing rules | The current key uses call kind, manual prompt version, model, and document/custom-criterion inputs. It does not hash actual prompt text. | Separate cache identity by review mode/rule version and invalidate affected entries; improve the request fingerprint before relying on automatic invalidation. |
+| Require quotations for `ADDRESSED` | The current prompt explicitly requests null quotations for this status. Existing legitimate recordings follow that convention. A new validator would therefore reject old outputs. | Change the prompt, validators, schemas, caches, and corresponding fixtures together under the new mode. Keep absence checks distinct from quotation-supported positive claims. |
+| Add two fixed criteria | Fixed IDs, suggested-weight enums, group assignments, UI defaults, and test assumptions need coordinated updates. The merged prompt literally says “exactly 6 objects.” | Initially test methodology/capability through existing custom criteria. Promote them to built-in criteria only if evaluation supports that change. |
+| Add required checklist/result fields | Old cached results and bundled frontend samples do not contain those fields. Generated API/Zod contracts and adapters must agree with the backend. | Preserve the current response shape in the first iteration. Later deploy compatible schema/client changes together and define how old results are represented without inventing completed assessments. |
+| Enforce a readiness gate | UI reweighting and exports currently call `verdictFor(score)`, which considers the numeric average only. New backend reasons would otherwise be ignored. | Update the shared verdict policy, adapter, on-screen status, and exports together. Keep quality scores distinguishable from incomplete or blocked readiness. |
+| Add rules without additional calls | More prompt text and more requested evidence can increase tokens, latency, and output truncation despite an unchanged call count. | Measure those effects with the old/new quality comparison, including longer proposals. |
+
+Recommended rollout:
+
+1. **Optional guidance mode:** apply concise rules within the existing seven criteria, six model scores plus calculated completeness, and current API/SSE shape. Preserve the existing mode as the initial default and verify that its rendered prompts remain byte-identical for replay. Keep separate prompt/cache/recording identities for the new mode. Expect judgments to change even when the wire contract does not.
+2. **Optional new dimensions:** offer methodology and capability through the current custom-criteria path. They consume two of the five custom slots and share the one custom call. Baseline browser fixtures cannot establish scores for them; validate the actual custom path with appropriate provider responses.
+3. **Evidence and readiness upgrade:** introduce richer assessments, stricter grounding/status invariants, and the readiness gate as a coordinated backend/frontend change. Regenerate contracts and test current/custom/no-RFP, split/merged, partial failure, cache, replay, streaming, reweighting, and export paths as applicable.
+
+The first step can keep the existing routes, event sequence, schema, fixed criterion set, and normal model-call count. It still requires replay/cache versioning and fresh review-quality evaluation. The later steps should only become the default after their software and quality checks pass; the prior mode provides a rollback path.

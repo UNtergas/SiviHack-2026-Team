@@ -39,20 +39,6 @@ function attr(props: object, name: string): string | undefined {
   return value === undefined || value === null ? undefined : String(value)
 }
 
-function PendingBlock({ text }: { text: string }) {
-  return (
-    <div ref={reveal} className="col-span-2 grid grid-cols-[2.75rem_1fr] items-baseline">
-      <span aria-hidden className="editorial text-ink-3 select-none pr-3 pt-2 text-right">
-        +
-      </span>
-      <div className="border-ink bg-paper-inset my-1.5 mr-4 animate-[pending-settle_180ms_ease-out] border-l">
-        <p className="editorial text-ink-2 px-2.5 pt-1.5">Suggested, not yet applied</p>
-        <p className="prose-witness text-ink px-2.5 py-2 whitespace-pre-wrap">{text}</p>
-      </div>
-    </div>
-  )
-}
-
 /** One block of the witness: gutter number, then the set text. */
 function Row({
   props,
@@ -67,11 +53,9 @@ function Row({
   className?: string
   children?: ReactNode
 }) {
-  const { pending } = useCollation()
   const line = attr(props, "line") ?? ""
   const depth = Number(attr(props, "depth") ?? 0)
   const marked = attr(props, "marked") === "true"
-  const pendingHere = attr(props, "pending") === "true" ? pending : null
   const indent = (marker ? 1.5 : 0) + depth * 1.15
 
   return (
@@ -100,7 +84,6 @@ function Row({
         )}
         {children}
       </div>
-      {pendingHere && <PendingBlock text={pendingHere.text} />}
     </div>
   )
 }
@@ -257,18 +240,14 @@ export function WitnessPane({
   /** Close this witness; the rail that replaces it reopens it. */
   onHide?: () => void
 }) {
-  const { marks, tone, pending } = useCollation()
-  const pendingHere = pending?.witness === witness.siglum ? pending : null
-  const pendingQuote = pendingHere?.at?.quote ?? null
+  const { marks, tone } = useCollation()
 
   const quotes = useMemo<LemmaQuote[]>(
-    () => [
-      ...marks
+    () =>
+      marks
         .filter((m): m is Citation & { quote: string } => m.witness === witness.siglum && m.quote !== null)
-        .map((m) => ({ quote: m.quote, kind: "mark" as const, tone: tone ?? undefined })),
-      ...(pendingQuote ? [{ quote: pendingQuote, kind: "pending" as const }] : []),
-    ],
-    [marks, tone, witness.siglum, pendingQuote],
+        .map((m) => ({ quote: m.quote, tone: tone ?? undefined })),
+    [marks, tone, witness.siglum],
   )
   const plugins = useMemo<PluggableList>(
     () => [remarkGfm, [remarkLemma, { quotes }]],
@@ -317,11 +296,6 @@ export function WitnessPane({
         <Markdown remarkPlugins={plugins} components={components}>
           {witness.text}
         </Markdown>
-        {pendingHere && !pendingHere.at && (
-          <div className="grid grid-cols-[2.75rem_1fr] items-baseline">
-            <PendingBlock text={pendingHere.text} />
-          </div>
-        )}
         <div className="h-[45%]" aria-hidden />
       </div>
     </section>

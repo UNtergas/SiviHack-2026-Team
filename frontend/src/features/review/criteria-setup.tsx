@@ -211,23 +211,16 @@ export function CriteriaSetup({
       </div>
 
       <ul className="border-rule border-t">
-        {criteria.map((c, i) => {
+        {criteria.map((c) => {
           const reason = reasonFor(c.id)
           return (
             <li
               key={c.id}
               className={cn(
-                "border-rule-hair grid grid-cols-[2.25rem_1fr] gap-x-2 border-b py-3.5 sm:grid-cols-[2.25rem_1fr_13rem]",
+                "border-rule-hair grid gap-x-4 border-b py-3.5 sm:grid-cols-[1fr_13rem]",
                 !c.enabled && "opacity-45",
               )}
             >
-              <span
-                data-numeric
-                className="text-ink-3 pt-0.5 text-right font-sans text-[0.7rem] tabular-nums"
-              >
-                {i + 1}
-              </span>
-
               <div className="min-w-0">
                 <div className="flex items-start gap-2.5">
                   <Switch
@@ -269,7 +262,7 @@ export function CriteriaSetup({
                 </div>
               </div>
 
-              <div className="col-start-2 mt-2.5 flex items-center gap-3 sm:col-start-3 sm:mt-0.5">
+              <div className="mt-2.5 flex items-center gap-3 sm:mt-0.5">
                 <Slider
                   value={[c.weight]}
                   min={0}

@@ -10,13 +10,10 @@ import { normalize } from "./quote"
  *    reader can still say "line 17" about set text.
  * 2. Every cited passage is wrapped in `<mark>` — across bold, across soft
  *    line breaks, across list items — matched the same way `findQuote` does.
- * 3. The block that ends a pending fix's passage is flagged, so the preview
- *    can be set right after it.
  */
 
 export interface LemmaQuote {
   quote: string
-  kind: "mark" | "pending"
   /** The wash: a requirement status, or undefined for the plain lemma ochre. */
   tone?: string
 }
@@ -48,7 +45,6 @@ interface Slot {
 interface Segment {
   start: number
   end: number
-  pending: boolean
   tone?: string
 }
 
@@ -122,7 +118,7 @@ export function remarkLemma(options: { quotes: LemmaQuote[] }) {
 
     // ---- 3. match quotes, in raw offsets ------------------------------------------
     const segments: Segment[] = []
-    for (const { quote, kind, tone } of options.quotes) {
+    for (const { quote, tone } of options.quotes) {
       const q = normalize(quote).text
       if (!q) continue
       const at = norm.text.indexOf(q)
@@ -130,7 +126,6 @@ export function remarkLemma(options: { quotes: LemmaQuote[] }) {
       segments.push({
         start: norm.map[at],
         end: norm.map[at + q.length - 1] + 1,
-        pending: kind === "pending",
         tone,
       })
     }
@@ -142,7 +137,6 @@ export function remarkLemma(options: { quotes: LemmaQuote[] }) {
       const last = merged[merged.length - 1]
       if (last && s.start <= last.end) {
         last.end = Math.max(last.end, s.end)
-        last.pending ||= s.pending
         last.tone ??= s.tone
       } else merged.push({ ...s })
     }
@@ -164,7 +158,7 @@ export function remarkLemma(options: { quotes: LemmaQuote[] }) {
           data: {
             hName: "mark",
             hProperties: {
-              dataLemma: seg.pending ? "pending" : "mark",
+              dataLemma: "mark",
               ...(seg.tone ? { dataTone: seg.tone } : {}),
               ...(first ? { dataLemmaScroll: "true" } : {}),
             },
@@ -174,7 +168,6 @@ export function remarkLemma(options: { quotes: LemmaQuote[] }) {
         pieces.push(mark)
         cursor = sb
         props(slot.block).dataMarked = "true"
-        if (seg.pending && seg.end <= slot.end) props(slot.block).dataPending = "true"
       }
       if (pieces.length === 0) continue
       if (cursor < slot.node.value.length) {

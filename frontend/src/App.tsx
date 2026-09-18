@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
-import type { Criterion, Issue, Witness } from "@/api/schema"
+import type { Criterion, Witness } from "@/api/schema"
 import { suggestWeights } from "@/api/client"
 import { ReviewError } from "@/api/errors"
 import { EMPTY_PROGRESS } from "@/api/progress"
@@ -9,10 +9,6 @@ import { reviewKey, useReview, type RunRequest } from "@/api/use-review"
 import { RFP_TEXT, SAMPLES, type SampleId } from "@/api/fixtures/documents"
 import { BASE_CRITERIA } from "@/api/fixtures/criteria"
 import { rebalance, verdictFor, weightedScore } from "@/lib/score"
-import { insertAfterQuote } from "@/lib/quote"
-import { CollationProvider } from "@/components/apparatus/collation"
-
-import type { IssueVerdict } from "@/features/review/apparatus"
 import { ReviewView } from "@/features/review/review-view"
 import { RunTrace } from "@/features/review/run-trace"
 import { SetupView } from "@/features/review/setup-view"
@@ -42,10 +38,8 @@ export default function App() {
   const [rfp, setRfp] = useState("")
   const [proposal, setProposal] = useState("")
   const [criteria, setCriteria] = useState<Criterion[]>(BASE_CRITERIA)
-  const [issueVerdicts, setIssueVerdicts] = useState<Record<string, IssueVerdict>>({})
   const [editing, setEditing] = useState(false)
   const [activeSample, setActiveSample] = useState<SampleId | null>(null)
-  const [appliedFixes, setAppliedFixes] = useState<Record<string, boolean>>({})
   /** The run on the table: the documents and weights as they were when Run was pressed. */
   const [run, setRun] = useState<RunRequest | null>(null)
 
@@ -85,39 +79,12 @@ export default function App() {
     [rfp, proposal],
   )
 
-  /**
-   * A fix is applied as a paragraph after the passage it answers — or at the
-   * end, when the draft says nothing at all — so the draft can be re-run and
-   * the score watched to move. Reverting removes that exact block, which is
-   * why it is matched on its own text rather than a position that a later
-   * apply would have shifted.
-   */
-  const applyFix = (issue: Issue) => {
-    if (!issue.suggestedFix) return
-    const fix = issue.suggestedFix
-    setProposal((current) => insertAfterQuote(current, issue.location?.quote ?? null, fix))
-    setAppliedFixes((current) => ({ ...current, [issue.id]: true }))
-  }
-
-  const revertFix = (issue: Issue) => {
-    if (!issue.suggestedFix) return
-    const fix = issue.suggestedFix
-    setProposal((current) => current.replace(`\n\n${fix}`, ""))
-    setAppliedFixes((current) => {
-      const next = { ...current }
-      delete next[issue.id]
-      return next
-    })
-  }
-
   // Recomputed in code on every render, so a slider drag never costs a model call.
   const score = result ? weightedScore(criteria, result.criteria) : null
   const verdict = verdictFor(score)
 
   const startRun = () => {
     setEditing(false)
-    setIssueVerdicts({})
-    setAppliedFixes({})
     setRun({ rfp, proposal, criteria, runId: Date.now() })
   }
 
@@ -134,25 +101,18 @@ export default function App() {
   // Success.
   if (result && !editing) {
     return (
-      <CollationProvider>
-        <ReviewView
-          review={result}
-          criteria={criteria}
-          onCriteria={setCriteria}
-          witnesses={witnesses}
-          score={score}
-          verdict={verdict}
-          verdicts={issueVerdicts}
-          onVerdict={(id, next) => setIssueVerdicts((current) => ({ ...current, [id]: next }))}
-          onEdit={() => setEditing(true)}
-          onRerun={startRun}
-          rerunning={review.isFetching}
-          stale={run !== null && proposal !== run.proposal}
-          appliedFixes={appliedFixes}
-          onApply={applyFix}
-          onRevert={revertFix}
-        />
-      </CollationProvider>
+      <ReviewView
+        review={result}
+        criteria={criteria}
+        onCriteria={setCriteria}
+        witnesses={witnesses}
+        score={score}
+        verdict={verdict}
+        onEdit={() => setEditing(true)}
+        onRerun={startRun}
+        rerunning={review.isFetching}
+        stale={run !== null && proposal !== run.proposal}
+      />
     )
   }
 

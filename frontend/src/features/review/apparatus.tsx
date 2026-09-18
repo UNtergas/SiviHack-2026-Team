@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Check, ChevronDown, Copy, Eye, FilePlus2, Minus, Undo2 } from "lucide-react"
+import { Check, ChevronDown, Copy } from "lucide-react"
 import { toast } from "sonner"
 
 import { cn } from "@/lib/utils"
@@ -127,12 +127,6 @@ const SEVERITY_LABEL: Record<Severity, string> = {
   must: "Must fix",
   should: "Should fix",
   optional: "Optional",
-}
-
-const SEVERITY_STYLE: Record<Severity, string> = {
-  must: "text-ink font-bold",
-  should: "text-ink-2 font-semibold",
-  optional: "text-ink-3 font-medium",
 }
 
 /** Severity borrows the binding's ramp, but only at the group head and the entry's square. */
@@ -322,22 +316,26 @@ export function CriteriaPanel({
 
 const STATUS_ORDER: RequirementStatus[] = ["contradicted", "missing", "partial", "addressed"]
 
+export type RequirementFilter = RequirementStatus | "all"
+
 export function RequirementsPanel({
   requirements,
   constraints,
   issues,
   unassessed,
   emptyReason,
+  filter,
+  onFilter,
 }: {
   requirements: Requirement[]
   constraints: Constraint[]
   issues: Issue[]
+  filter: RequirementFilter
+  onFilter: (next: RequirementFilter) => void
   /** The analysis call failed: the requirements are real, their statuses are not. */
   unassessed: boolean
   emptyReason: EmptyReason
 }) {
-  const [filter, setFilter] = useState<RequirementStatus | "all">("all")
-
   if (requirements.length === 0) {
     return (
       <p className="text-ink-2 border-rule border-t py-8 text-center text-[0.9rem]">
@@ -373,7 +371,7 @@ export function RequirementsPanel({
         <div className="mb-4 flex flex-wrap" role="group" aria-label="Requirements by status">
           <button
             type="button"
-            onClick={() => setFilter("all")}
+            onClick={() => onFilter("all")}
             aria-pressed={filter === "all"}
             className={cn(
               "relative flex cursor-pointer flex-col items-start gap-1 px-3 py-2.5 text-left transition-colors",
@@ -393,7 +391,7 @@ export function RequirementsPanel({
               key={status}
               type="button"
               disabled={n === 0}
-              onClick={() => setFilter(filter === status ? "all" : status)}
+              onClick={() => onFilter(filter === status ? "all" : status)}
               aria-pressed={filter === status}
               className={cn(
                 "relative flex cursor-pointer flex-col items-start gap-1 px-3 py-2.5 text-left transition-opacity",
@@ -503,8 +501,6 @@ export function RequirementsPanel({
 
 /* ----------------------------------------------------------------- issues -- */
 
-export type IssueVerdict = "open" | "fixed" | "not-relevant"
-
 function CopyFix({ text }: { text: string }) {
   const [done, setDone] = useState(false)
 
@@ -533,43 +529,27 @@ function CopyFix({ text }: { text: string }) {
 }
 
 /** The reading beside the lemma: what kind of entry this is. */
-function readingFor(issue: Issue, criterionName: string, showSeverity: boolean): string {
-  const kind =
-    issue.kind === "violation"
-      ? `Constraint · ${CONSTRAINT_LABEL[issue.constraintKind]}`
-      : issue.kind === "finding"
-        ? `${criterionName} · ${FINDING_LABEL[issue.findingType]}`
-        : criterionName
-  return showSeverity ? `${SEVERITY_LABEL[issue.severity]} · ${kind}` : kind
+function readingFor(issue: Issue, criterionName: string): string {
+  return issue.kind === "violation"
+    ? `Constraint · ${CONSTRAINT_LABEL[issue.constraintKind]}`
+    : issue.kind === "finding"
+      ? `${criterionName} · ${FINDING_LABEL[issue.findingType]}`
+      : criterionName
 }
 
 function IssueEntry({
   issue,
   criterionName,
-  showSeverity,
-  verdict,
-  onVerdict,
-  applied,
-  onApply,
-  onRevert,
-  defaultOpen,
+  open,
+  onToggle,
 }: {
   issue: Issue
   criterionName: string
-  /** Only where the group does not already state it — i.e. the settled list. */
-  showSeverity: boolean
-  verdict: IssueVerdict
-  onVerdict: (next: IssueVerdict) => void
-  applied: boolean
-  onApply: () => void
-  onRevert: () => void
-  defaultOpen: boolean
+  open: boolean
+  onToggle: () => void
 }) {
   const id = `e-iss-${issue.id}`
-  const [open, setOpen] = useState(() => defaultOpen || targeted(id))
-  const { collate, pending, preview } = useCollation()
-  const settled = verdict !== "open"
-  const previewing = pending?.issueId === issue.id
+  const { collate } = useCollation()
   const violation = issue.kind === "violation"
   const fix = issue.suggestedFix
 
@@ -579,7 +559,7 @@ function IssueEntry({
         <button
           type="button"
           onClick={() => {
-            setOpen((v) => !v)
+            onToggle()
             collate(`iss-${issue.id}`, [issue.location, issue.against])
           }}
           className="w-full cursor-pointer text-left"
@@ -590,18 +570,12 @@ function IssueEntry({
             className={cn(
               "mr-2 inline-block size-2.5 shrink-0 translate-y-[-0.05em]",
               SEVERITY_SWATCH[issue.severity],
-              settled && "opacity-40",
             )}
           />
           <Lemma
-            reading={readingFor(issue, criterionName, showSeverity)}
-            readingClassName={
-              violation ? "text-ink font-bold" : showSeverity ? SEVERITY_STYLE[issue.severity] : "text-ink-2"
-            }
-            className={cn(
-              "text-[1.05rem] leading-snug [&>span:first-child]:font-medium",
-              settled && "text-ink-2 [&>span:first-child]:line-through",
-            )}
+            reading={readingFor(issue, criterionName)}
+            readingClassName={violation ? "text-ink font-bold" : "text-ink-2"}
+            className="text-[1.05rem] leading-snug [&>span:first-child]:font-medium"
           >
             {issue.lemma}
           </Lemma>
@@ -621,7 +595,6 @@ function IssueEntry({
           {issue.against && (
             <CitationRef citation={issue.against} sourceId={`iss-${issue.id}`} also={[issue.location]} />
           )}
-          {applied && <span className="editorial text-ink">applied to the draft</span>}
         </div>
 
         {violation && issue.against?.quote && (
@@ -644,10 +617,21 @@ function IssueEntry({
                 </>
               )}
 
-              <p className="editorial text-ink-3 mt-3 mb-1.5 first:mt-0">
-                {violation ? "Why it breaks the constraint" : "Why it matters"}
-              </p>
-              <p className="text-ink max-w-[68ch] text-[0.95rem] leading-relaxed">{issue.whyItMatters}</p>
+              {/* The judgment is the loudest part of the entry: the editor's solid rule
+                  (crimson when the draft breaks a constraint) and medium weight. */}
+              <div
+                className={cn(
+                  "mt-3 border-l-2 pl-3 first:mt-0",
+                  violation ? "border-cloth-stop" : "border-ink",
+                )}
+              >
+                <p className={cn("editorial mb-1", violation ? "text-cloth-stop" : "text-ink")}>
+                  {violation ? "Why it breaks the constraint" : "Why it matters"}
+                </p>
+                <p className="text-ink max-w-[68ch] text-[1.02rem] leading-relaxed font-medium">
+                  {issue.whyItMatters}
+                </p>
+              </div>
             </div>
 
             <div className="min-w-0">
@@ -664,88 +648,6 @@ function IssueEntry({
               ) : (
                 <p className="editorial text-ink-3 mt-3 @3xl:mt-0">No fix suggested</p>
               )}
-
-              <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-2">
-                {/* These two change the draft. */}
-                {fix && (
-                  <span className="flex items-center gap-x-4 whitespace-nowrap">
-                    {!applied && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          if (previewing) {
-                            preview(null)
-                            return
-                          }
-                          collate(`iss-${issue.id}`, [issue.location, issue.against])
-                          preview({ issueId: issue.id, witness: "P", at: issue.location, text: fix })
-                        }}
-                        className={cn(
-                          "editorial inline-flex cursor-pointer items-center gap-1.5 transition-colors",
-                          previewing ? "text-ink" : "text-ink-2 hover:text-ink",
-                        )}
-                      >
-                        <Eye className="size-3.5" />
-                        {previewing ? "Hide preview" : "Preview in draft"}
-                      </button>
-                    )}
-
-                    {applied ? (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          preview(null)
-                          onRevert()
-                        }}
-                        className="editorial text-ink-2 hover:text-ink inline-flex cursor-pointer items-center gap-1.5 transition-colors"
-                      >
-                        <Undo2 className="size-3.5" />
-                        Revert
-                      </button>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          preview(null)
-                          onApply()
-                        }}
-                        className="editorial text-ink-2 hover:text-ink inline-flex cursor-pointer items-center gap-1.5 transition-colors"
-                      >
-                        <FilePlus2 className="size-3.5" />
-                        Apply to draft
-                      </button>
-                    )}
-                  </span>
-                )}
-
-                <span aria-hidden className="bg-rule hidden h-3.5 w-px shrink-0 sm:block" />
-
-                {/* These two change only your own triage, not the draft. */}
-                <span className="flex items-center gap-x-4 whitespace-nowrap">
-                  <button
-                    type="button"
-                    onClick={() => onVerdict(verdict === "fixed" ? "open" : "fixed")}
-                    className={cn(
-                      "editorial inline-flex cursor-pointer items-center gap-1.5 transition-colors",
-                      verdict === "fixed" ? "text-ink" : "text-ink-2 hover:text-ink",
-                    )}
-                  >
-                    <Check className="size-3.5" />
-                    {verdict === "fixed" ? "Marked fixed" : "Mark fixed"}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => onVerdict(verdict === "not-relevant" ? "open" : "not-relevant")}
-                    className={cn(
-                      "editorial inline-flex cursor-pointer items-center gap-1.5 transition-colors",
-                      verdict === "not-relevant" ? "text-ink" : "text-ink-2 hover:text-ink",
-                    )}
-                  >
-                    <Minus className="size-3.5" />
-                    {verdict === "not-relevant" ? "Marked aside" : "Not relevant"}
-                  </button>
-                </span>
-              </div>
             </div>
           </div>
         )}
@@ -769,30 +671,20 @@ function Siglum() {
 export function IssuesPanel({
   issues,
   criteria,
-  verdicts,
-  onVerdict,
-  appliedFixes,
-  onApply,
-  onRevert,
-  focus,
+  openIds,
+  onToggle,
   unassessed,
 }: {
   issues: Issue[]
   criteria: Criterion[]
-  verdicts: Record<string, IssueVerdict>
-  onVerdict: (id: string, next: IssueVerdict) => void
-  appliedFixes: Record<string, boolean>
-  onApply: (issue: Issue) => void
-  onRevert: (issue: Issue) => void
-  /** An entry to open on arrival; `n` changes on every request so a repeat still opens it. */
-  focus?: { id: string; n: number } | null
+  /** Which entries are open, kept above the layout so a witness opening does not fold them. */
+  openIds: Record<string, boolean>
+  onToggle: (id: string, open: boolean) => void
   /** The analysis call failed, so there were no issues to find. */
   unassessed?: boolean
 }) {
   const order: Severity[] = ["must", "should", "optional"]
   const names = new Map(criteria.map((c) => [c.id, c.name]))
-  const open = issues.filter((i) => (verdicts[i.id] ?? "open") === "open")
-  const settled = issues.filter((i) => (verdicts[i.id] ?? "open") !== "open")
 
   if (unassessed) {
     return (
@@ -802,33 +694,30 @@ export function IssuesPanel({
     )
   }
 
-  const entry = (issue: Issue, defaultOpen: boolean, showSeverity = false) => (
-    <IssueEntry
-      key={issue.id}
-      issue={issue}
-      criterionName={names.get(issue.criterionId) ?? "Uncategorised"}
-      showSeverity={showSeverity}
-      verdict={verdicts[issue.id] ?? "open"}
-      onVerdict={(next) => onVerdict(issue.id, next)}
-      applied={appliedFixes[issue.id] ?? false}
-      onApply={() => onApply(issue)}
-      onRevert={() => onRevert(issue)}
-      defaultOpen={defaultOpen || focus?.id === issue.id}
-    />
-  )
-
-  const violations = open.filter((i) => i.kind === "violation")
+  const violations = issues.filter((i) => i.kind === "violation")
   const groups = order.map((severity) => ({
     severity,
-    group: open.filter((i) => i.kind !== "violation" && i.severity === severity),
+    group: issues.filter((i) => i.kind !== "violation" && i.severity === severity),
   }))
   // The first entry of the first non-empty group opens by default, so a violation is never
   // folded away above the fold.
   const firstId = (violations[0] ?? groups.flatMap((g) => g.group)[0])?.id ?? null
 
+  const entry = (issue: Issue) => {
+    const open = openIds[issue.id] ?? (issue.id === firstId || targeted(`e-iss-${issue.id}`))
+    return (
+      <IssueEntry
+        key={issue.id}
+        issue={issue}
+        criterionName={names.get(issue.criterionId) ?? "Uncategorised"}
+        open={open}
+        onToggle={() => onToggle(issue.id, !open)}
+      />
+    )
+  }
+
   return (
-    // Keyed on the focus request so a "show me" remounts the list with that entry open.
-    <div key={focus?.n ?? 0}>
+    <div>
       {violations.length > 0 && (
         <section className="mb-8">
           <GroupHead
@@ -837,7 +726,7 @@ export function IssuesPanel({
             className="text-cloth-stop"
             swatch="bg-cloth-stop"
           />
-          <ul>{violations.map((i) => entry(i, i.id === firstId))}</ul>
+          <ul>{violations.map(entry)}</ul>
         </section>
       )}
 
@@ -851,23 +740,10 @@ export function IssuesPanel({
               className={SEVERITY_HEAD[severity]}
               swatch={SEVERITY_SWATCH[severity]}
             />
-            <ul>{group.map((i) => entry(i, i.id === firstId))}</ul>
+            <ul>{group.map(entry)}</ul>
           </section>
         )
       })}
-
-      {settled.length > 0 && (
-        <section>
-          <GroupHead label="Settled" count={settled.length} className="text-ink-3" />
-          <ul>{settled.map((i) => entry(i, false, true))}</ul>
-        </section>
-      )}
-
-      {open.length === 0 && issues.length > 0 && (
-        <p className="text-ink-2 border-rule border-t py-8 text-center text-[0.9rem]">
-          Every issue is settled. Re-run the review against the edited draft to confirm the score moved.
-        </p>
-      )}
 
       {issues.length === 0 && (
         <p className="text-ink-2 border-rule border-t py-8 text-center text-[0.9rem]">

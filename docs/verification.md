@@ -45,9 +45,8 @@ lists `sections, requirements, coverage, scores, findings, done`.
 
 Band: a verdict word and "N.N /5" (Medium at untouched shares: 2.3, "Not ready"). Tally
 "4 addressed · 4 partial / unclear · 2 not found". "Issues 8": the first "Must fix" entry is
-open with "The draft says", "Why it matters" and a "Suggested fix" with Copy / Preview in
-draft / Apply to draft / Mark fixed / Not relevant; entries carry chips like "R §2 ·
-Requirements" and "P §4 · Pricing"; a finding reads "Scope & Deliverables Clarity · Vague
+open with "The draft says", "Why it matters" set off by a solid ink rule, and a "Suggested
+fix" with Copy; entries carry chips like "R §2 · Requirements" and "P §4 · Pricing"; a finding reads "Scope & Deliverables Clarity · Vague
 wording". "Requirements 10": the strip "Asked / Contradicted / Not found / Partial /
 Addressed" filters the rows; each row has the requirement's name, the italic RFP quote, a
 note (except addressed ones), R and P chips or "no answering passage", and a coloured
@@ -112,9 +111,11 @@ extract prompt…"); in live mode the same action is a real call.
 Setup with the RFP loaded: "Suggest weights from the RFP" → "Reading the RFP…" → "Read from
 the RFP: 10 requirements, 4 constraints. Each reason below cites the passage it came from."
 and a reason under each criterion; the budget bar re-proportions. With the RFP empty the
-button is greyed with "Paste the RFP first." Run, then "Apply to draft" on the first entry →
-"applied to the draft" beside its chips and the banner "The draft has changed since this
-review ran…" with "Re-run against the edited draft"; "Revert" removes both.
+button is greyed with "Paste the RFP first." Run, then with both witnesses closed click the
+"P §4 · Pricing" chip on an open entry → the Draft Proposal pane opens with the passage
+marked and the entry stays open and in view; "Copy" on its fix → "Suggested fix copied".
+"Edit the draft", change a word, come back → the banner "The draft has changed since this
+review ran…" with "Re-run against the edited draft".
 
 Custom criterion: under the criteria list, "Add a custom criterion" → Name "GDPR & data
 protection", What to check "Does it say where personal data is hosted and how it is

@@ -5,6 +5,7 @@ import { useDefaultLayout, type Layout } from "react-resizable-panels"
 
 import { cn } from "@/lib/utils"
 import type {
+  Citation,
   Criterion,
   Issue,
   Requirement,
@@ -19,7 +20,7 @@ import { useMediaQuery } from "@/lib/use-media-query"
 import { ClothBand } from "@/components/apparatus/cloth-band"
 import { WitnessPane } from "@/components/apparatus/witness-pane"
 import { Siglum } from "@/components/apparatus/siglum"
-import { useCollation } from "@/components/apparatus/collation"
+import { CollationProvider, useCollation } from "@/components/apparatus/collation"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,7 +41,7 @@ import {
   STATUS_LABEL,
   StatusSwatch,
   type EmptyReason,
-  type IssueVerdict,
+  type RequirementFilter,
 } from "./apparatus"
 
 type Panel = "issues" | "requirements" | "criteria"
@@ -61,22 +62,16 @@ type Conflict =
 function ConflictNotice({
   requirements,
   issues,
-  verdicts,
   onShow,
 }: {
   requirements: Requirement[]
   issues: Issue[]
-  verdicts: Record<string, IssueVerdict>
   onShow: (target: Conflict) => void
 }) {
-  const isOpen = (issue: Issue | null) => !issue || (verdicts[issue.id] ?? "open") === "open"
-  const violations = issues.filter(
-    (i): i is Issue & { kind: "violation" } => i.kind === "violation" && isOpen(i),
-  )
+  const violations = issues.filter((i): i is Issue & { kind: "violation" } => i.kind === "violation")
   const contradictions = requirements
     .filter((r) => r.status === "contradicted")
     .map((req) => ({ req, issue: issues.find((i) => i.id === `cov-${req.id}`) ?? null }))
-    .filter(({ issue }) => isOpen(issue))
     .filter(
       ({ req }) =>
         !violations.some((v) => samePassage(v.location?.quote ?? null, req.answeredAt?.quote ?? null)),
@@ -323,43 +318,101 @@ function WitnessRail({
   )
 }
 
-export function ReviewView({
-  review,
-  criteria,
-  onCriteria,
-  witnesses,
-  score,
-  verdict,
-  verdicts,
-  onVerdict,
-  onEdit,
-  onRerun,
-  rerunning,
-  stale,
-  appliedFixes,
-  onApply,
-  onRevert,
-}: {
+interface ReviewProps {
   review: Review
   criteria: Criterion[]
   onCriteria: (next: Criterion[]) => void
   witnesses: { R: Witness; P: Witness }
   score: number | null
   verdict: Verdict | null
-  verdicts: Record<string, IssueVerdict>
-  onVerdict: (id: string, next: IssueVerdict) => void
   onEdit: () => void
   onRerun: () => void
   rerunning: boolean
   /** The draft has changed since this review ran, so citations may have moved. */
   stale: boolean
-  appliedFixes: Record<string, boolean>
-  onApply: (issue: Issue) => void
-  onRevert: (issue: Issue) => void
+}
+
+/** The apparatus entry a collation came from, by its source id, so the layout can bring it back into view. */
+function entryFor(sourceId: string): string | null {
+  const m = /^(iss|req|con)-(.+)$/.exec(sourceId) ?? /^(crit|ev)-(.+?)-\d+$/.exec(sourceId)
+  if (!m) return null
+  return `e-${m[1] === "ev" ? "crit" : m[1]}-${m[2]}`
+}
+
+/**
+ * The shell holds what must outlive a change of layout — which witnesses are open, which
+ * entries are open, the requirements filter — and answers every collation: a citation that
+ * points into a closed witness opens it, and the entry that was clicked stays in view.
+ */
+export function ReviewView(props: ReviewProps) {
+  const [shown, setShown] = useState<Shown>(loadShown)
+  const [openIds, setOpenIds] = useState<Record<string, boolean>>({})
+  const [filter, setFilter] = useState<RequirementFilter>("all")
+  const noRfp = props.witnesses.R.text.trim() === ""
+
+  const show = (next: Partial<Shown>) =>
+    setShown((current) => {
+      const merged = { ...current, ...next }
+      if (merged.R === current.R && merged.P === current.P) return current
+      saveShown(merged)
+      return merged
+    })
+
+  const reveal = (sourceId: string, marks: Citation[]) => {
+    const need = {
+      R: !noRfp && marks.some((m) => m.witness === "R"),
+      P: marks.some((m) => m.witness === "P"),
+    }
+    if (!((need.R && !shown.R) || (need.P && !shown.P))) return
+    show({ R: shown.R || need.R, P: shown.P || need.P })
+    // Opening a witness re-lays the columns; bring the clicked entry back once they settle.
+    const entry = entryFor(sourceId)
+    if (entry) {
+      window.setTimeout(() => document.getElementById(entry)?.scrollIntoView({ block: "nearest" }), 80)
+    }
+  }
+
+  return (
+    <CollationProvider onCollate={reveal}>
+      <ReviewBody
+        {...props}
+        shown={shown}
+        onShow={show}
+        openIds={openIds}
+        onToggleOpen={(id, open) => setOpenIds((current) => ({ ...current, [id]: open }))}
+        filter={filter}
+        onFilter={setFilter}
+      />
+    </CollationProvider>
+  )
+}
+
+function ReviewBody({
+  review,
+  criteria,
+  onCriteria,
+  witnesses,
+  score,
+  verdict,
+  onEdit,
+  onRerun,
+  rerunning,
+  stale,
+  shown,
+  onShow,
+  openIds,
+  onToggleOpen,
+  filter,
+  onFilter,
+}: ReviewProps & {
+  shown: Shown
+  onShow: (next: Partial<Shown>) => void
+  openIds: Record<string, boolean>
+  onToggleOpen: (id: string, open: boolean) => void
+  filter: RequirementFilter
+  onFilter: (next: RequirementFilter) => void
 }) {
   const [panel, setPanel] = useState<Panel>("issues")
-  const [focus, setFocus] = useState<{ id: string; n: number } | null>(null)
-  const [shown, setShown] = useState<Shown>(loadShown)
   const wide = useMediaQuery("(min-width: 80rem)")
   const { collate } = useCollation()
 
@@ -379,7 +432,7 @@ export function ReviewView({
     (c) => review.criteria.find((s) => s.criterionId === c.id)?.score != null,
   ).length
   const counts: Record<Panel, string> = {
-    issues: String(review.issues.filter((i) => (verdicts[i.id] ?? "open") === "open").length),
+    issues: String(review.issues.length),
     requirements: String(review.requirements.length),
     criteria: scored < enabled.length ? `${scored}/${enabled.length}` : String(enabled.length),
   }
@@ -389,12 +442,7 @@ export function ReviewView({
     n: review.requirements.filter((r) => r.status === status).length,
   })).filter(({ n }) => n > 0)
 
-  const toggle = (witness: keyof Shown) =>
-    setShown((current) => {
-      const next = { ...current, [witness]: !current[witness] }
-      saveShown(next)
-      return next
-    })
+  const toggle = (witness: keyof Shown) => onShow({ [witness]: !shown[witness] })
 
   /** The review as a file for the writer: Markdown for readers of text, Word for the rest. */
   const exportAs = async (ext: "md" | "docx") => {
@@ -421,14 +469,10 @@ export function ReviewView({
   /** Open the entry behind a conflict with both passages marked in crimson. */
   const showConflict = (target: Conflict) => {
     setPanel("issues")
-    if (!shown.R || !shown.P) {
-      const next = { R: true, P: true }
-      saveShown(next)
-      setShown(next)
-    }
+    onShow({ R: true, P: true })
     const issue = target.kind === "violation" ? target.issue : target.issue
     if (issue) {
-      setFocus((current) => ({ id: issue.id, n: (current?.n ?? 0) + 1 }))
+      onToggleOpen(issue.id, true)
       collate(`iss-${issue.id}`, [issue.location, issue.against], "contradicted")
       window.setTimeout(() => {
         document.getElementById(`e-iss-${issue.id}`)?.scrollIntoView({ block: "start", behavior: "smooth" })
@@ -512,12 +556,8 @@ export function ReviewView({
           <IssuesPanel
             issues={review.issues}
             criteria={criteria}
-            verdicts={verdicts}
-            onVerdict={onVerdict}
-            appliedFixes={appliedFixes}
-            onApply={onApply}
-            onRevert={onRevert}
-            focus={focus}
+            openIds={openIds}
+            onToggle={onToggleOpen}
             unassessed={unassessed}
           />
         )}
@@ -528,6 +568,8 @@ export function ReviewView({
             issues={review.issues}
             unassessed={unassessed}
             emptyReason={emptyReason}
+            filter={filter}
+            onFilter={onFilter}
           />
         )}
         {panel === "criteria" && (
@@ -606,12 +648,7 @@ export function ReviewView({
       </ClothBand>
 
       {!unassessed && (
-        <ConflictNotice
-          requirements={review.requirements}
-          issues={review.issues}
-          verdicts={verdicts}
-          onShow={showConflict}
-        />
+        <ConflictNotice requirements={review.requirements} issues={review.issues} onShow={showConflict} />
       )}
 
       {notice}

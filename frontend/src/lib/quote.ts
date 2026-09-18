@@ -90,21 +90,6 @@ export function findQuote(
   return { start: src.map[at], end: src.map[at + q.length - 1] + 1 }
 }
 
-/**
- * Insert `block` as its own paragraph after the paragraph that contains
- * `quote`, or at the end of the text when the quote cannot be found. The
- * inserted form is exactly `\n\n${block}`, which is what revert removes.
- */
-export function insertAfterQuote(source: string, quote: string | null, block: string): string {
-  const hit = quote ? findQuote(source, quote) : null
-  if (!hit) return `${source.trimEnd()}\n\n${block}`
-  const gap = /\n[ \t]*\n/g
-  gap.lastIndex = hit.end
-  const next = gap.exec(source)
-  const at = next ? next.index : source.length
-  return `${source.slice(0, at)}\n\n${block}${source.slice(at)}`
-}
-
 /** Markdown as plain words for display: markers dropped, whitespace collapsed. */
 export function plain(markdown: string): string {
   return markdown

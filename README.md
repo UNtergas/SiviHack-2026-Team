@@ -61,8 +61,8 @@ Demo script (5 minutes): the problem (manual, inconsistent review) → load the 
 and run → point at one finding, its quote and its fix → drag a weight slider → load the
 overpromising sample and show the constraint violation → open **More test data** and run a
 real State of Michigan bid → invite the judge to paste their own pair or upload a PDF from
-`sample_data/pdf/`. After `warm` the samples and the real bids answer from the cache; an
-unseen pair is scored live.
+`sample_data/pdf/`. After `warm` the samples and the real bids answer from the cache (with `USE_CACHE=true`
+in `app/.env`, the default); an unseen pair is scored live.
 
 ## 3. Tech used
 
@@ -101,8 +101,9 @@ unseen pair is scored live.
 Everything the pitch claims is in this repository: grounded quotes in
 `app/src/app/grounding.py`; constraint violations in `app/src/app/schema.py` and
 `app/src/app/prompts.py`; split calls, the cache and the custom-criteria call in
-`app/src/app/pipeline.py`; completeness and weights in code in `app/src/app/aggregate.py` and
-`frontend/src/lib/score.ts`; code-derived signals in `app/src/app/signals.py`; PDF conversion
+`app/src/app/pipeline.py`; completeness, weights and the rubric checks in code (a group may only score its own
+criteria, a missing score makes the review partial, a violation caps problem understanding)
+in `app/src/app/pipeline.py`, `app/src/app/aggregate.py` and `frontend/src/lib/score.ts`; code-derived signals in `app/src/app/signals.py`; PDF conversion
 in `app/src/app/convert.py`; streaming in `app/src/app/main.py` and
 `frontend/src/api/stream.ts`; the export in `frontend/src/lib/export.ts`; recorded fixtures
 in `app/src/app/replay.py`; the results on the real bids against the State's verdicts in
@@ -114,8 +115,9 @@ in `app/src/app/replay.py`; the results on the real bids against the State's ver
   exports work when exported to PDF with text; there is no OCR in the container.
 - English prompts and rubric.
 - Five model calls per review, six with custom criteria. Measured on Gemini 3.8 Flash: a
-  sample-sized pair costs about USD 0.03 and takes 10–20 seconds; a real bid of 30–100 pages
-  costs USD 0.07–0.57 and takes up to about a minute. A free-tier key can hit its per-minute
+  sample-sized pair costs USD 0.03–0.04 and usually takes 20–40 seconds, over a minute when
+  the model is slow; a real bid of 30–100 pages costs USD 0.07–0.57 and takes up to about a
+  minute. A free-tier key can hit its per-minute
   limit when two people run at once.
 - One extraction call reads the RFP. On a long real solicitation it reaches only a part of
   several hundred numbered requirements, and pricing or plans kept in separate attachments are

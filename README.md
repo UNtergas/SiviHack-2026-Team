@@ -38,6 +38,8 @@ Docker path (the demo):
 
 ```bash
 cp app/.env.example app/.env        # then paste GEMINI_API_KEY into app/.env
+
+sudo apt-get install docker-buildx        # or docker-buildx-plugin
 cd app && docker compose up -d --build
 ./run.sh warm                       # fill the cache from the recorded answers, no model call
 open http://localhost               # the app; the API is proxied under /api

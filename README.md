@@ -44,6 +44,13 @@ watch the review arrive stage by stage:
   draft contains, each a live citation, under the Pricing and Timeline criteria.
 - **Export** of the whole review as Markdown or Word, to hand to the proposal writer.
 
+
+<img width="1765" height="894" alt="image" src="https://github.com/user-attachments/assets/850733b6-8c3f-43c0-862c-89eefa652d06" />
+<img width="1765" height="894" alt="image" src="https://github.com/user-attachments/assets/7129b800-4cae-4095-ae3d-5e86cfbddb1b" />
+<img width="1772" height="819" alt="image" src="https://github.com/user-attachments/assets/eadd73fe-de7a-4574-a7c0-76f855f484eb" />
+
+
+
 ## 2. Setup and how to run the demo
 
 Docker path (the demo):

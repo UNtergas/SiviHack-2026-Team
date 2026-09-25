@@ -4,6 +4,18 @@ Reads a draft proposal against the client's RFP and shows where it falls short, 
 passage behind every judgment so a reviewer can check the call rather than trust a number.
 SiviHack 2026, Track 1 (FPT Software Europe).
 
+## Team
+
+- **[@phantranthienan](https://github.com/phantranthienan)** — frontend: design
+  and implementation, streaming UI, export, the whole React/Vite/Tailwind side.
+- **[@UNtergas-nguyenanhtuan](https://github.com/UNtergas)** — backend architecture: the
+  section-id normalisation and pipeline design (split extraction, parallel
+  scoring groups, code-computed completeness and overall), prompt design, the
+  rubric and the grounding contract.
+- **[manhhung](https://github.com/manhhgdnh)** — pitch and presentation.
+
+Code was generated with Claude Fable 5.1 driven by @phantranthienan
+
 ## 1. What the product is
 
 A reviewer for sales proposals, not a writer of them. Paste or upload the client's RFP and the
@@ -76,11 +88,19 @@ in `app/.env`, the default); an unseen pair is scored live.
   types and zod schemas generated from the backend's OpenAPI document with
   `@hey-api/openapi-ts`; oxlint.
 - Deployment: Docker Compose with nginx in front (`/api/*` → backend, `/` → the built app).
-- Architecture: one extraction call on the RFP (cached by its text), then a coverage call and
-  three parallel scoring groups, plus one call for custom criteria when there are any; a
-  grounding pass verifies every quote and section; amounts, dates and vague phrases are found
-  by code; the completeness score and the overall are computed in code; a disk cache and a
-  replay provider make repeated runs and tests free.
+- Architecture: both documents are first normalised into numbered sections. Each
+  heading opens a section and takes the next id in document order — `$1` for the
+  first heading, `$2` for the second, regardless of depth (`#` and `##` are not
+  ranked against each other); a section is the triple *id : heading : content*.
+  Every later stage addresses text by that id, so the RFP requirement extraction,
+  the proposal extraction, the coverage match and every finding refer to the same
+  stable anchors, and the grounding pass can verify a quote against the exact
+  section it claims. Then: one extraction call on the RFP (cached by its text), a
+  coverage call, and three parallel scoring groups, plus one call for custom
+  criteria when there are any; a grounding pass verifies every quote and section;
+  amounts, dates and vague phrases are found by code; the completeness score and
+  the overall are computed in code; a disk cache and a replay provider make
+  repeated runs and tests free.
 
 ## 4. Dataset, API, libraries and template used
 
